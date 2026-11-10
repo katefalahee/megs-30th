@@ -50,9 +50,11 @@ window.MIXTAPE = {
   birthday: "2026-12-16",      // unlocks at midnight on this date in Meg's own time zone
   unlockOnBirthday: true,      // set to false to open it straight away
 
-  // Music on the wrapped-present screen until she unwraps it (plays from YouTube)
+  // Music on the wrapped-present screen until she unwraps it (YouTube, video hidden)
   waitingMusic: { title: "Hedwig's Theme", artist: "John Williams", yt: "b2mkpsTBzhI" },
-  birthdayTune: true,          // an upbeat Happy Birthday plays the moment she unwraps it
+  // Plays the moment she unwraps it (YouTube, video hidden)
+  birthdaySong: { title: "Happy Birthday", artist: "", yt: "7zAvytQSXV4" },
+  birthdayTune: true,          // backup: a built-in Happy Birthday plays if YouTube can't load
 
   // DRAFT: the first thing she reads
   hello: "I can't be there for your 30th, so I made you a mixtape instead. Thirty songs, one for every year, from 1996 right up to now. Get comfy, turn it up and press play.",
@@ -511,15 +513,6 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .gift-copy{display:grid; gap:1.3rem; justify-items:start}
 .gift-copy .print{color:var(--lamp)}
 .gift-copy h1{font-size:clamp(2.8rem, 6vw, 5.6rem); color:var(--ink)}
-.gift-radio{display:grid; grid-template-columns:auto minmax(0, 1fr); gap:1rem 1.2rem; align-items:center; margin-top:.2rem}
-.gr-tv{padding:.5rem; border-radius:14px; background:linear-gradient(160deg, #5a534b, #2f2b27 60%); box-shadow:inset 0 2px 0 rgba(255,255,255,.18), 0 14px 26px rgba(0,0,0,.5)}
-.gr-screen{position:relative; width:356px; max-width:100%; aspect-ratio:16 / 9; border-radius:10px / 14px; overflow:hidden; background:#000}
-.gr-screen iframe, #yt-wait{position:absolute; inset:0; width:100%; height:100%; border:0}
-.gr-off{position:absolute; inset:0; display:grid; place-items:center; margin:0; padding:1rem; text-align:center; color:var(--ink-soft); font-size:.85rem}
-.gr-side{display:grid; gap:.4rem; justify-items:start; min-width:0}
-.gr-side .print{color:var(--lamp)}
-.gr-title{font-family:var(--font-pen); font-weight:700; font-size:1.45rem; line-height:1.05; color:var(--ink)}
-.gr-tip{font-size:.85rem; color:var(--ink-soft)}
 .gift-hint{min-height:2rem; margin:0; font-family:var(--font-pen); font-size:1.7rem; color:var(--lamp); transform:rotate(-1.5deg)}
 .lcd-box[hidden]{display:none !important}
 
@@ -885,6 +878,21 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .mini-keys{display:flex; gap:.4rem}
 .mini-keys .wm-key{flex:none; width:4.6rem; height:2.8rem; margin:0; border-radius:7px}
 
+/* background music: players kept out of sight, with a small control */
+.yt-hidden{position:fixed; right:0; bottom:0; width:220px; height:220px; opacity:0; pointer-events:none; z-index:-1; overflow:hidden}
+.yt-hidden > div, .yt-hidden iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.music-chip{position:fixed; z-index:25; top:calc(.8rem + env(safe-area-inset-top, 0px)); right:max(.8rem, env(safe-area-inset-right, 0px));
+  display:flex; align-items:center; gap:.6rem; max-width:calc(100vw - 1.6rem); padding:.4rem .45rem .4rem .85rem; border-radius:999px;
+  background:rgba(34,27,22,.88); backdrop-filter:blur(8px); box-shadow:0 8px 20px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08)}
+.mc-note{font-size:1.25rem; line-height:1; color:var(--lamp)}
+.music-chip.on .mc-note{animation:noteBob 1.1s ease-in-out infinite}
+@keyframes noteBob{50%{transform:translateY(-.2rem) rotate(-10deg)}}
+.mc-text{display:grid; line-height:1.15; min-width:0}
+.mc-text small{font-size:.62rem; color:var(--ink-soft)}
+.mc-text small:empty{display:none}
+.mc-text b{font-size:.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.music-chip .dymo{font-size:.6rem; flex:none}
+
 /* ambient animation behind each tape */
 #fx{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
 main{position:relative; z-index:1}
@@ -924,8 +932,6 @@ main{position:relative; z-index:1}
 @media (max-width: 900px){
   .gift-scene{grid-template-columns:minmax(0, 1fr); justify-items:center; text-align:center}
   .gift-copy{justify-items:center}
-  .gift-radio{grid-template-columns:minmax(0, 1fr); justify-items:center}
-  .gr-side{justify-items:center}
   .gift{width:min(74%, 24rem)}
   .tag{font-size:1rem}
   .intro{grid-template-columns:1fr; min-height:0}
@@ -1007,15 +1013,6 @@ main{position:relative; z-index:1}
         </div>
         <div class="actions"><button class="dymo red" type="button" id="btn-unwrap" data-autofocus></button></div>
         <p class="gift-hint" id="gift-hint" aria-live="polite"></p>
-        <div class="gift-radio" id="gift-radio" hidden>
-          <div class="gr-tv"><div class="gr-screen"><div id="yt-wait"></div><p class="gr-off" id="gr-off" hidden>The music plays on the live site</p></div></div>
-          <div class="gr-side">
-            <span class="print">Now playing</span>
-            <span class="gr-title" id="gr-title"></span>
-            <span class="gr-tip" id="gr-tip">Press any button to turn the music on</span>
-            <button class="dymo small" type="button" id="btn-music"></button>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -1292,6 +1289,13 @@ main{position:relative; z-index:1}
     </div>
   </section>
 </main>
+
+<div class="yt-hidden" aria-hidden="true"><div id="yt-wait"></div><div id="yt-bday"></div></div>
+<div class="music-chip" id="music-chip" hidden>
+  <span class="mc-note" aria-hidden="true">♪</span>
+  <span class="mc-text"><small id="mc-tip"></small><b id="mc-title"></b></span>
+  <button class="dymo small" type="button" id="btn-music"></button>
+</div>
 
 <div class="minibar" id="minibar" hidden>
   <div id="mini-tape"></div>
@@ -1882,67 +1886,100 @@ function setFx(kind) {
   el.innerHTML = h;
 }
 
-/* ---------- music on the wrapped present ---------- */
-let waitP = null, waitPlayer = null, waitSound = true, waitUnmuted = false, userGestured = false;
-function updateMusicBtn() {
-  const on = waitUnmuted;
-  $("#btn-music").innerHTML = on ? "Music off" : ICON.play + "Music on";
-  $("#gr-tip").hidden = on || !waitSound || !waitPlayer;
+/* ---------- background music (videos hidden) ---------- */
+let waitP = null, waitPlayer = null, waitOn = false, waitSound = true;
+let bdayP = null, bdayPlayer = null, bdayOn = false;
+let userGestured = false, chipKind = null;
+function showChip(kind) {
+  chipKind = kind;
+  const chip = $("#music-chip");
+  chip.hidden = false;
+  if (kind === "wait") {
+    const wm = M.waitingMusic;
+    $("#mc-title").textContent = wm.title;
+    $("#mc-tip").textContent = waitOn || userGestured ? "" : "Press any button for music";
+    $("#btn-music").textContent = waitOn ? "Music off" : "Music on";
+    chip.classList.toggle("on", waitOn);
+  } else {
+    $("#mc-title").textContent = M.birthdaySong.title || "Happy Birthday";
+    $("#mc-tip").textContent = "";
+    $("#btn-music").textContent = "Stop";
+    chip.classList.add("on");
+  }
 }
-function startWaitMusic() {
-  const wm = M.waitingMusic;
-  $("#gift-radio").hidden = !(wm && wm.yt);
-  if (!wm || !wm.yt) return;
-  $("#gr-title").textContent = `${wm.title} · ${wm.artist}`;
-  updateMusicBtn();
-  if (waitPlayer) { try { waitPlayer.playVideo(); if (userGestured && waitSound) unmuteWait(); } catch (e) {} return; }
-  if (waitP) return;
-  waitP = loadApi().then(() => new Promise(res => {
-    const p = new YT.Player("yt-wait", {
-      width: "100%", height: "100%", videoId: wm.yt,
-      playerVars: playerVars({ mute: 1, loop: 1, playlist: wm.yt, controls: 0, disablekb: 1 }),
+function hideChip() { chipKind = null; $("#music-chip").hidden = true; }
+function makeBgPlayer(host, id, loop) {
+  return loadApi().then(() => new Promise(res => {
+    const p = new YT.Player(host, {
+      width: "220", height: "220", videoId: id,
+      playerVars: playerVars(Object.assign({ autoplay: 0, controls: 0, disablekb: 1 }, loop ? { loop: 1, playlist: id } : {})),
       events: {
-        onReady: () => {
-          waitPlayer = p;
-          try { p.getIframe().setAttribute("tabindex", "-1"); } catch (e) {}
-          p.mute(); p.playVideo();
-          if (userGestured && waitSound && currentView === "gift") unmuteWait();
-          updateMusicBtn(); res(p);
-        },
-        onStateChange: e => { if (e.data === 0) { try { p.seekTo(0, true); p.playVideo(); } catch (_) {} } }
+        onReady: () => { try { p.getIframe().setAttribute("tabindex", "-1"); } catch (e) {} res(p); },
+        onStateChange: e => {
+          if (e.data !== 0) return;
+          if (loop) { try { p.seekTo(0, true); p.playVideo(); } catch (_) {} }
+          else { bdayOn = false; if (chipKind === "bday") hideChip(); }
+        }
       }
     });
-  })).catch(() => { waitP = null; $("#gr-off").hidden = false; $("#gr-tip").hidden = true; $("#btn-music").hidden = true; });
+  }));
 }
-function unmuteWait() {
-  if (!waitPlayer || !waitSound) return;
-  try { waitPlayer.unMute(); waitPlayer.setVolume(55); waitPlayer.playVideo(); waitUnmuted = true; } catch (e) {}
-  updateMusicBtn();
+function startWaitMusic() {
+  const wm = M.waitingMusic, bs = M.birthdaySong;
+  if (bs && bs.yt && !bdayP) bdayP = makeBgPlayer("yt-bday", bs.yt, false).then(pl => (bdayPlayer = pl), () => { bdayP = null; return null; });
+  if (!wm || !wm.yt) return;
+  if (waitPlayer) { showChip("wait"); if (userGestured && waitSound) playWait(); return; }
+  if (waitP) return;
+  waitP = makeBgPlayer("yt-wait", wm.yt, true).then(pl => {
+    waitPlayer = pl;
+    if (currentView !== "gift") return;
+    showChip("wait");
+    if (userGestured && waitSound) playWait();
+  }, () => { waitP = null; });
 }
-function muteWait() {
-  if (waitPlayer) { try { waitPlayer.mute(); } catch (e) {} }
-  waitUnmuted = false;
-  updateMusicBtn();
+function playWait() {
+  if (!waitPlayer) return;
+  try { waitPlayer.unMute(); waitPlayer.setVolume(55); waitPlayer.playVideo(); waitOn = true; } catch (e) {}
+  if (chipKind === "wait") showChip("wait");
+}
+function pauseWait() {
+  if (waitPlayer) { try { waitPlayer.pauseVideo(); } catch (e) {} }
+  waitOn = false;
+  if (chipKind === "wait") showChip("wait");
 }
 function stopWaitMusic(fade) {
+  if (chipKind === "wait") hideChip();
   if (!waitPlayer) return;
-  const p = waitPlayer;
-  if (!fade || !waitUnmuted) { try { p.pauseVideo(); } catch (e) {} return; }
+  const pl = waitPlayer, wasOn = waitOn;
+  waitOn = false;
+  if (!fade || !wasOn) { try { pl.pauseVideo(); } catch (e) {} return; }
   let v = 55;
   const step = setInterval(() => {
     v -= 7;
-    try { p.setVolume(Math.max(0, v)); } catch (e) {}
-    if (v <= 0) { clearInterval(step); try { p.pauseVideo(); p.setVolume(55); } catch (e) {} }
+    try { pl.setVolume(Math.max(0, v)); } catch (e) {}
+    if (v <= 0) { clearInterval(step); try { pl.pauseVideo(); pl.setVolume(55); } catch (e) {} }
   }, 70);
 }
+function playBirthdaySong() {
+  const bs = M.birthdaySong;
+  const start = pl => {
+    try { pl.unMute(); pl.setVolume(85); pl.seekTo(0, true); pl.playVideo(); bdayOn = true; showChip("bday"); }
+    catch (e) { playBirthday(); }
+  };
+  if (!bs || !bs.yt) { playBirthday(); return; }
+  if (bdayPlayer) start(bdayPlayer);
+  else if (bdayP) bdayP.then(pl => pl ? start(pl) : playBirthday());
+  else playBirthday();
+}
 $("#btn-music").addEventListener("click", () => {
-  if (waitUnmuted) { waitSound = false; muteWait(); }
-  else { waitSound = true; userGestured = true; unmuteWait(); }
+  if (chipKind === "bday") { stopBirthday(); return; }
+  if (waitOn) { waitSound = false; pauseWait(); }
+  else { waitSound = true; userGestured = true; playWait(); }
 });
 function onGesture(e) {
-  if (e.target && e.target.closest && e.target.closest("#btn-music")) return;
+  if (e.target && e.target.closest && e.target.closest("#music-chip")) return;
   userGestured = true;
-  if (currentView === "gift" && waitSound && !waitUnmuted) unmuteWait();
+  if (currentView === "gift" && waitSound && !waitOn && waitPlayer) playWait();
 }
 document.addEventListener("pointerdown", onGesture, true);
 document.addEventListener("keydown", onGesture, true);
@@ -1950,6 +1987,9 @@ document.addEventListener("keydown", onGesture, true);
 /* ---------- an upbeat Happy Birthday (the 1893 tune, public domain) ---------- */
 let bdayOut = null;
 function stopBirthday() {
+  if (bdayPlayer && bdayOn) { try { bdayPlayer.pauseVideo(); } catch (e) {} }
+  bdayOn = false;
+  if (chipKind === "bday") hideChip();
   if (!bdayOut || !actx) return;
   const out = bdayOut; bdayOut = null;
   try { out.gain.cancelScheduledValues(actx.currentTime); out.gain.setValueAtTime(out.gain.value, actx.currentTime); out.gain.linearRampToValueAtTime(0, actx.currentTime + .4); } catch (e) {}
@@ -2048,7 +2088,7 @@ function unwrap() {
   if (unwrapping) return;
   unwrapping = true;
   stopWaitMusic(true);
-  setTimeout(playBirthday, 350);
+  setTimeout(playBirthdaySong, 300);
   const done = () => { try { localStorage.setItem(UNWRAP_KEY, "1"); } catch (e) {} go("intro", {}, { replace: true }); };
   if (reduceMotion) { done(); return; }
   const g = $("#gift"), q = sel => g.querySelector(sel);
@@ -2438,6 +2478,7 @@ voice.addEventListener("ended", () => { $("#btn-voice").innerHTML = ICON.play + 
 function focusables() {
   const roots = [$("#view-" + currentView)];
   if (!$("#minibar").hidden) roots.push($("#minibar"));
+  if (!$("#music-chip").hidden) roots.push($("#music-chip"));
   const els = [];
   roots.forEach(r => r && els.push(...r.querySelectorAll("button, a[href], [tabindex='0']")));
   return els.filter(el => {
@@ -2540,13 +2581,15 @@ const PROBLEMS = {
   timeout: "No answer, try again"
 };
 function checkList() {
-  const wm = M.waitingMusic;
-  return (wm && wm.yt ? [{ no: 0, title: wm.title + " (present music)", artist: wm.artist, yt: wm.yt, side: { letter: "–" } }] : []).concat(ALL);
+  const extra = [], wm = M.waitingMusic, bs = M.birthdaySong;
+  if (wm && wm.yt) extra.push({ no: "W", label: "♪", title: wm.title + " (present music)", artist: wm.artist || "", yt: wm.yt, side: { letter: "–" } });
+  if (bs && bs.yt) extra.push({ no: "B", label: "♪", title: bs.title + " (unwrap song)", artist: bs.artist || "", yt: bs.yt, side: { letter: "–" } });
+  return extra.concat(ALL);
 }
 function renderCheckRows() {
   $("#check-rows").innerHTML = checkList().map(t => `<tr>
-    <td class="no">${pad(t.no)}</td>
-    <td><strong>${esc(t.title)}</strong><br><span style="color:var(--ink-soft)">${esc(t.artist)} · side ${esc(t.side.letter)}</span></td>
+    <td class="no">${t.label || pad(t.no)}</td>
+    <td><strong>${esc(t.title)}</strong><br><span style="color:var(--ink-soft)">${t.artist ? esc(t.artist) + " · " : ""}${t.label ? "on the present" : "side " + esc(t.side.letter)}</span></td>
     <td><a href="${ytWatch(t)}" target="_blank" rel="noopener">${esc(t.yt || "search")}</a></td>
     <td class="status" id="st-${t.no}">Not checked</td></tr>`).join("");
 }
@@ -2597,7 +2640,7 @@ $("#btn-check").addEventListener("click", async () => {
     else { bad.push(t.no); cell.className = "status bad"; cell.textContent = PROBLEMS[result] || "Error " + result; }
   }
   $("#check-summary").textContent = bad.length
-    ? `${ok} of ${list.length} play. Fix ${bad.map(n => n === 0 ? "the present music" : "track " + pad(n)).join(", ")}.`
+    ? `${ok} of ${list.length} play. Fix ${bad.map(n => n === "W" ? "the present music" : n === "B" ? "the birthday song" : "track " + pad(n)).join(", ")}.`
     : `All ${list.length} play. Ready to send.`;
   checking = false;
   $("#btn-check").disabled = false;
