@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>30 Years of Meg</title>
-<meta name="description" content="A mixtape for Meg's 30th. 30 songs, one for every year.">
-<meta property="og:title" content="30 Years of Meg">
+<title>30 Years of Megan</title>
+<meta name="description" content="A mixtape for Megan's 30th. 30 songs, one for every year.">
+<meta property="og:title" content="30 Years of Megan">
 <meta property="og:description" content="A mixtape for your 30th. 30 songs, one for every year.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#16110e">
@@ -27,6 +27,13 @@
    screen / screenYear / kind   For songs from a film ("film") or TV show
           ("tv"): shows an "As seen in" ticket and a badge on the list.
    year   Release year. The page works out how old Meg was.
+   photo / photoCaption   Optional home photo for that song: put the file in a
+          "photos" folder next to index.html, e.g. photo: "photos/debs.jpg".
+          It shows as a polaroid while the song plays.
+   video / videoCaption   Optional home video for that song: a YouTube link
+          (upload it as "Unlisted") or a file, e.g. video: "videos/xmas.mp4".
+          A "Watch the home video" button appears while the song plays.
+   (Any yt or video can be the full YouTube link; the page finds the ID.)
 
    Each side (tape) also has:
    label    what's written on the cassette label (keep it short)
@@ -35,6 +42,8 @@
             "airmail" or "gold"
    items    the era stickers for that side (see STICKERS further down)
    shell / paper / stripes / color   the tape and page colours
+   photo / photoCaption / video / videoCaption   a home photo or home video
+            for the whole tape (same rules as for songs)
 
    Handy links once it's live (add these to the end of your site link):
      ?check    plays every song for a second, muted, and reports any
@@ -44,7 +53,8 @@
                device goes straight to the mixtape on later visits.)
    ===================================================================== */
 window.MIXTAPE = {
-  to: "Meg",
+  name: "Megan",   // her full name: the formal bits (page title, big headline, gift tag, envelope, front of the card, footer)
+  to: "Meg",       // what you call her: everything in your own voice (letter, notes, "Meg's Greatest Hits", the tape covers)
   from: "Kate",
   bornYear: 1996,
   birthday: "2026-12-16",      // unlocks at midnight on this date in Meg's own time zone
@@ -74,7 +84,16 @@ window.MIXTAPE = {
   voiceNote: "",    // e.g. "voice-note.m4a"  adds a "Hidden track" button
   introPhoto: "",   // e.g. "photos/us.jpg"   adds a polaroid to the opening screen
 
-  footer: "Made in Ireland, for Meg in Australia",
+  footer: "Made in Ireland, for Megan in Australia",
+
+  // The two clocks on the opening screen, with live weather.
+  home: { place: "Navan", tz: "Europe/Dublin", lat: 53.652, lon: -6.681 },
+  away: { place: "Sydney", tz: "Australia/Sydney", lat: -33.869, lon: 151.209 },
+  // What you're probably up to in Navan, from each hour of the day (24-hour clock)
+  kateIs: { 0: "fast asleep", 7: "having breakfast", 9: "at work", 13: "on her lunch", 14: "at work",
+            17: "on the way home", 18: "having dinner", 19: "on the couch", 23: "heading to bed", weekend: "enjoying the weekend" },
+  // ...and what you reckon she's up to, wherever she is
+  megIs: { 0: "hopefully asleep", 7: "up and about", 12: "probably at the beach", 18: "out out, hopefully", 23: "should be asleep", birthday: "it's your birthday!" },
 
   sides: [
     {
@@ -317,6 +336,83 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .actions > .dymo:nth-child(4n){--tilt:1deg}
 .dymo-tag{pointer-events:none; cursor:default; justify-self:start; width:max-content; max-width:100%}
 
+/* ---------- buttons: three kinds ----------
+   .btn-main  the one thing to press: a glossy key in the tape's colour, with a reel that spins when it's picked
+   .btn-tag   a second choice: a cream J-card tag, like the tape spines
+   .btn-ghost getting about (back, the rack, next tape): smoked plastic, so it stays out of the way */
+.btn{
+  --btn:#cc3640; --btn-ink:#fffaf2; --acc:#2b2420;
+  position:relative; appearance:none; border:0; margin:0; cursor:pointer; text-decoration:none; font:inherit; color:inherit;
+  display:inline-flex; align-items:center; gap:.7rem; min-height:2.9rem; padding:.45rem 1.2rem .45rem .5rem;
+  border-radius:999px; line-height:1.1; text-align:left; white-space:nowrap; vertical-align:middle;
+  transition:transform .15s ease, box-shadow .15s ease, background-color .2s, filter .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn .b-txt{display:grid; gap:.22rem; min-width:0}
+.btn .b-txt small{font-family:var(--font-machine); font-size:.54rem; letter-spacing:.2em; text-transform:uppercase; opacity:.8; overflow:hidden; text-overflow:ellipsis}
+.btn .b-txt b{font-family:var(--font-ui); font-weight:800; font-size:1rem; letter-spacing:.005em; overflow:hidden; text-overflow:ellipsis}
+.btn .b-ico{position:relative; flex:none; display:grid; place-items:center; width:2rem; height:2rem; border-radius:50%}
+.btn .b-ico svg{width:50%; height:50%}
+.btn:focus-visible{outline:3px solid var(--lamp); outline-offset:4px}
+
+.btn-main{
+  color:var(--btn-ink); min-height:3.7rem; padding:.55rem 1.7rem .55rem .55rem; gap:.9rem;
+  background:linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,0) 48%, rgba(0,0,0,.14)), var(--btn);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.2), 0 5px 0 rgba(0,0,0,.45), 0 14px 24px rgba(0,0,0,.45);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.2), 0 5px 0 color-mix(in srgb, var(--btn) 55%, #000), 0 14px 24px rgba(0,0,0,.45);
+  transform:translateY(-3px);
+}
+.btn-main .b-ico{width:2.65rem; height:2.65rem; background:#fbf6ea; color:var(--btn); box-shadow:inset 0 -2px 0 rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.3)}
+.btn-main .b-ico svg{width:46%; height:46%}
+.btn-main .b-ico::after{content:""; position:absolute; inset:-5px; border-radius:50%; border:2px dashed currentColor; color:var(--btn-ink); opacity:0; transition:opacity .2s; animation:reel 3.4s linear infinite; animation-play-state:paused}
+.btn-main:hover .b-ico::after, .btn-main:focus-visible .b-ico::after{opacity:.85; animation-play-state:running}
+@keyframes reel{to{transform:rotate(360deg)}}
+.btn-main .b-txt b{font-size:1.16rem}
+.btn-main:hover{filter:brightness(1.07) saturate(1.05)}
+.btn-main:active{transform:translateY(2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(0,0,0,.2), 0 0 0 rgba(0,0,0,0), 0 4px 10px rgba(0,0,0,.4)}
+.btn-main:focus-visible{outline:3px solid var(--lamp); outline-offset:5px; transform:translateY(-4px) scale(1.035)}
+.btn-big{min-height:4.4rem; padding-right:2.1rem}
+.btn-big .b-ico{width:3.3rem; height:3.3rem}
+.btn-big .b-txt b{font-size:1.42rem}
+
+.btn-tag{
+  color:#2a231d; border-radius:14px; background:linear-gradient(180deg, #fcf8ee, #eee3cd);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06), inset 0 1px 0 #fff, 0 3px 0 #c6b798, 0 10px 18px rgba(0,0,0,.38);
+  transform:translateY(-1px);
+}
+.btn-tag .b-ico{background:var(--acc); color:#fffaf2; box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
+.btn-tag .b-txt small{color:#7a6c5c; opacity:1}
+.btn-tag:hover{transform:translateY(-3px) rotate(-.7deg)}
+.btn-tag:active{transform:translateY(2px); box-shadow:inset 0 0 0 1px rgba(0,0,0,.06), 0 1px 0 #c6b798, 0 4px 8px rgba(0,0,0,.35)}
+.btn-tag:focus-visible{transform:translateY(-3px)}
+.btn-card{--acc:#2e5cb8; overflow:hidden; padding-left:1rem}
+.btn-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:.42rem;
+  background:repeating-linear-gradient(180deg, #b3302f 0 7px, #fffaf2 7px 10px, #2e5cb8 10px 17px, #fffaf2 17px 20px)}
+
+.btn-ghost{
+  color:var(--ink); min-height:2.6rem; padding:.35rem 1.05rem .35rem .4rem; gap:.55rem;
+  background:rgba(255,255,255,.07); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.17), inset 0 1px 0 rgba(255,255,255,.12), 0 6px 14px rgba(0,0,0,.25);
+}
+.btn-ghost .b-ico{width:1.75rem; height:1.75rem; background:rgba(255,255,255,.12)}
+.btn-ghost .b-txt b{font-weight:700; font-size:.92rem}
+.btn-ghost .b-txt small{font-size:.46rem}
+.btn-ghost.icon-after{padding:.35rem .4rem .35rem 1.05rem}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.btn-ghost:active{transform:translateY(1px)}
+.paper .btn-ghost{color:#2a231d; background:rgba(42,35,29,.05); box-shadow:inset 0 0 0 1px rgba(42,35,29,.2)}
+.paper .btn-ghost .b-ico{background:rgba(42,35,29,.1)}
+.paper .btn-ghost:hover{background:rgba(42,35,29,.1)}
+.btn-sm{min-height:2rem; padding:.3rem .85rem; font-family:var(--font-ui); font-weight:700; font-size:.76rem}
+
+/* where they sit */
+.lib-head .actions{display:grid; grid-template-columns:repeat(auto-fit, minmax(10.5rem, 1fr)); gap:.9rem; width:min(100%, 28rem); margin-top:.6rem}
+.lib-head .actions .btn{width:100%}
+.lib-head .actions .btn-main{grid-column:1 / -1}
+.side-main > .actions{display:flex; flex-wrap:wrap; align-items:center; gap:.9rem 1rem}
+.side-main > .actions #btn-side-next{margin-left:auto}
+.overlay .actions, .finale .actions{justify-content:center}
+
 /* pen on white paper, held on with washi tape */
 .paper{
   position:relative; background:var(--paper); color:var(--pen);
@@ -444,7 +540,7 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
   color:#1c1917; background:none; -webkit-text-fill-color:currentColor; text-shadow:none; animation:none; filter:none; word-spacing:.12em}
 .sleeve .sl-title.rn-title{line-height:1.32; text-align:left}
 .sleeve.sl-marquee .sl-title.rn-title{text-align:center}
-.spine .sp-title.rn-title{font-size:.98rem; line-height:1.28; padding:.1rem 0; text-wrap:wrap; word-spacing:0}
+.spine .sp-title.rn-title{font-size:calc(.98rem * var(--fit, 1)); line-height:1.28; padding:.1rem 0; text-wrap:wrap; word-spacing:0}
 .spine .rn{padding:.04em .1em; margin:.02em .01em}
 /* D: neon */
 .sl-neon{color:#7ff3ff; background:linear-gradient(transparent 0 92%, rgba(255,80,200,.35) 92%) 0 0 / 100% 14%, linear-gradient(90deg, transparent 0 92%, rgba(80,220,255,.25) 92%) 0 0 / 9% 100%, linear-gradient(#1a0f2e, #0c0716)}
@@ -579,6 +675,8 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
   box-shadow:inset 0 2px 0 rgba(255,220,180,.25), inset 0 -3px 0 rgba(0,0,0,.35), 0 30px 50px rgba(0,0,0,.6);
 }
 .rack-plate{justify-self:center; font-size:.6rem; margin-bottom:.2rem}
+.rack{container-type:inline-size}
+@container (max-width: 28rem){ .rack .spine .sp-meta{display:none} .rack .spine .sp-label{gap:.7rem; padding-right:.6rem} }
 .slot{position:relative; height:clamp(4.4rem, 12vh, 7.2rem); border-radius:3px; background:linear-gradient(#1c120b, #2b1b10); box-shadow:inset 0 7px 12px rgba(0,0,0,.75), 0 1px 0 rgba(255,220,180,.18)}
 .spine{appearance:none; border:0; background:none; padding:0; cursor:pointer; position:absolute; inset:8% 2% 10%; text-align:left; transition:transform .32s cubic-bezier(.3,1.5,.5,1)}
 .sp-face{position:absolute; inset:0; display:grid; grid-template-columns:1.15rem minmax(0, 1fr) 1.15rem; border-radius:4px; overflow:hidden;
@@ -634,7 +732,6 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .linkish{appearance:none; background:none; border:0; padding:.3rem 0; cursor:pointer; color:var(--ink-soft); text-decoration:underline; text-underline-offset:.2em}
 @media (min-width: 1100px) and (min-aspect-ratio: 4/3){
   .library{grid-template-columns:minmax(0, .85fr) minmax(0, 1.3fr) minmax(0, 1.2fr); column-gap:clamp(2rem, 3.4vw, 4rem); align-items:center}
-  .lib-head .actions{flex-direction:column; align-items:flex-start}
   .lib-foot{grid-column:1 / -1}
 }
 
@@ -658,7 +755,7 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .tracklist .blurb{font-family:var(--font-pen); font-size:1.35rem; line-height:1.2; margin:0; color:var(--pen); opacity:.85}
 
 /* player: the telly and the Walkman */
-.player-grid{display:grid; grid-template-columns:minmax(0, 1.65fr) minmax(0, 1fr); grid-template-areas:"tv paper" "walk paper"; gap:1.2rem clamp(1.2rem, 3vw, 3rem); align-items:start; max-width:min(100%, 198vh); margin-inline:auto}
+.player-grid{display:grid; grid-template-columns:minmax(0, 1.65fr) minmax(0, 1fr); grid-template-rows:auto 1fr; grid-template-areas:"tv paper" "walk paper"; gap:1.2rem clamp(1.2rem, 3vw, 3rem); align-items:start; max-width:min(100%, 198vh); margin-inline:auto}
 .crt{
   grid-area:tv; position:relative; display:grid; grid-template-columns:minmax(0, 1fr) 5.2rem; gap:1rem; padding:1rem; border-radius:26px; margin-top:1.2rem;
   background:linear-gradient(160deg, #5a534b, #2f2b27 58%, #25221f); box-shadow:inset 0 2px 0 rgba(255,255,255,.18), inset 0 -4px 0 rgba(0,0,0,.4), 0 28px 50px rgba(0,0,0,.6);
@@ -766,8 +863,10 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 
 /* the birthday card */
 .card-scene{display:grid; justify-items:center; gap:1.3rem; width:100%}
+body.has-mini .book{width:min(100%, 62rem, 106vh, calc((100vh - 21rem) * 1.5))}
 .card-top{justify-self:start}
-.env-stage{width:min(100%, 40rem, 96vh); padding-top:min(18vh, 10rem)}
+.env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 13.5rem - min(18vh, 10rem)) * 1.6)); padding-top:min(18vh, 10rem)}
+body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - min(18vh, 10rem)) * 1.6))}
 .envelope{position:relative; width:100%; aspect-ratio:1.6; container-type:inline-size; filter:drop-shadow(0 24px 30px rgba(0,0,0,.55))}
 .env-back{position:absolute; inset:0; border-radius:6px; background:linear-gradient(#d9c9a5, #cdbb93)}
 .env-card{position:absolute; left:6%; right:6%; top:5%; height:90%; z-index:2; border-radius:4px; overflow:hidden; background:var(--paper); box-shadow:0 2px 6px rgba(0,0,0,.25)}
@@ -799,7 +898,7 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .cl .polaroid{position:relative; width:52%; transform:rotate(-4deg)}
 .cl-art{position:relative; width:100%; height:44cqi}
 .book-wrap{width:100%; display:grid; justify-items:center}
-.book{position:relative; width:min(100%, 62rem, 106vh); aspect-ratio:2 / 1.32; perspective:2400px; transform:translateX(-25%); transition:transform 1.1s cubic-bezier(.45,.05,.25,1)}
+.book{position:relative; width:min(100%, 62rem, 106vh, calc((100vh - 15rem) * 1.5)); aspect-ratio:2 / 1.32; perspective:2400px; transform:translateX(-25%); transition:transform 1.1s cubic-bezier(.45,.05,.25,1)}
 .book.open{transform:none}
 .pg-right{position:absolute; left:50%; top:0; width:50%; height:100%; overflow:auto; container-type:inline-size; background:var(--paper); color:var(--pen); padding:2.2rem 2.5rem; box-shadow:0 22px 40px -8px rgba(0,0,0,.6); border-radius:0 4px 4px 0; outline:none}
 .pg-right p{font-family:var(--font-pen); font-size:5cqi; line-height:1.27; margin:0 0 .55em; text-shadow:0 0 .6px rgba(28,42,99,.5)}
@@ -875,7 +974,105 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .mc-text small{font-size:.62rem; color:var(--ink-soft)}
 .mc-text small:empty{display:none}
 .mc-text b{font-size:.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.music-chip .dymo{font-size:.6rem; flex:none}
+.music-chip .btn{flex:none}
+
+/* ---------- Navan and Sydney: clocks and weather ---------- */
+.intro{grid-template-areas:"art copy" "clock copy"}
+.intro-art{grid-area:art}
+.intro-copy{grid-area:copy}
+.worldclock{grid-area:clock; justify-self:center; align-self:start; width:min(100%, 31rem); display:grid; gap:.55rem; padding:1rem 1.1rem .9rem;
+  border-radius:14px; background:linear-gradient(180deg, #1d1814, #13100d); color:#f3ead6;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.08), 0 18px 34px rgba(0,0,0,.5)}
+.wc-head{display:flex; justify-content:space-between; gap:1rem; color:#a8998a; font-size:.52rem}
+.wc-row{display:grid; grid-template-columns:minmax(0, 1fr) auto auto; grid-template-areas:"city time wx" "status status status"; align-items:center; gap:.15rem .9rem;
+  padding:.55rem .7rem .6rem; border-radius:9px; background:rgba(255,255,255,.035); box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.wc-city{grid-area:city; font-family:var(--font-machine); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.wc-time{grid-area:time; display:flex; align-items:baseline; gap:.4rem}
+.wc-time small{font-family:var(--font-machine); font-size:.5rem; letter-spacing:.14em; text-transform:uppercase; color:#a8998a}
+.wc-flaps{display:flex; gap:2px}
+.wc-flaps span{position:relative; display:inline-grid; place-items:center; width:1.25rem; height:1.75rem; border-radius:3px; font-family:var(--font-lcd, "VT323", monospace); font-size:1.55rem; line-height:1;
+  background:linear-gradient(180deg, #2c2520 0 49%, #221c18 51%); color:#ffe9b8; box-shadow:inset 0 0 0 1px rgba(0,0,0,.5)}
+.wc-flaps span::after{content:""; position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(0,0,0,.6)}
+.wc-flaps span.colon{width:.5rem; background:none; box-shadow:none}
+.wc-flaps span.colon::after{display:none}
+.wc-wx{grid-area:wx; display:flex; align-items:center; gap:.35rem; font-family:var(--font-ui); font-weight:800; font-size:1.05rem; min-width:3.4rem; justify-content:flex-end}
+.wc-wx svg{width:1.45rem; height:1.45rem}
+.wc-status{grid-area:status; font-size:.8rem; color:#cbbfae}
+.wc-status b{color:#fff3dc; font-weight:700}
+.wc-quip{margin:.15rem 0 0; font-family:var(--font-pen); font-size:1.35rem; line-height:1.15; color:var(--lamp); text-wrap:balance}
+.wc-quip:empty{display:none}
+@media (max-width: 900px){
+  .intro{grid-template-areas:"art" "copy" "clock"}
+}
+
+/* ---------- the birthday cake ---------- */
+.cake-scene{display:grid; justify-items:center; text-align:center; gap:.7rem; width:min(100%, 46rem); margin-inline:auto}
+.cake-top{justify-self:start}
+.cake-eyebrow{color:var(--lamp)}
+#cake-h{font-size:clamp(2.4rem, 6vw, 4.6rem); color:var(--ink)}
+.cake-tip{margin-inline:auto}
+.cake-wrap{width:min(100%, 34rem, calc((100vh - 21rem) * 1.59)); min-width:15rem}
+#cake{display:block; width:100%; height:auto; overflow:visible}
+.cake-count{margin:0; font-family:var(--font-machine); font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
+.cake-actions, .cake-done{justify-content:center}
+#cake .flame{transform-box:fill-box; transform-origin:50% 100%; animation:flick .7s ease-in-out infinite alternate; animation-delay:var(--d); transition:opacity .25s, transform .25s}
+@keyframes flick{0%{transform:scale(1, 1) rotate(-3deg)} 50%{transform:scale(.9, 1.1) rotate(2deg)} 100%{transform:scale(1.05, .94) rotate(-1deg)}}
+#cake.windy .candle:not(.out) .flame{animation:lean .2s ease-in-out infinite alternate}
+@keyframes lean{from{transform:skewX(-20deg) scale(.92, .88)} to{transform:skewX(-34deg) scale(.8, .75)}}
+#cake .candle.out .flame{opacity:0; transform:scale(.2); animation:none}
+#cake .smoke{opacity:0; transform-box:fill-box; transform-origin:50% 100%}
+#cake .candle.out .smoke{animation:smoke 1.9s ease-out forwards}
+@keyframes smoke{0%{opacity:.8; transform:translateY(0) scaleX(1)} 100%{opacity:0; transform:translateY(-34px) scaleX(1.7)}}
+#cake .cake-glow{transition:opacity .35s}
+#btn-blow.held{transform:translateY(2px); filter:brightness(1.1)}
+
+/* ---------- pencil trick ---------- */
+.pencil{position:fixed; z-index:70; pointer-events:none; transform-origin:0 50%; filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
+.pencil svg{display:block; width:100%; height:auto}
+.tape.rewinding .reel{animation:spin .32s linear infinite reverse !important}
+.pencil-note{position:fixed; z-index:71; pointer-events:none; max-width:16rem; padding:.55rem .8rem .6rem; background:#fffdf6; color:var(--pen); font-family:var(--font-pen); font-size:1.3rem; line-height:1.15;
+  box-shadow:0 10px 20px rgba(0,0,0,.4); transform:rotate(-3deg)}
+
+/* ---------- Guess the Year ---------- */
+.party-grid{display:grid; grid-template-columns:minmax(0, 1.6fr) minmax(0, 1fr); gap:clamp(1.2rem, 3vw, 3rem); align-items:center; max-width:min(100%, 198vh); margin-inline:auto}
+.party-grid > *{grid-area:auto}
+.party-tv #yt-party{position:absolute; inset:0; width:100%; height:100%; border:0}
+.pt-card{display:grid; gap:.7rem; align-content:start; --washi:#2c7a50}
+.pt-nav{margin:-.2rem 0 .2rem}
+#party-h{margin:0; font-family:var(--font-ui); font-weight:900; font-size:clamp(1.7rem, 2.6vw, 2.5rem); line-height:1.05; color:var(--pen); text-wrap:balance}
+.pt-artist{margin:0; font-size:1.2rem; color:var(--pen); opacity:.85}
+.pt-artist:empty{display:none}
+.pt-year{display:flex; gap:.35rem; margin:.4rem 0 .1rem; perspective:600px}
+.pt-year span{display:grid; place-items:center; width:3.1rem; height:4.2rem; border-radius:6px; font-family:var(--font-lcd, "VT323", monospace); font-size:3.4rem; line-height:1; color:#ffe9b8;
+  background:linear-gradient(180deg, #2c2520 0 49%, #1f1a16 51%); box-shadow:inset 0 0 0 1px rgba(0,0,0,.6), 0 4px 8px rgba(0,0,0,.25); position:relative}
+.pt-year span::after{content:""; position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(0,0,0,.55)}
+.pt-year.on span{animation:flap .55s cubic-bezier(.3,1.3,.5,1) both; animation-delay:calc(var(--i) * .14s)}
+@keyframes flap{0%{transform:rotateX(90deg)} 100%{transform:rotateX(0)}}
+.pt-age{margin:0; font-family:var(--font-pen); font-size:1.7rem; color:var(--pen-red)}
+.pt-age:empty{display:none}
+.pt-hint{margin:0; padding:.45rem .7rem; border-left:4px solid var(--hint, #c8992f); background:rgba(200,153,47,.1); color:var(--pen); font-size:.95rem}
+.pt-rules{margin:.2rem 0 0; font-size:.85rem; color:#6e6254}
+.pt-rules:empty{display:none}
+.pt-actions{margin-top:.3rem}
+@media (max-width: 1000px){ .party-grid{grid-template-columns:minmax(0, 1fr)} }
+
+/* ---------- home photos and videos ---------- */
+.np-media{display:flex; flex-wrap:wrap; align-items:flex-end; gap:1rem; margin:.3rem 0 .4rem}
+.np-media .np-photo{position:relative; width:min(44%, 10.5rem); transform:rotate(-3deg)}
+.np-media .btn{flex:1 1 auto; max-width:100%}
+.side-vid{justify-self:start; margin-top:.2rem}
+.jmedia{display:inline-flex; align-items:center; gap:.25rem; font-family:var(--font-machine); font-size:.5rem; letter-spacing:.12em; text-transform:uppercase; color:#7a6c5c}
+.jmedia svg{width:.95rem; height:.95rem}
+.homemovie{position:fixed; inset:0; z-index:60; display:grid; place-items:center; padding:max(1rem, 3vh) max(16px, 4vw);
+  background:radial-gradient(90% 80% at 50% 45%, rgba(40,32,26,.96), rgba(6,5,4,.98))}
+.hm-inner{display:grid; gap:.9rem; justify-items:center; width:min(100%, 72rem, calc((100vh - 13rem) * 1.78))}
+.hm-eyebrow{color:var(--lamp)}
+.hm-screen{position:relative; width:100%; aspect-ratio:16 / 9; background:#000; border-radius:6px; overflow:hidden;
+  box-shadow:0 0 0 .5rem #f4ecd8, 0 0 0 calc(.5rem + 1px) rgba(0,0,0,.4), 0 30px 60px rgba(0,0,0,.7)}
+.hm-screen > *{position:absolute; inset:0; width:100%; height:100%; border:0; background:#000}
+.hm-cap{margin:0; font-family:var(--font-pen); font-size:1.6rem; color:var(--ink)}
+.hm-cap:empty{display:none}
+body.hm-open{overflow:hidden}
 
 /* ambient animation behind each tape */
 #fx{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
@@ -911,7 +1108,7 @@ main{position:relative; z-index:1}
 #confetti{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:55}
 
 @media (max-width: 1000px){
-  .player-grid{grid-template-columns:minmax(0, 1fr); grid-template-areas:"tv" "walk" "paper"}
+  .player-grid{grid-template-columns:minmax(0, 1fr); grid-template-rows:none; grid-template-areas:"tv" "walk" "paper"}
 }
 @media (max-width: 900px){
   .gift-scene{grid-template-columns:minmax(0, 1fr); justify-items:center; text-align:center}
@@ -935,10 +1132,14 @@ main{position:relative; z-index:1}
   .stk.hide-small{display:none}
 }
 @media (max-width: 560px){
+  .intro-copy .actions, .finale .actions{display:grid; grid-template-columns:minmax(0, 1fr); width:100%; justify-items:stretch}
+  .intro-copy .actions .btn-ghost, .finale .actions .btn-ghost{justify-self:center}
+  .side-main > .actions .btn-main{order:-1; width:100%}
+  .btn-main{min-height:3.4rem}
+  .btn-big{min-height:4rem}
   .jrow{grid-template-columns:1.6rem minmax(0, 1fr)}
   .jmeta{grid-column:2; justify-items:start; text-align:left}
   .jtext{font-size:1.45rem}
-  .lib-head .actions .dymo{flex:1 1 auto}
   .minibar{grid-template-columns:3.6rem minmax(0, 1fr) auto; gap:.6rem}
   .mini-keys .wm-key{width:3.2rem}
   .mini-keys .wm-key span{display:none}
@@ -978,7 +1179,7 @@ main{position:relative; z-index:1}
           <span class="tag-string"></span>
           <div class="bow" aria-hidden="true"><i class="tail l"></i><i class="tail r"></i><i class="loop l"></i><i class="loop r"></i><b class="knot"></b></div>
           <div class="tag">
-            <p>To <span data-to></span>,</p>
+            <p>To <span data-name></span>,</p>
             <p>Happy 30th!</p>
             <p class="tag-warn" id="tag-warn"></p>
             <p class="sign" data-sign></p>
@@ -995,7 +1196,7 @@ main{position:relative; z-index:1}
             <div class="cd"><span id="cd-d">00</span><i>D</i><span id="cd-h">00</span><i>H</i><span id="cd-m">00</span><i>M</i><span id="cd-s">00</span><i>S</i></div>
           </div>
         </div>
-        <div class="actions"><button class="dymo red" type="button" id="btn-unwrap" data-autofocus></button></div>
+        <div class="actions"><button class="btn btn-main btn-big" type="button" id="btn-unwrap" data-autofocus></button></div>
         <p class="gift-hint" id="gift-hint" aria-live="polite"></p>
       </div>
     </div>
@@ -1014,14 +1215,41 @@ main{position:relative; z-index:1}
       </div>
       <div class="intro-copy">
         <p class="print" id="intro-date"></p>
-        <h1 class="marker hero" id="intro-h">Happy 30th, <span class="to" data-to></span></h1>
+        <h1 class="marker hero" id="intro-h">Happy 30th, <span class="to" data-name></span></h1>
         <span class="dymo blue dymo-tag small" style="--tilt:-1.5deg">30 songs · 30 years · 1 sister</span>
         <div class="paper"><p class="note-text pen" id="hello"></p><div class="note-foot"><span class="sign" data-sign></span></div></div>
         <div class="actions">
-          <button class="dymo red" type="button" id="btn-open" data-autofocus data-icon="play">Open your mixtape</button>
-          <button class="dymo blue" type="button" data-go="card" data-icon="letter">Open your card</button>
-          <button class="dymo" type="button" data-go="help" data-icon="tv">TV tips</button>
+          <button class="btn btn-main" type="button" id="btn-open" data-autofocus data-icon="play" data-cap="5 tapes · {n} songs">Open your mixtape</button>
+          <button class="btn btn-tag btn-card" type="button" data-go="card" data-icon="letter" data-cap="From {from}">Open your card</button>
+          <button class="btn btn-tag" type="button" data-go="cake" data-icon="cake" data-cap="30 candles" style="--acc:#e06c8e">Make a wish</button>
+          <button class="btn btn-ghost" type="button" data-go="help" data-icon="tv">TV tips</button>
         </div>
+      </div>
+      <aside class="worldclock" id="worldclock" aria-label="The time and weather at home and where you are">
+        <p class="wc-head print"><span id="wc-route"></span><span id="wc-km"></span></p>
+        <div class="wc-row" id="wc-home"></div>
+        <div class="wc-row" id="wc-away"></div>
+        <p class="wc-quip" id="wc-quip"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Birthday cake -->
+  <section class="view view-center" id="view-cake" hidden aria-labelledby="cake-h">
+    <div class="cake-scene">
+      <div class="actions cake-top"><button class="btn btn-ghost" type="button" data-back data-icon="back">Back</button></div>
+      <p class="print cake-eyebrow" id="cake-eyebrow">30 candles · no pressure</p>
+      <h1 class="marker" id="cake-h">Make a wish, <span data-to></span></h1>
+      <p class="lede cake-tip" id="cake-tip">Close your eyes, make a wish, then blow.</p>
+      <div class="cake-wrap"><svg id="cake" viewBox="0 122 600 378" role="img" aria-label="A birthday cake with 30 candles"></svg></div>
+      <p class="cake-count" id="cake-count" aria-live="polite"></p>
+      <div class="actions cake-actions" id="cake-actions">
+        <button class="btn btn-main" type="button" id="btn-blow" data-autofocus data-icon="cake" data-cap="Press and hold">Blow</button>
+        <button class="btn btn-tag" type="button" id="btn-mic" data-icon="mic" data-cap="Laptop or phone" style="--acc:#2e5cb8">Use the microphone</button>
+      </div>
+      <div class="actions cake-done" id="cake-done" hidden>
+        <button class="btn btn-main" type="button" id="btn-cake-open" data-icon="play" data-cap="Your wish is safe">Open your mixtape</button>
+        <button class="btn btn-tag" type="button" id="btn-relight" data-icon="cake" data-cap="Go again" style="--acc:#e06c8e">Light them again</button>
       </div>
     </div>
   </section>
@@ -1031,13 +1259,14 @@ main{position:relative; z-index:1}
     <div class="library">
       <header class="lib-head">
         <span class="dymo blue dymo-tag small" id="lib-tag" style="--tilt:-2deg"></span>
-        <h1 class="marker" id="lib-h">30 Years of <span data-to></span></h1>
+        <h1 class="marker" id="lib-h">30 Years of <span data-name></span></h1>
         <p class="lede" id="lib-lede">Pull a tape off the rack, or play the whole lot from the start.</p>
         <div class="actions">
-          <button class="dymo red" type="button" id="btn-all" data-autofocus data-icon="play">Play everything</button>
-          <button class="dymo" type="button" id="btn-shuffle" data-icon="shuffle">Shuffle</button>
-          <button class="dymo blue" type="button" data-go="card" data-icon="letter">Your card</button>
-          <button class="dymo blue" type="button" data-go="bonus" id="btn-bonus" data-icon="star" hidden>Hidden track</button>
+          <button class="btn btn-main" type="button" id="btn-all" data-autofocus data-icon="play" data-cap="All {n} songs, start to finish">Play everything</button>
+          <button class="btn btn-tag" type="button" id="btn-shuffle" data-icon="shuffle" data-cap="Surprise me" style="--acc:#c8992f">Shuffle</button>
+          <button class="btn btn-tag btn-card" type="button" data-go="card" data-icon="letter" data-cap="From {from}">Your card</button>
+          <button class="btn btn-tag" type="button" data-go="party" id="btn-party" data-icon="quiz" data-cap="Party game" style="--acc:#2c7a50">Guess the year</button>
+          <button class="btn btn-tag" type="button" data-go="bonus" id="btn-bonus" data-icon="star" data-cap="Bonus" style="--acc:#e06c8e" hidden>Hidden track</button>
         </div>
         <div class="lava" aria-hidden="true"><span class="lv-cap"></span><span class="lv-glass"><i></i><i></i><i></i><i></i><i></i></span><span class="lv-base"></span></div>
       </header>
@@ -1064,15 +1293,16 @@ main{position:relative; z-index:1}
         <div class="side-stage" id="side-stage"></div>
         <div class="side-main">
           <div class="actions">
-            <button class="dymo" type="button" data-go="library" data-icon="back">The rack</button>
-            <button class="dymo red" type="button" id="btn-side-play" data-autofocus></button>
-            <button class="dymo" type="button" id="btn-side-next"></button>
+            <button class="btn btn-ghost" type="button" data-go="library" data-icon="back">The rack</button>
+            <button class="btn btn-main" type="button" id="btn-side-play" data-autofocus></button>
+            <button class="btn btn-ghost icon-after" type="button" id="btn-side-next"></button>
           </div>
           <article class="paper tracklist" id="tracklist">
             <header>
               <p class="print" id="side-eyebrow"></p>
               <h1 id="side-h"></h1>
               <p class="blurb" id="side-blurb"></p>
+              <button class="btn btn-tag side-vid" type="button" id="btn-side-vid" style="--acc:#b3302f" hidden></button>
             </header>
             <ol class="jtracks" id="side-tracks"></ol>
           </article>
@@ -1089,27 +1319,27 @@ main{position:relative; z-index:1}
           <div id="yt"></div>
           <div class="overlay" id="ov-tap" hidden>
             <p class="big-msg">Ready when you are</p>
-            <button class="dymo red" type="button" id="btn-tap" data-icon="play">Press play</button>
+            <button class="btn btn-main" type="button" id="btn-tap" data-icon="play">Press play</button>
           </div>
           <div class="overlay" id="ov-problem" hidden>
             <p class="big-msg">This one won't play in here</p>
             <p id="ov-problem-text"></p>
             <div class="actions">
-              <a class="dymo" id="ov-problem-link" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
-              <button class="dymo red" type="button" id="btn-skip" data-icon="next">Skip</button>
+              <a class="btn btn-tag" id="ov-problem-link" href="#" target="_blank" rel="noopener" data-icon="tv" data-cap="Opens YouTube" style="--acc:#b3302f">Watch on YouTube</a>
+              <button class="btn btn-main" type="button" id="btn-skip" data-icon="next" data-cap="Next song">Skip</button>
             </div>
           </div>
           <div class="overlay" id="ov-sideend" hidden>
             <p class="big-msg" id="ov-sideend-text"></p>
             <div class="actions">
-              <button class="dymo red" type="button" id="btn-flip"></button>
-              <button class="dymo" type="button" data-go="library" data-icon="tapes">The rack</button>
+              <button class="btn btn-main" type="button" id="btn-flip"></button>
+              <button class="btn btn-ghost" type="button" data-go="library" data-icon="tapes">The rack</button>
             </div>
           </div>
           <div class="overlay" id="ov-offline" hidden>
             <p class="big-msg">Can't reach YouTube</p>
             <p>Check the internet connection, then try again.</p>
-            <button class="dymo red" type="button" id="btn-retry">Try again</button>
+            <button class="btn btn-main" type="button" id="btn-retry" data-icon="play">Try again</button>
           </div>
         </div>
         <div class="crt-panel" aria-hidden="true">
@@ -1159,7 +1389,7 @@ main{position:relative; z-index:1}
       </div>
 
       <aside class="paper np" id="np">
-        <div class="actions np-nav"><button class="dymo small" type="button" id="btn-to-side"></button></div>
+        <div class="actions np-nav"><button class="btn btn-ghost" type="button" id="btn-to-side"></button></div>
         <p class="print" id="np-side"></p>
         <h2 id="np-title"></h2>
         <p class="np-artist" id="np-artist"></p>
@@ -1169,6 +1399,10 @@ main{position:relative; z-index:1}
         </div>
         <p class="np-age" id="np-age"></p>
         <div class="np-note" id="np-note" hidden><p class="note-text pen" id="np-note-text"></p><div class="note-foot"><span class="sign" data-sign></span></div></div>
+        <div class="np-media" id="np-media" hidden>
+          <figure class="polaroid np-photo" id="np-photo" hidden><img alt=""><figcaption></figcaption></figure>
+          <button class="btn btn-tag" type="button" id="btn-homevid" style="--acc:#b3302f" hidden></button>
+        </div>
         <div class="np-fact" id="np-fact" hidden><p class="print">Liner notes · Did you know?</p><p class="fact-text" id="np-fact-text"></p></div>
         <div class="upnext">
           <p class="print">Up next</p>
@@ -1186,9 +1420,9 @@ main{position:relative; z-index:1}
       <h1 class="marker" id="finale-h">Happy 30th, <span class="to" data-to></span>.</h1>
       <p class="lede">That's the whole tape, all thirty years of it. Here's to the next thirty.</p>
       <div class="actions" style="justify-content:center">
-        <button class="dymo red" type="button" data-go="card" data-icon="letter" data-autofocus>Open your card</button>
-        <button class="dymo" type="button" id="btn-again" data-icon="play">Play it again</button>
-        <button class="dymo" type="button" data-go="library" data-icon="tapes">The rack</button>
+        <button class="btn btn-main" type="button" data-go="card" data-icon="letter" data-cap="From {from}" data-autofocus>Open your card</button>
+        <button class="btn btn-tag" type="button" id="btn-again" data-icon="play" data-cap="From the top" style="--acc:#cc3640">Play it again</button>
+        <button class="btn btn-ghost" type="button" data-go="library" data-icon="tapes">The rack</button>
       </div>
     </div>
   </section>
@@ -1196,7 +1430,7 @@ main{position:relative; z-index:1}
   <!-- The birthday card, in an airmail envelope -->
   <section class="view" id="view-card" hidden aria-label="Your birthday card">
     <div class="card-scene">
-      <div class="actions card-top"><button class="dymo" type="button" data-back data-icon="back">Back</button></div>
+      <div class="actions card-top"><button class="btn btn-ghost" type="button" data-back data-icon="back">Back</button></div>
       <div class="env-stage" id="env-stage">
         <div class="envelope" id="envelope" aria-hidden="true">
           <div class="env-back"></div>
@@ -1218,8 +1452,8 @@ main{position:relative; z-index:1}
         </div>
       </div>
       <div class="actions card-actions">
-        <button class="dymo red" type="button" id="btn-card" data-autofocus data-icon="letter">Open your card</button>
-        <button class="dymo" type="button" id="btn-card-done" data-go="library" data-icon="tapes" hidden>Back to your tapes</button>
+        <button class="btn btn-main" type="button" id="btn-card" data-autofocus data-icon="letter" data-cap="Break the seal">Open your card</button>
+        <button class="btn btn-tag" type="button" id="btn-card-done" data-go="library" data-icon="tapes" data-cap="The rack" hidden>Back to your tapes</button>
       </div>
     </div>
   </section>
@@ -1227,10 +1461,10 @@ main{position:relative; z-index:1}
   <!-- Hidden track (voice note) -->
   <section class="view" id="view-bonus" hidden aria-labelledby="bonus-h">
     <div class="paper-wrap">
-      <div class="actions"><button class="dymo" type="button" data-back data-icon="back">Back</button></div>
+      <div class="actions"><button class="btn btn-ghost" type="button" data-back data-icon="back">Back</button></div>
       <p class="print" style="color:var(--lamp)">Hidden track</p>
       <h1 class="marker" id="bonus-h" style="font-size:clamp(2.4rem,5vw,4.4rem)">A message from <span data-from></span></h1>
-      <div class="actions"><button class="dymo red" type="button" id="btn-voice" data-autofocus data-icon="play">Play</button></div>
+      <div class="actions"><button class="btn btn-main" type="button" id="btn-voice" data-autofocus data-icon="play" data-cap="Hidden track">Play</button></div>
       <audio id="voice" preload="none"></audio>
     </div>
   </section>
@@ -1238,7 +1472,7 @@ main{position:relative; z-index:1}
   <!-- TV tips -->
   <section class="view" id="view-help" hidden aria-labelledby="help-h">
     <div class="help">
-      <div class="actions"><button class="dymo" type="button" data-back data-icon="back" data-autofocus>Back</button></div>
+      <div class="actions"><button class="btn btn-ghost" type="button" data-back data-icon="back" data-autofocus>Back</button></div>
       <h1 class="marker" id="help-h">Getting it on the telly</h1>
       <ol>
         <li><h2>Laptop and HDMI cable</h2><p>The most reliable way. Plug the laptop into the TV, open this link in Chrome, Edge or Safari, and go full screen with <kbd>F11</kbd> on Windows or <kbd>Ctrl</kbd> <kbd>Cmd</kbd> <kbd>F</kbd> on a Mac.</p></li>
@@ -1258,8 +1492,8 @@ main{position:relative; z-index:1}
         <div class="check-player"><div id="yt-check"></div></div>
         <div style="display:grid; gap:1rem">
           <div class="actions">
-            <button class="dymo red" type="button" id="btn-check" data-autofocus data-icon="play">Check all songs</button>
-            <a class="dymo" id="check-open" href="?preview">Open the mixtape</a>
+            <button class="btn btn-main" type="button" id="btn-check" data-autofocus data-icon="play" data-cap="Muted, one by one">Check all songs</button>
+            <a class="btn btn-tag" id="check-open" href="?preview" data-icon="tapes" style="--acc:#cc3640">Open the mixtape</a>
           </div>
           <p id="check-summary" aria-live="polite"></p>
         </div>
@@ -1274,11 +1508,54 @@ main{position:relative; z-index:1}
   </section>
 </main>
 
+<!-- Guess the Year -->
+<section class="view" id="view-party" hidden aria-labelledby="party-h">
+  <div class="party-grid">
+    <div class="crt party-tv">
+      <div class="video-wrap">
+        <div id="yt-party"></div>
+        <div class="overlay" id="pt-cover">
+          <p class="print" style="color:var(--lamp)">A party game for the telly</p>
+          <p class="big-msg">Guess the Year</p>
+        </div>
+        <div class="overlay" id="pt-offline" hidden><p class="big-msg">Can't reach YouTube</p><p>You can still play: read out the song and guess away.</p></div>
+      </div>
+      <div class="crt-panel" aria-hidden="true">
+        <span class="crt-badge">Colour<br>TV</span><span class="knob" style="--k:-30deg"></span><span class="knob" style="--k:40deg"></span><span class="grille"></span><span class="crt-led"></span>
+      </div>
+    </div>
+    <article class="paper pt-card" id="pt-card">
+      <div class="actions pt-nav"><button class="btn btn-ghost" type="button" data-go="library" data-icon="back">The rack</button></div>
+      <p class="print" id="pt-count"></p>
+      <h1 id="party-h">Guess the Year</h1>
+      <p class="pt-artist" id="pt-artist"></p>
+      <div class="pt-year" id="pt-year" aria-live="polite"><span style="--i:0">?</span><span style="--i:1">?</span><span style="--i:2">?</span><span style="--i:3">?</span></div>
+      <p class="pt-age" id="pt-age"></p>
+      <p class="pt-hint" id="pt-hint" hidden></p>
+      <div class="np-fact pt-fact" id="pt-fact" hidden><p class="print">Liner notes · Did you know?</p><p class="fact-text" id="pt-fact-text"></p></div>
+      <div class="actions pt-actions">
+        <button class="btn btn-main" type="button" id="btn-pt-go" data-autofocus></button>
+        <button class="btn btn-tag" type="button" id="btn-pt-hint" data-icon="star" data-cap="Which tape?" style="--acc:#c8992f" hidden>Hint</button>
+      </div>
+      <p class="pt-rules" id="pt-rules"></p>
+    </article>
+  </div>
+</section>
+
+<div class="homemovie" id="homemovie" hidden role="dialog" aria-modal="true" aria-labelledby="hm-title">
+  <div class="hm-inner">
+    <p class="print hm-eyebrow" id="hm-title">Home movie</p>
+    <div class="hm-screen"><div id="yt-home"></div><video id="hm-video" playsinline controls preload="none" hidden></video></div>
+    <p class="hm-cap" id="hm-cap"></p>
+    <div class="actions" style="justify-content:center"><button class="btn btn-ghost" type="button" id="btn-hm-close" data-icon="back">Back to the music</button></div>
+  </div>
+</div>
+
 <div class="yt-hidden" aria-hidden="true"><div id="yt-wait"></div><div id="yt-bday"></div></div>
 <div class="music-chip" id="music-chip" hidden>
   <span class="mc-note" aria-hidden="true">♪</span>
   <span class="mc-text"><small id="mc-tip"></small><b id="mc-title"></b></span>
-  <button class="dymo small" type="button" id="btn-music"></button>
+  <button class="btn btn-ghost btn-sm" type="button" id="btn-music"></button>
 </div>
 
 <div class="minibar" id="minibar" hidden>
@@ -1305,11 +1582,19 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HTTP = /^https?:$/.test(location.protocol);
 
 /* ---------- data ---------- */
+function ytIdFrom(v) {
+  if (!v) return "";
+  v = String(v).trim();
+  const m = v.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
+  if (m) return m[1];
+  return /^[\w-]{11}$/.test(v) ? v : "";
+}
 const ALL = [];
 M.sides.forEach((side, si) => {
   side.index = si;
-  side.tracks.forEach(t => { t.side = side; t.no = ALL.length + 1; ALL.push(t); });
+  side.tracks.forEach(t => { t.yt = ytIdFrom(t.yt) || t.yt; t.side = side; t.no = ALL.length + 1; ALL.push(t); });
 });
+[M.waitingMusic, M.birthdaySong].forEach(m => { if (m && m.yt) m.yt = ytIdFrom(m.yt) || m.yt; });
 const N = ALL.length;
 const ALL_COLORS = M.sides.map(s => s.color);
 
@@ -1356,9 +1641,33 @@ const ICON = {
   tapes: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="8.5" cy="11" r="1.9" fill="currentColor"/><circle cx="15.5" cy="11" r="1.9" fill="currentColor"/><path d="M7 18.5l1.5-3h7l1.5 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>',
   letter: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M3.8 6.6 12 13l8.2-6.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>',
   star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" fill="currentColor"/></svg>',
-  tv: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 20.5h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>'
+  tv: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 20.5h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  film: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M3 9.5h18M3 14.5h18M7.5 5v4.5M12 5v4.5M16.5 5v4.5M7.5 14.5V19M12 14.5V19M16.5 14.5V19" stroke="currentColor" stroke-width="1.8"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h2.2l1.5-2h5.6l1.5 2h2.2a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="12.6" r="3.4" fill="none" stroke="currentColor" stroke-width="2.1"/></svg>',
+  cake: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16v-6.5A2.5 2.5 0 0 0 17.5 12h-11A2.5 2.5 0 0 0 4 14.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M4 16.5c2 1.4 3.5 1.4 5 0s3.5-1.4 5 0 3.5 1.4 6 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12V8.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 2.5c1.7 1.9 1.7 3.4 0 4.4-1.7-1-1.7-2.5 0-4.4z" fill="currentColor"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  quiz: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4a3.6 3.6 0 1 1 5.2 3.2c-1.1.6-1.8 1.4-1.8 2.7v.7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/></svg>'
 };
-$$("[data-icon]").forEach(b => b.insertAdjacentHTML("afterbegin", ICON[b.dataset.icon] || ""));
+// buttons: an icon disc, then a small caption over the label
+function btnInner(icon, label, cap, iconAfter) {
+  const ic = icon ? `<span class="b-ico">${ICON[icon] || ""}</span>` : "";
+  const tx = `<span class="b-txt">${cap ? `<small>${esc(cap)}</small>` : ""}<b>${esc(label)}</b></span>`;
+  return iconAfter ? tx + ic : ic + tx;
+}
+function setBtn(el, icon, label, cap, iconAfter) { if (el) el.innerHTML = btnInner(icon, label, cap, iconAfter); }
+$$(".btn").forEach(b => {
+  const label = b.textContent.trim();
+  if (!label) return;
+  const cap = (b.dataset.cap || "").replace("{from}", M.from).replace("{n}", ALL.length);
+  setBtn(b, b.dataset.icon, label, cap, b.classList.contains("icon-after"));
+});
+$$(".wm-key[data-icon]").forEach(b => b.insertAdjacentHTML("afterbegin", ICON[b.dataset.icon] || ""));
+function tintButtons(view, color) {
+  if (!view) return;
+  if (!color) { view.style.removeProperty("--btn"); view.style.removeProperty("--btn-ink"); return; }
+  view.style.setProperty("--btn", color);
+  view.style.setProperty("--btn-ink", luminance(color) > .3 ? "#1d1915" : "#fffaf2");
+}
 const DOODLE_HEART = '<svg class="doodle" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 32C7 22 3 15 6 9c3-6 11-6 14 2 3-8 11-8 14-2 3 6-1 13-14 23z" fill="none" stroke="#d23a3f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 $$("[data-sign]").forEach(el => el.innerHTML = esc(M.signature || M.from + " x") + DOODLE_HEART);
 
@@ -1519,13 +1828,15 @@ function coverHTML(s) {
   const tint = `--c:${esc(s.color)}; --c-soft:${mixHex(s.color, "#f6efe0", .72)}; --c-deep:${mixHex(s.color, "#000000", .25)}`;
   return `<div class="sleeve sl-${esc(s.cover || "stickers")}" style="${tint}">${deco}
     <div class="sl-top"><span>Side ${esc(s.letter)}</span><span>${s.tracks.length} tracks · C-90</span></div>
-    <p class="sl-title rn-title" style="font-size:${(fs * .2).toFixed(2)}rem; font-size:${fs}cqi">${title}</p>
+    <p class="sl-title rn-title" style="font-size:calc(${(fs * .2).toFixed(2)}rem * var(--fit, 1)); font-size:calc(${fs}cqi * var(--fit, 1))">${title}</p>
     <div class="sl-foot"><span>${esc(s.years)}</span><span>for ${esc(M.to)}</span></div>
   </div>`;
 }
 
 /* ---------- static fill ---------- */
+const FULL = M.name || M.to;
 $$("[data-to]").forEach(el => el.textContent = M.to);
+$$("[data-name]").forEach(el => el.textContent = FULL);
 $$("[data-from]").forEach(el => el.textContent = M.from);
 const bday = (() => { const [y, m, d] = M.birthday.split("-").map(Number); return new Date(y, m - 1, d); })();
 const bdayShort = bday.toLocaleDateString("en-IE", { day: "numeric", month: "short" }).toUpperCase();
@@ -1540,8 +1851,8 @@ $("#hello").textContent = M.hello;
   const hero = $("#intro-h"), lead = "Happy 30th,";
   let i = 0;
   const word = w => `<span class="word">${[...w].map(ch => `<span class="ltr" style="--i:${i++}">${esc(ch)}</span>`).join("")}</span>`;
-  hero.innerHTML = lead.split(" ").map(word).join(" ") + ' <span class="to">' + [...M.to].map((ch, j) => `<span class="ltr" style="--i:${i++}; --j:${j}">${esc(ch)}</span>`).join("") + "</span>";
-  hero.setAttribute("aria-label", `Happy 30th, ${M.to}`);
+  hero.innerHTML = lead.split(" ").map(word).join(" ") + ' <span class="to">' + [...FULL].map((ch, j) => `<span class="ltr" style="--i:${i++}; --j:${j}">${esc(ch)}</span>`).join("") + "</span>";
+  hero.setAttribute("aria-label", `Happy 30th, ${FULL}`);
 }
 $("#intro-art").insertAdjacentHTML("beforeend", sticker("cake", "72%", "68%", "21%", 8, 1.3) + sticker("sparkle", "90%", "-2%", "11%", 0, 1.5, "hide-small"));
 {
@@ -1648,7 +1959,8 @@ function fromLine(t) {
 }
 function trackRow(t, attrs, withMeta) {
   const a = ageBits(t);
-  const meta = withMeta ? `<span class="jmeta">${a ? `<span class="jage">${a.line}</span>` : ""}${t.note ? `<span class="jheart">♥ note</span>` : ""}</span>` : "";
+  const media = (t.photo ? `<span class="jmedia">${ICON.camera}photo</span>` : "") + (t.video ? `<span class="jmedia">${ICON.film}home video</span>` : "");
+  const meta = withMeta ? `<span class="jmeta">${a ? `<span class="jage">${a.line}</span>` : ""}${t.note ? `<span class="jheart">♥ note</span>` : ""}${media}</span>` : "";
   return `<li><button class="jrow${state.queue.length && state.queue[state.pos] === t ? " is-now" : ""}" type="button" ${attrs}>
     <span class="jno">${t.no}.</span>
     <span class="jtext"><span class="jtitle">${esc(t.title)}</span> <span class="jartist">– ${esc(t.artist)}</span>${fromLine(t)}</span>${meta}
@@ -1666,13 +1978,17 @@ function renderSide(si, quiet) {
   $("#side-eyebrow").textContent = `Side ${s.letter} · ${s.years}`;
   $("#side-h").textContent = s.title;
   $("#side-blurb").textContent = s.blurb || "";
-  $("#btn-side-play").innerHTML = ICON.play + `Play side ${esc(s.letter)}`;
+  setBtn($("#btn-side-play"), "play", `Play side ${s.letter}`, `${s.tracks.length} songs · ${s.label}`);
+  const sv = $("#btn-side-vid");
+  sv.hidden = !s.video;
+  if (s.video) { setBtn(sv, "film", "Watch the home video", s.videoCaption || "Home movie"); sv.onclick = () => openHomeMovie(s.video, s.videoCaption); }
+  tintButtons($("#view-side"), s.color);
   $("#btn-side-play").onclick = () => playQueue(s.tracks, 0, "side", s.index, $("#side-tape .tape"));
   const nxt = M.sides[s.index + 1];
   const nb = $("#btn-side-next");
   nb.hidden = !nxt;
   if (nxt) {
-    nb.innerHTML = `Side ${esc(nxt.letter)} ` + ICON.next;
+    setBtn(nb, "next", nxt.label, `Next · side ${nxt.letter}`, true);
     nb.setAttribute("aria-label", `Next tape: side ${nxt.letter}`);
     nb.onclick = () => { lastTile = nxt.index; go("side", { side: nxt.index }, { replace: true }); };
   }
@@ -1723,7 +2039,31 @@ function startView() {
   if (locked()) return "gift";
   return !PREVIEW && wasUnwrapped() ? "intro" : "gift";
 }
+// Tape names: if a name doesn't fit its spine or cover on this screen, shrink it a little at a time until it does.
+function titleOverflows(t) {
+  const label = t.closest(".sp-label");
+  if (label) return t.offsetHeight > label.clientHeight - 2 || t.scrollWidth > t.clientWidth + 1;
+  const sl = t.closest(".sleeve");
+  return sl ? (sl.scrollHeight > sl.clientHeight + 1 || t.scrollWidth > t.clientWidth + 1) : false;
+}
+function fitTitles(root) {
+  (root || document).querySelectorAll(".rn-title").forEach(t => {
+    if (!t.getClientRects().length) return;
+    t.style.removeProperty("--fit");
+    let k = 1;
+    for (let i = 0; i < 14 && titleOverflows(t); i++) { k *= .92; t.style.setProperty("--fit", k.toFixed(3)); }
+  });
+}
+function fitView() { const v = $("#view-" + currentView); if (v && (currentView === "library" || currentView === "side")) fitTitles(v); }
+let fitTimer = 0;
+window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitView, 120); });
+window.addEventListener("orientationchange", () => setTimeout(fitView, 350));
+if (document.fonts) {
+  document.fonts.ready.then(fitView);
+  if (document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", fitView);
+}
 function render(st) {
+  if (!$("#homemovie").hidden) { hmResume = false; closeHomeMovie(); }
   let v = st.view;
   if (v === "player" && !state.queue.length) v = "library";
   if (locked() && v !== "help") v = "gift";
@@ -1738,9 +2078,13 @@ function render(st) {
   if (v === "gift") { setupGift(); startWaitMusic(); } else { stopCountdown(); stopWaitMusic(); }
   setFx(v === "side" ? (M.sides[st.side ?? lastTile ?? 0] || {}).fx : v === "player" && state.queue.length ? state.queue[state.pos].side.fx : null);
   if (v === "card") setupCard();
+  if (v === "intro") startClocks(); else stopClocks();
+  if (v === "cake") startCake(); else stopCake();
+  if (v === "party") enterParty(); else leaveParty();
   if (v === "check") renderCheckRows();
   updateMinibar();
   focusDefault(v);
+  if (v === "library" || v === "side") { fitView(); requestAnimationFrame(fitView); }
 }
 function focusDefault(v) {
   const view = $("#view-" + v);
@@ -1757,6 +2101,7 @@ function go(view, extra = {}, opts = {}) {
   render(st);
 }
 function goBack() {
+  if (closeHomeMovie()) return;
   if (currentView === "player" && state.queue.length) { backToSide(); return; }
   if (currentView === "side") { go("library"); return; }
   if (history.state && history.state.depth > 0) history.back();
@@ -1774,11 +2119,12 @@ $("#btn-open").addEventListener("click", () => { primeAudio(); go("library"); })
 const pvTape = () => { const el = $("#pv-tape .tape"); return el && el.getBoundingClientRect().width ? el : null; };
 $("#btn-all").addEventListener("click", () => playQueue(ALL, 0, "all", null, pvTape()));
 $("#btn-again").addEventListener("click", () => playQueue(ALL, 0, "all", null, $("#finale-tape .tape")));
-$("#btn-shuffle").addEventListener("click", () => {
-  const q = ALL.slice();
+function shuffle(list) {
+  const q = list.slice();
   for (let i = q.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [q[i], q[j]] = [q[j], q[i]]; }
-  playQueue(q, 0, "shuffle", null, pvTape());
-});
+  return q;
+}
+$("#btn-shuffle").addEventListener("click", () => playQueue(shuffle(ALL), 0, "shuffle", null, pvTape()));
 
 /* ---------- countdown ---------- */
 function startCountdown() {
@@ -1799,13 +2145,13 @@ function stopCountdown() { clearInterval(countdownTimer); countdownTimer = null;
 
 /* ---------- the birthday card ---------- */
 function cardFrontHTML() {
-  return `<div class="cf"><p class="cf-happy">Happy</p><p class="cf-30">30</p><p class="cf-name">${esc(M.to)}</p><p class="cf-est">Est. ${M.bornYear}</p>` +
+  return `<div class="cf"><p class="cf-happy">Happy</p><p class="cf-30">30</p><p class="cf-name">${esc(FULL)}</p><p class="cf-est">Est. ${M.bornYear}</p>` +
     sticker("cake", "4%", "70%", "24%", -8, 0) + sticker("star", "76%", "5%", "16%", 12, 0) + sticker("heart", "80%", "74%", "13%", 10, 0) + `</div>`;
 }
 $("#card-front").innerHTML = cardFrontHTML();
 $("#env-card").innerHTML = cardFrontHTML();
 $$(".cf-30").forEach(el => el.style.backgroundImage = stripeBg(ALL_COLORS));
-$(".env-to").textContent = M.to;
+$(".env-to").textContent = FULL;
 $(".env-pocket").insertAdjacentHTML("beforeend", `<span class="stamp">${HARP}<span>ÉIRE</span></span><span class="postmark">ÉIRE<br>${esc(M.birthday.slice(8, 10))} XII ${esc(M.birthday.slice(2, 4))}</span>`);
 $("#card-inside").innerHTML = `<div class="cl"><p class="print">From Ireland, with love</p>` +
   (M.introPhoto ? `<figure class="polaroid"><img src="${esc(M.introPhoto)}" alt=""></figure>` :
@@ -2067,7 +2413,7 @@ function setupGift() {
   $("#gift-lede").textContent = shut ? "Your present has arrived, but it can't be opened until your birthday." : "Happy birthday! Your present is ready to open.";
   $("#tag-warn").textContent = shut ? "Do not open till " + bdayTag : "Open me!";
   $("#gift-count").hidden = !shut;
-  $("#btn-unwrap").innerHTML = shut ? "Give it a shake" : ICON.star + "Unwrap it";
+  setBtn($("#btn-unwrap"), "star", shut ? "Give it a shake" : "Unwrap it", shut ? "Not until the 16th" : "Your present");
   $("#gift-hint").textContent = "";
   if (shut) startCountdown(); else stopCountdown();
 }
@@ -2330,7 +2676,7 @@ function endOfQueue() {
   const nxt = state.kind === "side" && s ? M.sides[s.index + 1] : null;
   if (nxt) {
     $("#ov-sideend-text").textContent = `That's the end of side ${s.letter}. Time for the next tape.`;
-    $("#btn-flip").innerHTML = ICON.play + `Play side ${esc(nxt.letter)}`;
+    setBtn($("#btn-flip"), "play", `Play side ${nxt.letter}`, `Flip the tape · ${nxt.label}`);
     $("#btn-flip").onclick = () => { state.queue = nxt.tracks.slice(); state.pos = 0; state.kind = "side"; state.sideIndex = nxt.index; loadCurrent(); };
     $("#ov-sideend").hidden = false;
     if (currentView === "player") $("#btn-flip").focus();
@@ -2375,7 +2721,30 @@ $("#btn-retry").addEventListener("click", loadCurrent);
 $("#btn-play").addEventListener("click", () => { sfx("click"); play(); });
 $("#btn-pause").addEventListener("click", () => { sfx("click"); pause(); });
 $("#btn-next").addEventListener("click", () => { sfx("click"); next(); });
-$("#btn-prev").addEventListener("click", () => { sfx("click"); prev(); });
+(() => {
+  const b = $("#btn-prev");
+  let timer = null, fired = false, viaKey = false;
+  const start = () => { fired = false; clearTimeout(timer); timer = setTimeout(() => { fired = true; pencilTrick(); }, 750); };
+  const stop = () => clearTimeout(timer);
+  b.addEventListener("pointerdown", e => { if (e.button === 0) start(); });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => b.addEventListener(ev, stop));
+  b.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault(); e.stopPropagation();
+    if (!e.repeat) { viaKey = true; start(); }
+  });
+  b.addEventListener("keyup", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault(); stop();
+    if (viaKey && !fired) { sfx("click"); prev(); }
+    viaKey = false; fired = false;
+  });
+  b.addEventListener("click", e => {
+    if (viaKey) return;
+    if (fired) { fired = false; return; }
+    sfx("click"); prev();
+  });
+})();
 $("#mini-toggle").addEventListener("click", () => { sfx("click"); togglePlay(); });
 $("#mini-open").addEventListener("click", () => go("player"));
 function backToSide() {
@@ -2395,9 +2764,16 @@ function renderNowPlaying(t) {
   const where = state.kind === "side" ? `${state.pos + 1} of ${state.queue.length} on side ${s.letter}` : state.kind === "shuffle" ? `Shuffle · ${state.pos + 1} of ${state.queue.length}` : `${state.pos + 1} of ${state.queue.length}`;
   $("#np-side").textContent = `Side ${s.letter} · ${where}`;
   const toSide = $("#btn-to-side");
-  toSide.innerHTML = ICON.back + `Back to ${esc(s.label)}`;
+  setBtn(toSide, "back", `Back to ${s.label}`);
+  tintButtons($("#view-player"), s.color);
   toSide.setAttribute("aria-label", `Back to the ${s.title} tracklist`);
   $("#np-title").textContent = t.title;
+  const ph = $("#np-photo"), hv = $("#btn-homevid");
+  ph.hidden = !t.photo;
+  if (t.photo) { ph.querySelector("img").src = t.photo; ph.querySelector("figcaption").textContent = t.photoCaption || ""; }
+  hv.hidden = !t.video;
+  if (t.video) { setBtn(hv, "film", "Watch the home video", t.videoCaption || "Home movie"); hv.onclick = () => openHomeMovie(t.video, t.videoCaption); }
+  $("#np-media").hidden = !t.photo && !t.video;
   $("#np-artist").textContent = t.artist;
   const fromEl = $("#np-from"), isTv = t.kind === "tv";
   fromEl.hidden = !t.screen;
@@ -2430,7 +2806,7 @@ function renderNowPlaying(t) {
   $("#lcd-time").textContent = "0:00";
   $("#mini-lcd").textContent = `${pad(t.no)} ${t.title} · ${t.artist}`;
   $("#mini-tape").innerHTML = sideTape(s, { cls: "live" });
-  document.title = `${t.title} · 30 Years of ${M.to}`;
+  document.title = `${t.title} · 30 Years of ${FULL}`;
 }
 $("#upnext").addEventListener("click", e => {
   const b = e.target.closest(".jrow"); if (!b) return;
@@ -2448,7 +2824,7 @@ setInterval(() => {
 }, 250);
 
 function updateMinibar() {
-  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale"].includes(currentView);
+  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale", "party", "cake"].includes(currentView);
   $("#minibar").hidden = !show;
   document.body.classList.toggle("has-mini", show);
 }
@@ -2467,15 +2843,16 @@ $("#btn-voice").addEventListener("click", () => {
   if (voice.paused) { if (state.playing) pause(); voice.play().catch(() => {}); }
   else voice.pause();
 });
-voice.addEventListener("play", () => { $("#btn-voice").innerHTML = ICON.pause + "Pause"; });
-voice.addEventListener("pause", () => { $("#btn-voice").innerHTML = ICON.play + "Play"; });
-voice.addEventListener("ended", () => { $("#btn-voice").innerHTML = ICON.play + "Play again"; });
+voice.addEventListener("play", () => setBtn($("#btn-voice"), "pause", "Pause", "Hidden track"));
+voice.addEventListener("pause", () => setBtn($("#btn-voice"), "play", "Play", "Hidden track"));
+voice.addEventListener("ended", () => setBtn($("#btn-voice"), "play", "Play again", "Hidden track"));
 
 /* ---------- remote control and keyboard ---------- */
 function focusables() {
-  const roots = [$("#view-" + currentView)];
-  if (!$("#minibar").hidden) roots.push($("#minibar"));
-  if (!$("#music-chip").hidden) roots.push($("#music-chip"));
+  const hm = $("#homemovie");
+  const roots = hm.hidden ? [$("#view-" + currentView)] : [hm];
+  if (hm.hidden && !$("#minibar").hidden) roots.push($("#minibar"));
+  if (hm.hidden && !$("#music-chip").hidden) roots.push($("#music-chip"));
   const els = [];
   roots.forEach(r => r && els.push(...r.querySelectorAll("button, a[href], [tabindex='0']")));
   return els.filter(el => {
@@ -2527,6 +2904,8 @@ document.addEventListener("keydown", e => {
   if (k === "MediaPlay") { if (state.queue.length) { e.preventDefault(); play(); } return; }
   if (k === "MediaPause") { if (state.queue.length) { e.preventDefault(); pause(); } return; }
   if (k === "MediaTrackNext" || k === "MediaFastForward" || k === "n") { if (state.queue.length) { e.preventDefault(); next(); } return; }
+  if (k === "MediaRewind" && e.repeat) { e.preventDefault(); if (currentView === "player" && Date.now() - mediaRewAt > 900) { mediaRewAt = Infinity; pencilTrick(); } return; }
+  if (k === "MediaRewind") mediaRewAt = Date.now();
   if (k === "MediaTrackPrevious" || k === "MediaRewind" || k === "p") { if (state.queue.length) { e.preventDefault(); prev(); } }
 });
 window.addEventListener("blur", () => setTimeout(() => {
@@ -2534,6 +2913,490 @@ window.addEventListener("blur", () => setTimeout(() => {
     try { $("#btn-play").focus({ preventScroll: true }); } catch (e) {}
   }
 }, 0));
+
+/* ---------- Navan and Sydney: clocks and weather ---------- */
+const HOME = Object.assign({ place: "Navan", tz: "Europe/Dublin", lat: 53.652, lon: -6.681 }, M.home || {});
+const AWAY = Object.assign({ place: "Sydney", tz: "Australia/Sydney", lat: -33.869, lon: 151.209 }, M.away || {});
+const WX_ICON = {
+  sun: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="#ffc94a"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="#ffc94a" stroke-width="2" stroke-linecap="round"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.2a8.8 8.8 0 1 0 5.3 13.1A7.2 7.2 0 0 1 15.5 3.2z" fill="#f3e6b8"/></svg>',
+  cloud: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10.2a4 4 0 0 0 .4-8 5.6 5.6 0 0 0-10.8 1.4A3.3 3.3 0 0 0 7 18.5z" fill="#c9ced6"/></svg>',
+  partly: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.6" fill="#ffc94a"/><path d="M8.5 2v1.6M2 8.5h1.6M3.9 3.9 5 5M13.1 3.9 12 5" stroke="#ffc94a" stroke-width="1.8" stroke-linecap="round"/><path d="M8.5 20h9a3.5 3.5 0 0 0 .3-7 4.9 4.9 0 0 0-9.4 1.2A2.9 2.9 0 0 0 8.5 20z" fill="#d7dbe2"/></svg>',
+  partlyNight: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 2.8a6 6 0 1 0 3.6 8.9 5 5 0 0 1-3.6-8.9z" fill="#f3e6b8"/><path d="M8.5 20h9a3.5 3.5 0 0 0 .3-7 4.9 4.9 0 0 0-9.4 1.2A2.9 2.9 0 0 0 8.5 20z" fill="#c9ced6"/></svg>',
+  fog: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M3 13h18M5 17h14" stroke="#c9ced6" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  drizzle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14.5h10.2a3.6 3.6 0 0 0 .4-7.2 5.2 5.2 0 0 0-10 1.3A3 3 0 0 0 7 14.5z" fill="#b9c0ca"/><circle cx="8.5" cy="18" r="1.1" fill="#8fc3ff"/><circle cx="12.5" cy="19.5" r="1.1" fill="#8fc3ff"/><circle cx="16.3" cy="18" r="1.1" fill="#8fc3ff"/></svg>',
+  rain: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14h10.2a3.6 3.6 0 0 0 .4-7.2 5.2 5.2 0 0 0-10 1.3A3 3 0 0 0 7 14z" fill="#aab2be"/><path d="M8.5 16.5 7.3 20M12.5 16.5 11.3 20M16.5 16.5 15.3 20" stroke="#6fb0ff" stroke-width="2" stroke-linecap="round"/></svg>',
+  snow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14h10.2a3.6 3.6 0 0 0 .4-7.2 5.2 5.2 0 0 0-10 1.3A3 3 0 0 0 7 14z" fill="#c9ced6"/><path d="M8 17.5v3M6.7 19h2.6M12 17v3M10.7 18.5h2.6M16 17.5v3M14.7 19h2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  storm: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 13.5h10.2a3.6 3.6 0 0 0 .4-7.2 5.2 5.2 0 0 0-10 1.3A3 3 0 0 0 7 13.5z" fill="#9aa2ae"/><path d="M12.8 13.5 10 18h3l-1.6 4 4.4-5.6h-3l1.6-2.9z" fill="#ffd34a"/></svg>'
+};
+function wxKind(code, day) {
+  if (code === 0) return { k: day ? "sun" : "moon", word: day ? "sunny" : "clear" };
+  if (code === 1 || code === 2) return { k: day ? "partly" : "partlyNight", word: "bits of sun" };
+  if (code === 3) return { k: "cloud", word: "grey" };
+  if (code === 45 || code === 48) return { k: "fog", word: "foggy" };
+  if (code >= 51 && code <= 57) return { k: "drizzle", word: "drizzling", wet: true };
+  if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82)) return { k: "rain", word: "raining", wet: true };
+  if ((code >= 71 && code <= 77) || code === 85 || code === 86) return { k: "snow", word: "snowing" };
+  if (code >= 95) return { k: "storm", word: "thundery", wet: true };
+  return { k: "cloud", word: "grey" };
+}
+function zoneNow(tz) {
+  try {
+    const o = {};
+    new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "short", day: "numeric", month: "numeric" })
+      .formatToParts(new Date()).forEach(x => { o[x.type] = x.value; });
+    return { h: +o.hour % 24, hh: String(+o.hour % 24).padStart(2, "0"), mm: o.minute, wd: o.weekday, day: +o.day, mon: +o.month };
+  } catch (e) {
+    const d = new Date();
+    return { h: d.getHours(), hh: String(d.getHours()).padStart(2, "0"), mm: String(d.getMinutes()).padStart(2, "0"), wd: d.toLocaleDateString("en-GB", { weekday: "short" }), day: d.getDate(), mon: d.getMonth() + 1 };
+  }
+}
+function zoneOffsetMin(tz) {
+  try {
+    const d = new Date(), s = d.toLocaleString("en-US", { timeZone: tz });
+    return Math.round((new Date(s) - new Date(d.toLocaleString("en-US", { timeZone: "UTC" }))) / 60000);
+  } catch (e) { return 0; }
+}
+function pickLine(map, h) {
+  let best = null;
+  Object.keys(map || {}).filter(k => /^\d+$/.test(k)).map(Number).sort((a, b) => a - b).forEach(k => { if (k <= h) best = map[k]; });
+  return best;
+}
+function kmApart() {
+  const r = Math.PI / 180, a = Math.sin((AWAY.lat - HOME.lat) * r / 2) ** 2 + Math.cos(HOME.lat * r) * Math.cos(AWAY.lat * r) * Math.sin((AWAY.lon - HOME.lon) * r / 2) ** 2;
+  return Math.round(12742 * Math.asin(Math.sqrt(a)) / 1000) * 1000;
+}
+let clockTimer = null, wxTimer = null, wx = { home: null, away: null };
+function flaps(hh, mm) { return `<span class="wc-flaps" aria-hidden="true">${[...hh].map(c => `<span>${c}</span>`).join("")}<span class="colon">:</span>${[...mm].map(c => `<span>${c}</span>`).join("")}</span>`; }
+function clockRow(el, place, p, w, status) {
+  const wxHtml = w ? `<span class="wc-wx" title="${esc(w.word)}">${WX_ICON[w.k] || ""}<span>${w.t}°</span></span>` : `<span class="wc-wx"></span>`;
+  el.innerHTML = `<span class="wc-city">${esc(place)}</span><span class="wc-time">${flaps(p.hh, p.mm)}<small>${esc(p.wd)}</small></span>${wxHtml}<span class="wc-status">${status}</span>`;
+  el.setAttribute("aria-label", `${place}: ${p.hh}:${p.mm}${w ? `, ${w.t} degrees and ${w.word}` : ""}`);
+}
+function drawClocks() {
+  const ph = zoneNow(HOME.tz), pa = zoneNow(AWAY.tz);
+  const weekend = ph.wd === "Sat" || ph.wd === "Sun";
+  const kate = (weekend && ph.h >= 9 && ph.h < 18 && M.kateIs && M.kateIs.weekend) || pickLine(M.kateIs, ph.h) || "thinking of you";
+  const bday = M.birthday ? M.birthday.split("-").map(Number) : null;
+  const isBday = bday && pa.mon === bday[1] && pa.day === bday[2];
+  const meg = (isBday && M.megIs && M.megIs.birthday) || pickLine(M.megIs, pa.h) || "where you are";
+  clockRow($("#wc-home"), HOME.place, ph, wx.home, `<b>${esc(M.from)}</b> is ${esc(kate)}`);
+  clockRow($("#wc-away"), AWAY.place, pa, wx.away, `<b>You</b>: ${esc(meg)}`);
+  const hrs = Math.round((zoneOffsetMin(AWAY.tz) - zoneOffsetMin(HOME.tz)) / 60);
+  $("#wc-route").textContent = `${HOME.place} → ${AWAY.place}`;
+  $("#wc-km").textContent = `${kmApart().toLocaleString("en-IE")} km · ${Math.abs(hrs)} hours ${hrs >= 0 ? "ahead" : "behind"}`;
+  let q = "";
+  if (wx.home && wx.away) {
+    const diff = wx.away.t - wx.home.t;
+    if (wx.home.wet) q = `It's ${wx.home.word} in ${HOME.place}. Of course it is.`;
+    else if (diff >= 8) q = `It's ${diff}° warmer where you are. You're not missing much.`;
+    else if (diff <= -3) q = `It's warmer in ${HOME.place} than ${AWAY.place}. Mark the calendar.`;
+    else q = `Same-ish weather, ${Math.abs(hrs)} hours apart.`;
+  } else q = `You're ${Math.abs(hrs)} hours ${hrs >= 0 ? "ahead" : "behind"}. As always, ${M.from}'s catching up.`;
+  $("#wc-quip").textContent = q;
+}
+function fetchWx(pl) {
+  const u = `https://api.open-meteo.com/v1/forecast?latitude=${pl.lat}&longitude=${pl.lon}&current=temperature_2m,weather_code,is_day&timezone=auto`;
+  return fetch(u).then(r => r.ok ? r.json() : Promise.reject(new Error("weather")))
+    .then(j => Object.assign({ t: Math.round(j.current.temperature_2m) }, wxKind(j.current.weather_code, j.current.is_day === 1)));
+}
+function loadWeather() {
+  if (!window.fetch || window.MIXTAPE_PREVIEW) return;
+  Promise.all([fetchWx(HOME), fetchWx(AWAY)]).then(([h, a]) => { wx.home = h; wx.away = a; drawClocks(); }).catch(() => {});
+}
+function startClocks() {
+  drawClocks();
+  clearInterval(clockTimer); clockTimer = setInterval(drawClocks, 15000);
+  if (!wxTimer) { loadWeather(); wxTimer = setInterval(loadWeather, 20 * 60000); }
+}
+function stopClocks() { clearInterval(clockTimer); clockTimer = null; }
+
+/* ---------- the birthday cake ---------- */
+const CANDLES = 30;
+let cakeLit = [], cakeRaf = 0, cakeLast = 0, blowCarry = 0, cakeDone = false, holdUntil = 0, holdDown = false, holdStart = 0, puffAt = 0;
+let mic = null;
+function buildCake() {
+  const cx = 300, top = 236, rx = 182, ry = 50, bottom = 432;
+  const lower = x => top + ry * Math.sqrt(Math.max(0, 1 - ((x - cx) / rx) ** 2));
+  const drips = [];
+  for (let x = cx - rx; x <= cx + rx + .1; x += 6) drips.push([x, lower(x) + 8 + Math.max(0, Math.sin((x - cx) * .085)) ** 3 * 34 + Math.max(0, Math.sin((x - cx) * .21 + 1)) ** 6 * 16]);
+  const dripPath = `M${cx - rx} ${top} ` + drips.map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`).join(" ") + ` L${cx + rx} ${top} Z`;
+  const cols = ["#e06c8e", "#2e5cb8", "#c8992f", "#2c7a50", "#b3302f", "#f4bccb"];
+  const rows = [{ t: -.62, n: 9, s: .86 }, { t: 0, n: 10, s: .93 }, { t: .62, n: 11, s: 1 }];
+  let i = 0, candles = "";
+  rows.forEach(row => {
+    const y = top + row.t * ry * .78, half = rx * Math.sqrt(1 - (row.t * .78) ** 2) - 24;
+    for (let k = 0; k < row.n; k++) {
+      const x = cx - half + (2 * half) * (k + .5) / row.n + (Math.sin(i * 7.3) * 4);
+      const c = cols[i % cols.length], d = ((i * 37) % 70) / 100;
+      candles += `<g class="candle" data-i="${i}" transform="translate(${x.toFixed(1)} ${(y + 4).toFixed(1)}) scale(${row.s})">
+        <rect x="-5" y="-60" width="10" height="60" rx="2.5" fill="${c}"/>
+        <path d="M-5 -50l10-5v5l-10 5zM-5 -32l10-5v5l-10 5zM-5 -14l10-5v5l-10 5z" fill="#fff" opacity=".55"/>
+        <path d="M0 -60v-7" stroke="#3a2f27" stroke-width="1.8" stroke-linecap="round"/>
+        <g class="flame" style="--d:-${d}s"><circle cx="0" cy="-76" r="17" fill="url(#halo)"/><path d="M0 -92c7 9 8 16 0 23-8-7-7-14 0-23z" fill="url(#flameG)"/><ellipse cx="0" cy="-73" rx="2.4" ry="4" fill="#fff8c8"/></g>
+        <path class="smoke" d="M0 -68c-5-7 5-13 0-20s5-13 0-20" fill="none" stroke="#cfc8c0" stroke-width="2.6" stroke-linecap="round"/>
+      </g>`;
+      i++;
+    }
+  });
+  const sprinkles = Array.from({ length: 46 }, (_, k) => {
+    const a = (k * 137.5) % 360, rr = Math.sqrt(((k * 53) % 100) / 100), x = cx + Math.cos(a * Math.PI / 180) * rx * .88 * rr, y = top + Math.sin(a * Math.PI / 180) * ry * .8 * rr;
+    return `<rect x="${(x - 4).toFixed(1)}" y="${(y - 1.4).toFixed(1)}" width="8" height="2.8" rx="1.4" fill="${cols[k % cols.length]}" transform="rotate(${(k * 47) % 180} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+  }).join("");
+  const name = esc(M.name || M.to);
+  $("#cake").innerHTML = `<defs>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffd27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+      <linearGradient id="flameG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".55" stop-color="#ffb43c"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient>
+      <radialGradient id="cakeGlow"><stop offset="0" stop-color="#ffbe6b" stop-opacity=".45"/><stop offset="1" stop-color="#ffbe6b" stop-opacity="0"/></radialGradient>
+      <linearGradient id="sponge" x1="0" x2="1"><stop offset="0" stop-color="#e9dcc4"/><stop offset=".25" stop-color="#fbf4e6"/><stop offset=".7" stop-color="#f6eddc"/><stop offset="1" stop-color="#ddcdb0"/></linearGradient>
+    </defs>
+    <circle class="cake-glow" cx="300" cy="190" r="300" fill="url(#cakeGlow)"/>
+    <ellipse cx="300" cy="452" rx="262" ry="34" fill="#e7e2d8"/><ellipse cx="300" cy="446" rx="262" ry="34" fill="#f7f3ea"/>
+    <path d="M${cx - rx} ${top}V${bottom}A${rx} ${ry} 0 0 0 ${cx + rx} ${bottom}V${top}Z" fill="url(#sponge)"/>
+    <path d="M${cx - rx} ${bottom - 30}A${rx} ${ry} 0 0 0 ${cx + rx} ${bottom - 30}v14A${rx} ${ry} 0 0 1 ${cx - rx} ${bottom - 16}z" fill="#c8992f" opacity=".85"/>
+    <path d="${dripPath}" fill="#f0a9bd"/>
+    <ellipse cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}" fill="#f4b6c7"/>
+    <ellipse cx="${cx - 40}" cy="${top - 12}" rx="${rx * .55}" ry="${ry * .38}" fill="#fff" opacity=".18"/>
+    ${sprinkles}
+    <text x="${cx}" y="350" text-anchor="middle" font-family="Caveat, 'Gochi Hand', cursive" font-weight="700" font-size="54" fill="#e06c8e">Happy 30th</text>
+    <text x="${cx}" y="398" text-anchor="middle" font-family="Caveat, 'Gochi Hand', cursive" font-weight="700" font-size="44" fill="#2e5cb8">${name}</text>
+    ${candles}`;
+  cakeLit = Array.from({ length: CANDLES }, (_, k) => k);
+  cakeDone = false; blowCarry = 0;
+  $("#cake-actions").hidden = false; $("#cake-done").hidden = true;
+  $("#cake-h").innerHTML = `Make a wish, <span>${esc(M.to)}</span>`;
+  $("#cake-tip").textContent = "Close your eyes, make a wish, then blow.";
+  $("#btn-mic").hidden = !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  setBtn($("#btn-mic"), "mic", "Use the microphone", "Laptop or phone");
+  updateCakeCount();
+}
+function updateCakeCount() {
+  const n = cakeLit.length;
+  $("#cake-count").textContent = n === CANDLES ? `${CANDLES} candles lit` : n ? `${n} still going` : "All out";
+  const g = $("#cake .cake-glow"); if (g) g.style.opacity = String(.15 + .85 * n / CANDLES);
+}
+function blowOut(amount) {
+  if (cakeDone) return;
+  blowCarry += amount;
+  let any = false;
+  while (blowCarry >= 1 && cakeLit.length) {
+    blowCarry -= 1;
+    const i = cakeLit.splice(Math.floor(Math.random() * cakeLit.length), 1)[0];
+    const el = $(`#cake .candle[data-i="${i}"]`); if (el) el.classList.add("out");
+    any = true;
+  }
+  if (any) {
+    updateCakeCount();
+    const now = performance.now();
+    if (now - puffAt > 140 && actx) { puffAt = now; try { noise(.18, x => Math.sin(Math.PI * x) * .9, "bandpass", 700, .22, actx.currentTime); } catch (e) {} }
+  }
+  if (!cakeLit.length) cakeFinished();
+}
+function chime() {
+  if (!actx) return;
+  try {
+    const t = actx.currentTime;
+    [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = "triangle"; o.frequency.value = f;
+      g.gain.setValueAtTime(.0001, t + k * .09); g.gain.exponentialRampToValueAtTime(.22, t + k * .09 + .02); g.gain.exponentialRampToValueAtTime(.0001, t + k * .09 + 1.1);
+      o.connect(g); g.connect(actx.destination); o.start(t + k * .09); o.stop(t + k * .09 + 1.2);
+    });
+  } catch (e) {}
+}
+function cakeFinished() {
+  cakeDone = true; holdDown = false; holdUntil = 0;
+  stopMic();
+  $("#cake").classList.remove("windy");
+  $("#btn-blow").classList.remove("held");
+  setTimeout(() => { burst(); chime(); }, 350);
+  $("#cake-h").textContent = "Wish made!";
+  $("#cake-tip").textContent = "Don't tell anyone what it was. Not even me.";
+  $("#cake-actions").hidden = true; $("#cake-done").hidden = false;
+  setTimeout(() => { try { $("#btn-cake-open").focus({ preventScroll: true }); } catch (e) {} }, 60);
+}
+function cakeLoop(now) {
+  const dt = Math.min(.1, (now - (cakeLast || now)) / 1000); cakeLast = now;
+  let strength = 0;
+  if (holdDown || now < holdUntil) strength = 1;
+  if (mic && mic.an) {
+    mic.an.getFloatTimeDomainData(mic.buf);
+    let sum = 0; for (let k = 0; k < mic.buf.length; k++) sum += mic.buf[k] * mic.buf[k];
+    const rms = Math.sqrt(sum / mic.buf.length);
+    if (now < mic.calUntil) mic.base = Math.max(mic.base, rms);
+    else {
+      const th = Math.min(.24, Math.max(.07, mic.base * 2.4));
+      mic.loud = rms > th ? mic.loud + dt : 0;
+      if (mic.loud > .08) strength = Math.max(strength, Math.min(2.2, .7 + (rms - th) / th));
+    }
+  }
+  $("#cake").classList.toggle("windy", strength > 0 && !cakeDone);
+  if (strength > 0) blowOut(dt * 12 * strength);
+  cakeRaf = requestAnimationFrame(cakeLoop);
+}
+async function startMicBlow() {
+  const b = $("#btn-mic");
+  if (mic) return;
+  try {
+    primeAudio();
+    if (!actx) throw new Error("audio");
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } });
+    const an = actx.createAnalyser(); an.fftSize = 1024;
+    actx.createMediaStreamSource(stream).connect(an);
+    mic = { stream, an, buf: new Float32Array(an.fftSize), base: .02, calUntil: performance.now() + 700, loud: 0 };
+    if (bdayOn && bdayPlayer) { try { bdayPlayer.setVolume(30); } catch (e) {} }
+    setBtn(b, "mic", "Listening…", "Blow at the screen");
+    $("#cake-tip").textContent = "Listening. Take a big breath and blow at the screen.";
+  } catch (e) {
+    b.hidden = true;
+    $("#cake-tip").textContent = "No microphone here, so press and hold Blow instead.";
+    $("#btn-blow").focus({ preventScroll: true });
+  }
+}
+function stopMic() {
+  if (!mic) return;
+  try { mic.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
+  mic = null;
+}
+function startCake() {
+  buildCake();
+  cancelAnimationFrame(cakeRaf); cakeLast = 0;
+  cakeRaf = requestAnimationFrame(cakeLoop);
+}
+function stopCake() {
+  cancelAnimationFrame(cakeRaf); cakeRaf = 0;
+  holdDown = false; holdUntil = 0;
+  stopMic();
+}
+(() => {
+  const b = $("#btn-blow");
+  const down = () => { primeAudio(); holdDown = true; holdStart = performance.now(); b.classList.add("held"); };
+  const up = () => {
+    if (!holdDown) return;
+    holdDown = false; b.classList.remove("held");
+    if (performance.now() - holdStart < 220) blowOut(2.2);
+  };
+  b.addEventListener("pointerdown", e => { if (e.button === 0) { e.preventDefault(); down(); } });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => b.addEventListener(ev, up));
+  b.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault(); e.stopPropagation();
+    primeAudio();
+    if (!e.repeat) { holdStart = performance.now(); blowOut(1.2); }
+    holdUntil = performance.now() + 320;
+    b.classList.add("held");
+  });
+  b.addEventListener("keyup", e => { if (e.key === "Enter" || e.key === " ") { holdUntil = 0; b.classList.remove("held"); } });
+  b.addEventListener("click", e => e.preventDefault());
+  $("#btn-mic").addEventListener("click", startMicBlow);
+  $("#btn-relight").addEventListener("click", () => { buildCake(); $("#btn-blow").focus({ preventScroll: true }); });
+  $("#btn-cake-open").addEventListener("click", () => { primeAudio(); go("library"); });
+})();
+
+/* ---------- the pencil trick ---------- */
+let pencilBusy = false, mediaRewAt = Infinity;
+const PENCIL_SVG = `<svg viewBox="0 0 240 24" aria-hidden="true">
+  <path d="M0 12 22 3.5v17z" fill="#e8c28c"/><path d="M0 12 7.5 9.2v5.6z" fill="#3a3a3c"/>
+  <path d="M22 3.5c2 1.6 2 3.4 0 5 2 1.6 2 3.4 0 5 2 1.6 2 3.4 0 5" fill="none" stroke="#e8c28c" stroke-width="0"/>
+  <rect x="22" y="3.5" width="168" height="17" fill="#f2c230"/><rect x="22" y="3.5" width="168" height="5.2" fill="#f8d95e"/><rect x="22" y="15.3" width="168" height="5.2" fill="#d9a514"/>
+  <text x="70" y="15.6" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="#7a5a08" letter-spacing="1">HB · SISTER SOUND</text>
+  <rect x="190" y="2.5" width="19" height="19" fill="#c7ccd3"/><path d="M194 2.5v19M199.5 2.5v19M205 2.5v19" stroke="#98a0aa" stroke-width="1.2"/>
+  <rect x="207" y="3" width="31" height="18" rx="6" fill="#f08aa0"/></svg>`;
+function pencilTrick() {
+  if (pencilBusy || currentView !== "player") return;
+  const tapeEl = $("#wm-tape .tape");
+  if (!tapeEl) return;
+  const r = tapeEl.getBoundingClientRect();
+  if (!r.width) return;
+  pencilBusy = true;
+  primeAudio();
+  const hx = r.left + r.width * 160 / 400, hy = r.top + r.height * 125 / 256;
+  const L = Math.max(150, r.width * 1.05), H = L * 24 / 240;
+  const pen = document.createElement("div");
+  pen.className = "pencil";
+  pen.innerHTML = PENCIL_SVG;
+  Object.assign(pen.style, { left: hx + "px", top: (hy - H / 2) + "px", width: L + "px" });
+  document.body.appendChild(pen);
+  const ang = -38, out = `rotate(${ang}deg) translateX(${L * .75}px)`, inn = `rotate(${ang}deg) translateX(0)`;
+  const rm = () => { pen.remove(); tapeEl.classList.remove("rewinding"); pencilBusy = false; };
+  if (reduceMotion) { setTimeout(rm, 600); }
+  else {
+    const a1 = pen.animate([{ transform: out, opacity: 0 }, { transform: inn, opacity: 1 }], { duration: 450, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" });
+    a1.onfinish = () => {
+      tapeEl.classList.add("rewinding");
+      if (actx) { try { const t = actx.currentTime; for (let k = 0; k < 34; k++) noise(.014, x => 1 - x, "bandpass", 2600 + (k % 3) * 400, .1, t + k * .05); } catch (e) {} }
+      const a2 = pen.animate([
+        { transform: `rotate(${ang}deg) translate(0, 0)` }, { transform: `rotate(${ang + 4}deg) translate(-3px, 3px)` },
+        { transform: `rotate(${ang}deg) translate(-5px, 0)` }, { transform: `rotate(${ang - 4}deg) translate(-3px, -3px)` }, { transform: `rotate(${ang}deg) translate(0, 0)` }
+      ], { duration: 380, iterations: 4.5 });
+      a2.onfinish = () => {
+        tapeEl.classList.remove("rewinding");
+        const a3 = pen.animate([{ transform: inn, opacity: 1 }, { transform: out, opacity: 0 }], { duration: 420, easing: "ease-in", fill: "forwards" });
+        a3.onfinish = rm;
+      };
+    };
+  }
+  const note = document.createElement("div");
+  note.className = "pencil-note";
+  note.textContent = "The old pencil trick. Rewound by hand, like 1999.";
+  document.body.appendChild(note);
+  const wr = $("#walkman").getBoundingClientRect();
+  Object.assign(note.style, { left: Math.max(8, Math.min(innerWidth - 270, wr.left + wr.width * .5)) + "px", top: Math.max(8, wr.top - 70) + "px" });
+  note.animate([{ opacity: 0, transform: "rotate(-3deg) translateY(8px)" }, { opacity: 1, transform: "rotate(-3deg) translateY(0)", offset: .1 }, { opacity: 1, offset: .85 }, { opacity: 0 }], { duration: 4200, fill: "forwards" }).onfinish = () => note.remove();
+  setTimeout(() => {
+    if (state.queue.length && player && player.seekTo) { try { player.seekTo(0, true); play(); } catch (e) {} }
+  }, reduceMotion ? 300 : 2300);
+}
+
+/* ---------- Guess the Year ---------- */
+const party = { order: [], i: -1, revealed: false, started: false };
+let partyP = null, partyPlayer = null;
+function ensurePartyPlayer() {
+  if (partyP) return partyP;
+  partyP = loadApi().then(() => new Promise(res => {
+    const p = new YT.Player("yt-party", {
+      width: "100%", height: "100%", playerVars: playerVars(),
+      events: {
+        onReady: () => { partyPlayer = p; try { p.getIframe().setAttribute("tabindex", "-1"); } catch (e) {} res(p); },
+        onStateChange: e => { if (e.data === 0 && party.started && !party.revealed) partyReveal(); },
+        onError: () => { if (party.started && !party.revealed) $("#pt-hint").hidden = false, $("#pt-hint").textContent = "This one won't play in here. Guess from the title!"; }
+      }
+    });
+  }));
+  partyP.catch(() => { partyP = null; });
+  return partyP;
+}
+function partyAge(t) {
+  const by = M.bornYear, who = M.to;
+  if (t.year < by) return `Before ${who} was born`;
+  if (t.year === by) return `The year ${who} was born`;
+  const age = t.year - by - 1;
+  return age < 1 ? `${who} was a baby` : `${who} was ${age}`;
+}
+function setTiles(text, on) {
+  const el = $("#pt-year");
+  el.classList.remove("on"); void el.offsetWidth;
+  [...el.children].forEach((sp, k) => { sp.textContent = text[k] || "?"; });
+  if (on) el.classList.add("on");
+}
+function partyIntro() {
+  party.started = false; party.revealed = false;
+  $("#pt-cover").hidden = false; $("#pt-offline").hidden = true;
+  $("#pt-count").textContent = `${N} songs · shuffled`;
+  $("#party-h").textContent = "Guess the Year";
+  $("#pt-artist").textContent = "";
+  setTiles("????", false);
+  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#btn-pt-hint").hidden = true;
+  $("#pt-rules").textContent = `Each song plays with its year hidden. Everyone shouts out a guess. Closest wins a point. No looking it up, and no help from the birthday girl.`;
+  setBtn($("#btn-pt-go"), "play", "Let's play", `${N} songs, shuffled`);
+}
+function partyRound() {
+  const t = party.order[party.i];
+  party.revealed = false;
+  $("#pt-cover").hidden = true;
+  $("#pt-count").textContent = `Song ${party.i + 1} of ${party.order.length}`;
+  $("#party-h").textContent = t.title;
+  $("#pt-artist").textContent = t.artist;
+  $("#pt-card").style.setProperty("--washi", t.side.color);
+  setTiles("????", false);
+  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#pt-rules").textContent = "";
+  $("#btn-pt-hint").hidden = false;
+  setBtn($("#btn-pt-hint"), "star", "Hint", "Which tape?");
+  setBtn($("#btn-pt-go"), "quiz", "Reveal the year", "Everyone guessed?");
+  ensurePartyPlayer().then(p => { $("#pt-offline").hidden = true; if (t.yt) p.loadVideoById(t.yt); }).catch(() => { $("#pt-offline").hidden = false; });
+}
+function partyReveal() {
+  const t = party.order[party.i];
+  party.revealed = true;
+  setTiles(String(t.year), true);
+  sfx("clunk");
+  $("#pt-age").textContent = partyAge(t);
+  $("#pt-hint").hidden = false;
+  $("#pt-hint").style.setProperty("--hint", t.side.color);
+  $("#pt-hint").textContent = `From side ${t.side.letter}: ${t.side.title}`;
+  $("#pt-fact-text").textContent = t.fact || "";
+  $("#pt-fact").hidden = !t.fact;
+  $("#btn-pt-hint").hidden = true;
+  const last = party.i >= party.order.length - 1;
+  setBtn($("#btn-pt-go"), last ? "star" : "next", last ? "Final scores" : "Next song", last ? "That's all of them" : `Song ${party.i + 2} of ${party.order.length}`);
+  $("#btn-pt-go").focus({ preventScroll: true });
+}
+function partyEnd() {
+  party.started = false;
+  try { partyPlayer && partyPlayer.stopVideo(); } catch (e) {}
+  $("#pt-cover").hidden = false;
+  $("#pt-count").textContent = "Game over";
+  $("#party-h").textContent = "That's all of them!";
+  $("#pt-artist").textContent = "Count up the points. Winner picks the next song.";
+  setTiles("3030", true);
+  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#btn-pt-hint").hidden = true;
+  setBtn($("#btn-pt-go"), "play", "Play again", "New shuffle");
+  burst();
+}
+$("#btn-pt-go").addEventListener("click", () => {
+  primeAudio();
+  if (!party.started) { party.order = shuffle(ALL); party.i = 0; party.started = true; partyRound(); return; }
+  if (!party.revealed) { partyReveal(); return; }
+  if (party.i >= party.order.length - 1) { partyEnd(); return; }
+  party.i++; partyRound();
+});
+$("#btn-pt-hint").addEventListener("click", () => {
+  const t = party.order[party.i];
+  $("#pt-hint").hidden = false;
+  $("#pt-hint").style.setProperty("--hint", t.side.color);
+  $("#pt-hint").textContent = `Hint: it's on side ${t.side.letter}, ${t.side.title}.`;
+  $("#btn-pt-hint").hidden = true;
+  $("#btn-pt-go").focus({ preventScroll: true });
+});
+function enterParty() {
+  if (state.playing) pause();
+  stopBirthday();
+  if (!party.started) partyIntro();
+  else if (partyPlayer && !party.revealed) { try { partyPlayer.playVideo(); } catch (e) {} }
+}
+function leaveParty() { if (partyPlayer) { try { partyPlayer.pauseVideo(); } catch (e) {} } }
+
+/* ---------- home photos and videos ---------- */
+let homeP = null, homePlayer = null, hmResume = false;
+function openHomeMovie(src, cap) {
+  if (!src) return;
+  hmResume = state.playing;
+  if (state.playing) pause();
+  stopBirthday();
+  const box = $("#homemovie"), vid = $("#hm-video"), id = ytIdFrom(src);
+  $("#hm-cap").textContent = cap || "";
+  box.hidden = false;
+  document.body.classList.add("hm-open");
+  if (id) {
+    vid.hidden = true; vid.removeAttribute("src");
+    const host = $("#yt-home"); if (host) host.hidden = false;
+    if (!homeP) {
+      homeP = loadApi().then(() => new Promise(res => {
+        const p = new YT.Player("yt-home", { width: "100%", height: "100%", videoId: id, playerVars: playerVars(),
+          events: { onReady: () => { homePlayer = p; res(p); }, onStateChange: e => { if (e.data === 0) $("#btn-hm-close").focus({ preventScroll: true }); } } });
+      }));
+      homeP.catch(() => { homeP = null; $("#hm-cap").textContent = "This video needs the internet to play."; });
+    } else homeP.then(p => p.loadVideoById(id)).catch(() => {});
+  } else {
+    const host = $("#yt-home"); if (host) host.hidden = true;
+    vid.hidden = false; vid.src = src;
+    vid.onended = () => $("#btn-hm-close").focus({ preventScroll: true });
+    vid.play().catch(() => {});
+  }
+  setTimeout(() => { try { $("#btn-hm-close").focus({ preventScroll: true }); } catch (e) {} }, 60);
+}
+function closeHomeMovie() {
+  const box = $("#homemovie");
+  if (box.hidden) return false;
+  try { homePlayer && homePlayer.stopVideo(); } catch (e) {}
+  const vid = $("#hm-video"); try { vid.pause(); } catch (e) {}
+  box.hidden = true;
+  document.body.classList.remove("hm-open");
+  if (hmResume) play();
+  hmResume = false;
+  return true;
+}
+$("#btn-hm-close").addEventListener("click", closeHomeMovie);
 
 /* ---------- confetti ---------- */
 const cv = $("#confetti");
@@ -2581,12 +3444,18 @@ function checkList() {
   const extra = [], wm = M.waitingMusic, bs = M.birthdaySong;
   if (wm && wm.yt) extra.push({ no: "W", label: "♪", title: wm.title + " (present music)", artist: wm.artist || "", yt: wm.yt, side: { letter: "–" } });
   if (bs && bs.yt) extra.push({ no: "B", label: "♪", title: bs.title + " (unwrap song)", artist: bs.artist || "", yt: bs.yt, side: { letter: "–" } });
-  return extra.concat(ALL);
+  const homes = [];
+  M.sides.forEach(sd => {
+    const add = (v, cap, what) => { const id = ytIdFrom(v); if (id) homes.push({ no: "H" + (homes.length + 1), label: "🎞", title: "Home video: " + (cap || what), artist: "", yt: id, where: "side " + sd.letter, side: sd }); };
+    add(sd.video, sd.videoCaption, sd.label);
+    sd.tracks.forEach(t => add(t.video, t.videoCaption, t.title));
+  });
+  return extra.concat(ALL, homes);
 }
 function renderCheckRows() {
   $("#check-rows").innerHTML = checkList().map(t => `<tr>
     <td class="no">${t.label || pad(t.no)}</td>
-    <td><strong>${esc(t.title)}</strong><br><span style="color:var(--ink-soft)">${t.artist ? esc(t.artist) + " · " : ""}${t.label ? "on the present" : "side " + esc(t.side.letter)}</span></td>
+    <td><strong>${esc(t.title)}</strong><br><span style="color:var(--ink-soft)">${t.artist ? esc(t.artist) + " · " : ""}${t.where ? esc(t.where) : t.label ? "on the present" : "side " + esc(t.side.letter)}</span></td>
     <td><a href="${ytWatch(t)}" target="_blank" rel="noopener">${esc(t.yt || "search")}</a></td>
     <td class="status" id="st-${t.no}">Not checked</td></tr>`).join("");
 }
@@ -2637,7 +3506,7 @@ $("#btn-check").addEventListener("click", async () => {
     else { bad.push(t.no); cell.className = "status bad"; cell.textContent = PROBLEMS[result] || "Error " + result; }
   }
   $("#check-summary").textContent = bad.length
-    ? `${ok} of ${list.length} play. Fix ${bad.map(n => n === "W" ? "the present music" : n === "B" ? "the birthday song" : "track " + pad(n)).join(", ")}.`
+    ? `${ok} of ${list.length} play. Fix ${bad.map(n => n === "W" ? "the present music" : n === "B" ? "the birthday song" : String(n)[0] === "H" ? "a home video" : "track " + pad(n)).join(", ")}.`
     : `All ${list.length} play. Ready to send.`;
   checking = false;
   $("#btn-check").disabled = false;
