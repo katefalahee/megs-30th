@@ -86,6 +86,40 @@ window.MIXTAPE = {
 
   footer: "Made in Ireland, for Megan in Australia",
 
+  // Photos from her other birthdays. A quick montage plays straight after she unwraps
+  // the present, and they stay on the rack under "Birthday photos".
+  // To add more: put the file in the photos/birthdays folder and add a line below.
+  // The caption is optional ("" for none). They show in the order listed.
+  birthdayPhotos: [
+    { photo: "photos/birthdays/01.jpg", caption: "1st birthday" },
+    { photo: "photos/birthdays/02.jpg", caption: "2nd birthday" },
+    { photo: "photos/birthdays/03.jpg", caption: "3rd birthday" },
+    { photo: "photos/birthdays/04.jpg", caption: "4th birthday" },
+    { photo: "photos/birthdays/05.jpg", caption: "5th birthday" },
+    { photo: "photos/birthdays/06.jpg", caption: "7th birthday" },
+    { photo: "photos/birthdays/07.jpg", caption: "8th birthday" },
+    { photo: "photos/birthdays/08.jpg", caption: "10th birthday" },
+    { photo: "photos/birthdays/09.jpg", caption: "12th birthday" },
+    { photo: "photos/birthdays/10.jpg", caption: "13th birthday" },
+    { photo: "photos/birthdays/11.jpg", caption: "14th birthday" },
+    { photo: "photos/birthdays/12.jpg", caption: "15th birthday" },
+    { photo: "photos/birthdays/13.jpg", caption: "16th birthday" },
+    { photo: "photos/birthdays/14.jpg", caption: "21st birthday" },
+    { photo: "photos/birthdays/15.jpg", caption: "22nd birthday" },
+    { photo: "photos/birthdays/16.jpg", caption: "23rd birthday" },
+    { photo: "photos/birthdays/17.jpg", caption: "24th birthday" },
+    { photo: "photos/birthdays/18.jpg", caption: "25th birthday" },
+    { photo: "photos/birthdays/19.jpg", caption: "25th birthday" },
+    { photo: "photos/birthdays/20.jpg", caption: "26th birthday" },
+    { photo: "photos/birthdays/21.jpg", caption: "27th birthday" },
+    { photo: "photos/birthdays/22.jpg", caption: "28th birthday" },
+    { photo: "photos/birthdays/23.jpg", caption: "29th birthday" },
+  ],
+
+  // Home photos on songs pop up big as a surprise when the song starts:
+  // "first time" (once per device), "every time" or "never". Tapping a photo always makes it bigger.
+  photoPopUp: "every time",
+
   // The two clocks on the opening screen, with live weather.
   home: { place: "Navan", tz: "Europe/Dublin", lat: 53.652, lon: -6.681 },
   away: { place: "Sydney", tz: "Australia/Sydney", lat: -33.869, lon: 151.209 },
@@ -105,6 +139,7 @@ window.MIXTAPE = {
       blurb: "Where it all started. School discos, butterfly clips, posters on the wall and the songs you knew before you could spell them.",
       tracks: [
         { title: "Wannabe", artist: "Spice Girls", year: 1996, yt: "gJLIiF15wjQ",
+          photo: "photos/spice-girls.jpg", photoCaption: "Spice Girls, head to toe",
           note: "1996 gave the world two icons: the Spice Girls, and you. Thirty years later, both of you still walk into a room and take it over.", // DRAFT
           fact: "Wannabe went to number one in 37 countries and became the biggest-selling debut single of its time." },
         { title: "Reach", artist: "S Club 7", year: 2000, yt: "50kP4S0peAs",
@@ -116,6 +151,7 @@ window.MIXTAPE = {
           note: "Shirt, tie and a whole lot of attitude. Avril made a school uniform look cool.", // DRAFT
           fact: "Avril was only 17 when it came out as her very first single, and it was nominated for Song of the Year at the Grammys." },
         { title: "One for the Radio", artist: "McFly", year: 2008, yt: "hv6cA7NZ2w0", note: "",
+          photo: "photos/the-band.jpg", photoCaption: "The band's first gig",
           fact: "The album it came from, Radio:Active, was given away free with a Sunday newspaper. The single still got to number two." },
         { title: "Sound of the Underground", artist: "Girls Aloud", year: 2002, yt: "V9Wv4SCBiTE", note: "",
           fact: "Girls Aloud were put together on the TV show Popstars: The Rivals, and this was the Christmas number one in 2002. Nadine is from Derry." }
@@ -1058,7 +1094,23 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
 
 /* ---------- home photos and videos ---------- */
 .np-media{display:flex; flex-wrap:wrap; align-items:flex-end; gap:1rem; margin:.3rem 0 .4rem}
-.np-media .np-photo{position:relative; width:min(44%, 10.5rem); transform:rotate(-3deg)}
+.np-media .np-photo{position:relative; width:min(46%, 11rem); transform:rotate(-3deg)}
+.np-media .np-photo img{aspect-ratio:auto; height:auto; max-height:46vh; object-fit:cover; object-position:50% 25%}
+.np-media .np-photo{padding-bottom:.55rem}
+.np-media .np-photo figcaption{position:static; padding:.45rem .2rem 0; font-size:1.2rem; line-height:1.05; text-wrap:balance}
+/* a home photo sits beside your note, like a scrapbook page */
+#np.np-duo{grid-template-columns:minmax(0, 1fr) auto; column-gap:1.1rem}
+#np.np-duo > *{grid-column:1 / -1}
+#np.np-duo > .np-note{grid-column:1; align-self:start}
+#np.np-duo > .np-media{grid-column:2; flex-direction:column; align-items:center; margin:0}
+#np.np-duo .np-photo{width:clamp(8rem, 11.5vw, 11rem); transform:rotate(3deg); margin-top:-.4rem}
+#np.np-duo .np-media .btn{flex:none}
+@media (max-width: 560px){
+  #np.np-duo{grid-template-columns:minmax(0, 1fr)}
+  #np.np-duo > .np-note, #np.np-duo > .np-media{grid-column:1 / -1}
+  #np.np-duo > .np-media{flex-direction:row; align-items:flex-end}
+  #np.np-duo .np-photo{width:min(60%, 13rem); transform:rotate(-3deg)}
+}
 .np-media .btn{flex:1 1 auto; max-width:100%}
 .side-vid{justify-self:start; margin-top:.2rem}
 .jmedia{display:inline-flex; align-items:center; gap:.25rem; font-family:var(--font-machine); font-size:.5rem; letter-spacing:.12em; text-transform:uppercase; color:#7a6c5c}
@@ -1073,6 +1125,58 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
 .hm-cap{margin:0; font-family:var(--font-pen); font-size:1.6rem; color:var(--ink)}
 .hm-cap:empty{display:none}
 body.hm-open{overflow:hidden}
+
+/* ---------- photos: tap to make bigger, and the first-time surprise ---------- */
+.pz{display:block; position:relative; width:100%; padding:0; margin:0; border:0; background:none; cursor:zoom-in; border-radius:2px; color:inherit}
+.pz img{display:block}
+.pz:focus-visible{outline:3px solid var(--lamp); outline-offset:5px}
+.pz-badge{position:absolute; right:.35rem; bottom:.35rem; width:1.75rem; height:1.75rem; border-radius:50%; display:grid; place-items:center;
+  background:rgba(251,247,238,.94); color:#2a231d; box-shadow:0 2px 6px rgba(0,0,0,.35); transition:transform .15s}
+.pz-badge svg{width:58%; height:58%}
+.pz:hover .pz-badge, .pz:focus-visible .pz-badge{transform:scale(1.15)}
+.lightbox{position:fixed; inset:0; z-index:65; display:grid; place-items:center; padding:max(1rem, 3vh) max(16px, 4vw);
+  background:rgba(12,9,7,.84); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); cursor:zoom-out}
+.lb-inner{display:grid; justify-items:center; gap:1rem; max-height:100%}
+.lb-eyebrow{margin:0; color:var(--lamp); font-size:.7rem}
+.lb-eyebrow:empty{display:none}
+.lb-frame{position:relative; margin:0; background:#fbf7ee; padding:clamp(.6rem, 1.5vh, 1.1rem) clamp(.6rem, 1.5vh, 1.1rem) 0; max-width:min(92vw, 64rem);
+  box-shadow:0 30px 70px rgba(0,0,0,.65); transform:rotate(-2deg)}
+.lb-frame::before{content:""; position:absolute; top:-.95rem; left:50%; width:7.5rem; height:1.9rem; transform:translateX(-50%) rotate(3deg); opacity:.88;
+  background:repeating-linear-gradient(45deg, #e06c8e 0 8px, #f4bccb 8px 16px); box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.lb-frame img{display:block; max-width:100%; width:auto; height:auto; max-height:calc(100vh - 15rem); object-fit:contain}
+.lb-frame figcaption{padding:.55rem .6rem .8rem; text-align:center; font-family:var(--font-pen); font-size:clamp(1.5rem, 3.6vh, 2.5rem); line-height:1.05; color:var(--pen)}
+.lb-frame figcaption:empty{padding:0 0 1.6rem}
+.lb-flash{position:fixed; inset:0; background:#fff; opacity:0; pointer-events:none}
+body.lb-open{overflow:hidden}
+
+/* ---------- birthday photo montage ---------- */
+.mt-wrap{display:grid; grid-template-rows:auto minmax(0, 1fr) auto; gap:1rem; width:min(100%, 200vh); min-height:calc(100vh - 2 * var(--pad-y, 2rem)); margin-inline:auto}
+.mt-head{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:.8rem 1.5rem}
+.mt-eyebrow{margin:0 0 .2rem; color:var(--lamp)}
+.mt-eyebrow:empty{display:none}
+#mt-h{margin:0; font-size:clamp(2rem, 4.6vw, 3.8rem); line-height:1; color:var(--ink); text-wrap:balance}
+.mt-actions{justify-content:flex-end}
+.mt-stage{position:relative; min-height:16rem}
+.mt-photo{position:absolute; display:block; padding:.55rem .55rem 0; background:#fbf7ee; border:0; border-radius:2px; cursor:zoom-in;
+  box-shadow:0 18px 34px rgba(0,0,0,.55); transform:rotate(var(--rot, 0deg)) scale(var(--k, 1)); transition:transform .18s ease, box-shadow .18s; transform-origin:50% 50%}
+.mt-photo img{display:block; width:100%; height:auto; background:#ddd}
+.mt-cap{display:block; min-height:1.6rem; padding:.35rem .3rem .45rem; text-align:center; font-family:var(--font-pen); font-size:1.6rem; line-height:1.05; color:var(--pen); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.mt-stage.done .mt-photo:hover, .mt-stage.done .mt-photo:focus-visible{transform:rotate(calc(var(--rot, 0deg) * .3)) scale(calc(var(--k, 1) * 1.1)); z-index:500 !important}
+.mt-photo:focus-visible{outline:none; box-shadow:0 0 0 calc(5px / var(--k, 1)) var(--lamp), 0 18px 34px rgba(0,0,0,.55)}
+.mt-stage:not(.done) .mt-photo{pointer-events:none}
+.mt-tip{margin:0; text-align:center; font-family:var(--font-machine); font-size:.55rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
+.btn-photos .b-ico{width:2.6rem; background:none; box-shadow:none; position:relative}
+.ph-stack{position:relative; display:block; width:2.4rem; height:2rem}
+.ph-stack img{position:absolute; top:50%; left:50%; width:1.35rem; height:1.6rem; object-fit:cover; border:2px solid #fbf7ee; border-bottom-width:5px; box-shadow:0 2px 4px rgba(0,0,0,.35); background:#ddd}
+.ph-stack img:nth-child(1){transform:translate(-95%, -50%) rotate(-14deg)}
+.ph-stack img:nth-child(2){transform:translate(-5%, -55%) rotate(12deg)}
+.ph-stack img:nth-child(3){transform:translate(-50%, -48%) rotate(-2deg)}
+@media (max-width: 560px){
+  .mt-head{align-items:flex-start}
+  .mt-actions{justify-content:flex-start; width:100%}
+  .mt-actions .btn-main{width:100%}
+  .mt-cap{font-size:1.4rem}
+}
 
 /* ambient animation behind each tape */
 #fx{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
@@ -1265,6 +1369,7 @@ main{position:relative; z-index:1}
           <button class="btn btn-main" type="button" id="btn-all" data-autofocus data-icon="play" data-cap="All {n} songs, start to finish">Play everything</button>
           <button class="btn btn-tag" type="button" id="btn-shuffle" data-icon="shuffle" data-cap="Surprise me" style="--acc:#c8992f">Shuffle</button>
           <button class="btn btn-tag btn-card" type="button" data-go="card" data-icon="letter" data-cap="From {from}">Your card</button>
+          <button class="btn btn-tag btn-photos" type="button" data-go="montage" id="btn-photos" data-icon="camera" data-cap="Birthdays gone by" style="--acc:#c8992f">Birthday photos</button>
           <button class="btn btn-tag" type="button" data-go="party" id="btn-party" data-icon="quiz" data-cap="Party game" style="--acc:#2c7a50">Guess the year</button>
           <button class="btn btn-tag" type="button" data-go="bonus" id="btn-bonus" data-icon="star" data-cap="Bonus" style="--acc:#e06c8e" hidden>Hidden track</button>
         </div>
@@ -1400,7 +1505,7 @@ main{position:relative; z-index:1}
         <p class="np-age" id="np-age"></p>
         <div class="np-note" id="np-note" hidden><p class="note-text pen" id="np-note-text"></p><div class="note-foot"><span class="sign" data-sign></span></div></div>
         <div class="np-media" id="np-media" hidden>
-          <figure class="polaroid np-photo" id="np-photo" hidden><img alt=""><figcaption></figcaption></figure>
+          <figure class="polaroid np-photo" id="np-photo" hidden><button class="pz" type="button" aria-label="Make the photo bigger"><img alt=""><span class="pz-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><figcaption></figcaption></figure>
           <button class="btn btn-tag" type="button" id="btn-homevid" style="--acc:#b3302f" hidden></button>
         </div>
         <div class="np-fact" id="np-fact" hidden><p class="print">Liner notes · Did you know?</p><p class="fact-text" id="np-fact-text"></p></div>
@@ -1508,6 +1613,26 @@ main{position:relative; z-index:1}
   </section>
 </main>
 
+<!-- Birthday photo montage -->
+<section class="view" id="view-montage" hidden aria-labelledby="mt-h">
+  <div class="mt-wrap">
+    <header class="mt-head">
+      <div>
+        <p class="print mt-eyebrow" id="mt-eyebrow"></p>
+        <h1 class="marker" id="mt-h"></h1>
+      </div>
+      <div class="actions mt-actions">
+        <button class="btn btn-ghost icon-after" type="button" id="btn-mt-skip" data-icon="next">Skip</button>
+        <button class="btn btn-main" type="button" id="btn-mt-go" hidden></button>
+        <button class="btn btn-tag" type="button" id="btn-mt-replay" style="--acc:#c8992f" hidden></button>
+        <button class="btn btn-ghost" type="button" id="btn-mt-rack" data-go="library" data-icon="tapes" hidden>The rack</button>
+      </div>
+    </header>
+    <div class="mt-stage" id="mt-stage" aria-live="polite"></div>
+    <p class="mt-tip" id="mt-tip" hidden>Pick any photo to see it big.</p>
+  </div>
+</section>
+
 <!-- Guess the Year -->
 <section class="view" id="view-party" hidden aria-labelledby="party-h">
   <div class="party-grid">
@@ -1541,6 +1666,19 @@ main{position:relative; z-index:1}
     </article>
   </div>
 </section>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="lb-flash" id="lb-flash"></div>
+  <div class="lb-inner">
+    <p class="print lb-eyebrow" id="lb-eyebrow"></p>
+    <figure class="lb-frame" id="lb-frame"><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+    <div class="actions lb-actions">
+      <button class="btn btn-ghost" type="button" id="btn-lb-prev" data-icon="prev" hidden>Previous</button>
+      <button class="btn btn-ghost" type="button" id="btn-lb-close" data-icon="back">Back to the song</button>
+      <button class="btn btn-ghost icon-after" type="button" id="btn-lb-next" data-icon="next" hidden>Next</button>
+    </div>
+  </div>
+</div>
 
 <div class="homemovie" id="homemovie" hidden role="dialog" aria-modal="true" aria-labelledby="hm-title">
   <div class="hm-inner">
@@ -1646,6 +1784,7 @@ const ICON = {
   camera: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h2.2l1.5-2h5.6l1.5 2h2.2a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="12.6" r="3.4" fill="none" stroke="currentColor" stroke-width="2.1"/></svg>',
   cake: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16v-6.5A2.5 2.5 0 0 0 17.5 12h-11A2.5 2.5 0 0 0 4 14.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M4 16.5c2 1.4 3.5 1.4 5 0s3.5-1.4 5 0 3.5 1.4 6 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12V8.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 2.5c1.7 1.9 1.7 3.4 0 4.4-1.7-1-1.7-2.5 0-4.4z" fill="currentColor"/></svg>',
   mic: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   quiz: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4a3.6 3.6 0 1 1 5.2 3.2c-1.1.6-1.8 1.4-1.8 2.7v.7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/></svg>'
 };
 // buttons: an icon disc, then a small caption over the label
@@ -1973,7 +2112,7 @@ function renderSide(si, quiet) {
   $("#tracklist").style.setProperty("--washi", s.color);
   const items = s.items || [];
   $("#side-stage").innerHTML = `<div class="case-open" id="side-case"><div class="tray"><i></i><i></i></div><div class="case lid" id="side-lid">${coverHTML(s)}</div></div><div class="stage-tape" id="side-tape">${sideTape(s, { cls: "idle" })}</div>` +
-    (s.photo ? `<figure class="polaroid"><img src="${esc(s.photo)}" alt=""><figcaption>${esc(s.photoCaption || "")}</figcaption></figure>` : "") +
+    (s.photo ? `<figure class="polaroid"><button class="pz" type="button" aria-label="Make the photo bigger"><img src="${esc(s.photo)}" alt=""><span class="pz-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><figcaption>${esc(s.photoCaption || "")}</figcaption></figure>` : "") +
     items.slice(0, 5).map((id, i) => { const [x, y, w, r] = STAGE_SPOTS[i]; return sticker(id, x, y, w, r, .35 + i * .09, i > 2 ? "hide-small" : ""); }).join("");
   $("#side-eyebrow").textContent = `Side ${s.letter} · ${s.years}`;
   $("#side-h").textContent = s.title;
@@ -2063,6 +2202,7 @@ if (document.fonts) {
   if (document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", fitView);
 }
 function render(st) {
+  closeLightbox(true);
   if (!$("#homemovie").hidden) { hmResume = false; closeHomeMovie(); }
   let v = st.view;
   if (v === "player" && !state.queue.length) v = "library";
@@ -2081,6 +2221,7 @@ function render(st) {
   if (v === "intro") startClocks(); else stopClocks();
   if (v === "cake") startCake(); else stopCake();
   if (v === "party") enterParty(); else leaveParty();
+  if (v === "montage") startMontage(st); else stopMontage();
   if (v === "check") renderCheckRows();
   updateMinibar();
   focusDefault(v);
@@ -2101,6 +2242,7 @@ function go(view, extra = {}, opts = {}) {
   render(st);
 }
 function goBack() {
+  if (closeLightbox()) return;
   if (closeHomeMovie()) return;
   if (currentView === "player" && state.queue.length) { backToSide(); return; }
   if (currentView === "side") { go("library"); return; }
@@ -2404,6 +2546,7 @@ function playBirthday() {
 /* ---------- the present ---------- */
 let unwrapping = false, shakeN = 0;
 function setupGift() {
+  preloadBirthdays();
   const g = $("#gift");
   if (g.getAnimations) g.getAnimations({ subtree: true }).forEach(a => a.cancel());
   unwrapping = false;
@@ -2432,7 +2575,7 @@ function unwrap() {
   unwrapping = true;
   stopWaitMusic(true);
   setTimeout(playBirthdaySong, 300);
-  const done = () => { try { localStorage.setItem(UNWRAP_KEY, "1"); } catch (e) {} go("intro", {}, { replace: true }); };
+  const done = () => { try { localStorage.setItem(UNWRAP_KEY, "1"); } catch (e) {} go(BDAY.length ? "montage" : "intro", BDAY.length ? { first: true } : {}, { replace: true }); };
   if (reduceMotion) { done(); return; }
   const g = $("#gift"), q = sel => g.querySelector(sel);
   const opt = (duration, delay, easing = "cubic-bezier(.4,0,.2,1)") => ({ duration, delay, easing, fill: "forwards" });
@@ -2771,9 +2914,11 @@ function renderNowPlaying(t) {
   const ph = $("#np-photo"), hv = $("#btn-homevid");
   ph.hidden = !t.photo;
   if (t.photo) { ph.querySelector("img").src = t.photo; ph.querySelector("figcaption").textContent = t.photoCaption || ""; }
+  if (currentView === "player") maybeSurprise(t); else { clearTimeout(surpriseTimer); surpriseTok++; }
   hv.hidden = !t.video;
   if (t.video) { setBtn(hv, "film", "Watch the home video", t.videoCaption || "Home movie"); hv.onclick = () => openHomeMovie(t.video, t.videoCaption); }
   $("#np-media").hidden = !t.photo && !t.video;
+  $("#np").classList.toggle("np-duo", !!(t.photo && t.note));
   $("#np-artist").textContent = t.artist;
   const fromEl = $("#np-from"), isTv = t.kind === "tv";
   fromEl.hidden = !t.screen;
@@ -2824,7 +2969,7 @@ setInterval(() => {
 }, 250);
 
 function updateMinibar() {
-  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale", "party", "cake"].includes(currentView);
+  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale", "party", "cake", "montage"].includes(currentView);
   $("#minibar").hidden = !show;
   document.body.classList.toggle("has-mini", show);
 }
@@ -2849,10 +2994,11 @@ voice.addEventListener("ended", () => setBtn($("#btn-voice"), "play", "Play agai
 
 /* ---------- remote control and keyboard ---------- */
 function focusables() {
-  const hm = $("#homemovie");
-  const roots = hm.hidden ? [$("#view-" + currentView)] : [hm];
-  if (hm.hidden && !$("#minibar").hidden) roots.push($("#minibar"));
-  if (hm.hidden && !$("#music-chip").hidden) roots.push($("#music-chip"));
+  const lb = $("#lightbox"), hm = $("#homemovie");
+  const modal = !lb.hidden ? lb : !hm.hidden ? hm : null;
+  const roots = modal ? [modal] : [$("#view-" + currentView)];
+  if (!modal && !$("#minibar").hidden) roots.push($("#minibar"));
+  if (!modal && !$("#music-chip").hidden) roots.push($("#music-chip"));
   const els = [];
   roots.forEach(r => r && els.push(...r.querySelectorAll("button, a[href], [tabindex='0']")));
   return els.filter(el => {
@@ -3355,6 +3501,279 @@ function enterParty() {
   else if (partyPlayer && !party.revealed) { try { partyPlayer.playVideo(); } catch (e) {} }
 }
 function leaveParty() { if (partyPlayer) { try { partyPlayer.pauseVideo(); } catch (e) {} } }
+
+/* ---------- photos: make bigger, and the surprise ---------- */
+const SEEN_KEY = "megs-mixtape-photos-seen";
+let lbTimer = null, lbFrom = null, lbPrevFocus = null, surpriseTimer = null, surpriseTok = 0;
+function popMode() { return String(M.photoPopUp || "first time").toLowerCase(); }
+function photoSeen(src) {
+  if (PREVIEW || window.MIXTAPE_PREVIEW || popMode().startsWith("every")) return false;
+  try { return JSON.parse(localStorage.getItem(SEEN_KEY) || "[]").includes(src); } catch (e) { return false; }
+}
+function markPhotoSeen(src) {
+  if (PREVIEW || window.MIXTAPE_PREVIEW) return;
+  try { const a = JSON.parse(localStorage.getItem(SEEN_KEY) || "[]"); if (!a.includes(src)) { a.push(src); localStorage.setItem(SEEN_KEY, JSON.stringify(a)); } } catch (e) {}
+}
+function shutter() {
+  if (!actx) return;
+  try { const t = actx.currentTime; noise(.035, x => 1 - x, "highpass", 3200, .32, t); noise(.06, x => 1 - x, "bandpass", 1600, .22, t + .1); } catch (e) {}
+}
+let lbSet = null, lbIndex = 0;
+function lbShowSetItem() {
+  const it = lbSet[lbIndex];
+  $("#lb-img").src = it.src; $("#lb-img").alt = it.cap || "A photo";
+  $("#lb-cap").textContent = it.cap || "";
+  $("#lb-eyebrow").textContent = `${lbIndex + 1} of ${lbSet.length}`;
+  lbFrom = it.el || null;
+}
+function lbStep(d) {
+  if (!lbSet) return;
+  lbIndex = (lbIndex + d + lbSet.length) % lbSet.length;
+  lbShowSetItem();
+  if (!reduceMotion) $("#lb-frame").animate([{ transform: `translateX(${d * 40}px) rotate(${d * 3 - 2}deg)`, opacity: .3 }, { transform: "rotate(-2deg)", opacity: 1 }], { duration: 300, easing: "cubic-bezier(.2,.8,.3,1)" });
+}
+function openLightbox(src, cap, opts = {}) {
+  const lb = $("#lightbox"), frame = $("#lb-frame"), img = $("#lb-img");
+  clearTimeout(lbTimer);
+  lbPrevFocus = document.activeElement;
+  lbFrom = opts.from || null;
+  lbSet = opts.set && opts.set.length > 1 ? opts.set : null;
+  lbIndex = opts.index || 0;
+  img.src = src; img.alt = cap || "A photo";
+  $("#lb-cap").textContent = cap || "";
+  $("#lb-eyebrow").textContent = opts.surprise ? "Look what I found…" : "";
+  if (lbSet) lbShowSetItem();
+  $("#btn-lb-prev").hidden = $("#btn-lb-next").hidden = !lbSet;
+  setBtn($("#btn-lb-close"), "back", currentView === "player" ? "Back to the song" : "Back", "", false);
+  lb.hidden = false;
+  document.body.classList.add("lb-open");
+  if (!reduceMotion) {
+    lb.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: "ease-out" });
+    if (opts.surprise) {
+      $("#lb-flash").animate([{ opacity: .95 }, { opacity: 0 }], { duration: 700, easing: "ease-out" });
+      frame.animate([
+        { transform: "translateY(-50px) rotate(-16deg) scale(.5)", opacity: 0 },
+        { transform: "translateY(8px) rotate(1.5deg) scale(1.04)", opacity: 1, offset: .7 },
+        { transform: "rotate(-2deg) scale(1)", opacity: 1 }
+      ], { duration: 800, easing: "cubic-bezier(.2,.8,.3,1)" });
+      primeAudio(); shutter();
+    } else if (lbFrom && lbFrom.getClientRects().length) {
+      const fr = frame.getBoundingClientRect(), tr = lbFrom.getBoundingClientRect();
+      const sc = tr.width / fr.width, dx = tr.left + tr.width / 2 - (fr.left + fr.width / 2), dy = tr.top + tr.height / 2 - (fr.top + fr.height / 2);
+      frame.animate([{ transform: `translate(${dx}px, ${dy}px) scale(${sc}) rotate(3deg)` }, { transform: "rotate(-2deg)" }], { duration: 480, easing: "cubic-bezier(.2,.8,.3,1)" });
+    }
+  }
+  setTimeout(() => { try { $("#btn-lb-close").focus({ preventScroll: true }); } catch (e) {} }, 60);
+  if (opts.surprise) lbTimer = setTimeout(() => closeLightbox(), 10000);
+}
+function closeLightbox(instant) {
+  const lb = $("#lightbox");
+  if (lb.hidden) return false;
+  clearTimeout(lbTimer);
+  const frame = $("#lb-frame");
+  const target = lbFrom && lbFrom.getClientRects().length ? lbFrom : null;
+  const back = lbPrevFocus;
+  const done = () => {
+    lb.hidden = true;
+    document.body.classList.remove("lb-open");
+    if (!instant && back && back.isConnected && back.getClientRects().length) { try { back.focus({ preventScroll: true }); } catch (e) {} }
+  };
+  if (instant || reduceMotion) { lb.getAnimations().forEach(a => a.cancel()); done(); return true; }
+  const fade = lb.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 480, easing: "ease-in", fill: "forwards" });
+  fade.onfinish = () => { done(); fade.cancel(); };
+  if (target) {
+    const fr = frame.getBoundingClientRect(), tr = target.getBoundingClientRect();
+    const sc = tr.width / fr.width, dx = tr.left + tr.width / 2 - (fr.left + fr.width / 2), dy = tr.top + tr.height / 2 - (fr.top + fr.height / 2);
+    frame.animate([{ transform: "rotate(-2deg)" }, { transform: `translate(${dx}px, ${dy}px) scale(${sc}) rotate(3deg)` }], { duration: 480, easing: "cubic-bezier(.5,0,.7,1)" });
+  }
+  return true;
+}
+$("#btn-lb-close").addEventListener("click", e => { e.stopPropagation(); closeLightbox(); });
+$("#btn-lb-prev").addEventListener("click", e => { e.stopPropagation(); lbStep(-1); });
+$("#btn-lb-next").addEventListener("click", e => { e.stopPropagation(); lbStep(1); });
+$("#lightbox").addEventListener("click", () => closeLightbox());
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest(".pz");
+  if (!b) return;
+  const fig = b.closest("figure"), img = b.querySelector("img");
+  if (!img || !img.getAttribute("src")) return;
+  sfx("click");
+  if (b.dataset.mt != null) {
+    const set = $$("#mt-stage .mt-photo").map(el => ({ src: el.querySelector("img").getAttribute("src"), cap: el.dataset.cap || "", el }));
+    openLightbox(img.getAttribute("src"), b.dataset.cap || "", { from: b, set, index: +b.dataset.mt });
+    return;
+  }
+  openLightbox(img.getAttribute("src"), fig && fig.querySelector("figcaption") ? fig.querySelector("figcaption").textContent : "", { from: b });
+});
+function maybeSurprise(t) {
+  clearTimeout(surpriseTimer);
+  const tok = ++surpriseTok;
+  if (!t || !t.photo || popMode().startsWith("never") || photoSeen(t.photo)) return;
+  surpriseTimer = setTimeout(() => {
+    if (tok !== surpriseTok || currentView !== "player" || !$("#homemovie").hidden || !$("#lightbox").hidden) return;
+    markPhotoSeen(t.photo);
+    openLightbox(t.photo, t.photoCaption, { surprise: true, from: $("#np-photo .pz") });
+  }, 1700);
+}
+
+/* ---------- birthday photo montage ---------- */
+const BDAY = (M.birthdayPhotos || []).filter(b => b && b.photo);
+let mtRun = 0, mtTimers = [], bdayPreloaded = false;
+function preloadBirthdays() {
+  if (bdayPreloaded) return;
+  bdayPreloaded = true;
+  BDAY.forEach(b => { const im = new Image(); im.src = b.photo; });
+}
+function loadImg(src) {
+  return new Promise(res => {
+    const im = new Image();
+    let done = false;
+    const fin = ok => { if (!done) { done = true; res(ok ? im : null); } };
+    im.onload = () => fin(true); im.onerror = () => fin(false);
+    setTimeout(() => fin(im.complete && im.naturalWidth > 0), 4000);
+    im.src = src;
+  });
+}
+function mtSlots(list, W, H) {
+  const n = list.length, ars = list.map(x => x.ar || .75);
+  const avgAr = ars.reduce((a, b) => a + b, 0) / n;
+  const guess = Math.max(2, Math.min(n, Math.round(Math.sqrt(n * (W / H) / avgAr))));
+  // try a column either side and keep whichever lets the photos be biggest
+  let cols = guess, best = 0;
+  for (let c = Math.max(2, guess - 1); c <= Math.min(n, guess + 1); c++) {
+    const r = Math.ceil(n / c), size = Math.min((H / r) * .74, (W / c) * .86 / avgAr);
+    if (size > best + .5) { best = size; cols = c; }
+  }
+  const rows = Math.ceil(n / cols);
+  const cw = W / cols, ch = H / rows, r = rng(4242);
+  return list.map((x, i) => {
+    const row = Math.floor(i / cols), col = i % cols;
+    const inRow = row === rows - 1 ? n - row * cols : cols;
+    const off = (cols - inRow) * cw / 2;
+    const imgH = Math.min(ch * .74, (cw * .86) / x.ar);
+    return {
+      x: off + cw * (col + .5) + (r() - .5) * cw * .16,
+      y: ch * (row + .5) + (r() - .5) * ch * .12,
+      w: imgH * x.ar, rot: (r() - .5) * 14
+    };
+  });
+}
+function mtClear() { mtTimers.forEach(clearTimeout); mtTimers = []; }
+function mtWait(ms, run) { return new Promise(res => mtTimers.push(setTimeout(() => res(run === mtRun), ms))); }
+function mtSetEnd(first) {
+  if (scrollY > 0 && !$("#mt-stage").classList.contains("done")) scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  $("#mt-stage").classList.add("done");
+  $("#btn-mt-skip").hidden = true;
+  $("#mt-tip").hidden = false;
+  if (first) {
+    $("#mt-eyebrow").textContent = `${BDAY.length} birthdays, give or take`;
+    $("#mt-h").textContent = "Now for number 30!";
+    $("#btn-mt-go").hidden = false; $("#btn-mt-replay").hidden = true; $("#btn-mt-rack").hidden = true;
+    setBtn($("#btn-mt-go"), "play", "On to number 30", "Your birthday mixtape");
+    $("#btn-mt-go").focus({ preventScroll: true });
+  } else {
+    $("#mt-eyebrow").textContent = `${BDAY.length} photos`;
+    $("#mt-h").textContent = "Birthdays gone by";
+    $("#btn-mt-go").hidden = true; $("#btn-mt-replay").hidden = false; $("#btn-mt-rack").hidden = false;
+    setBtn($("#btn-mt-replay"), "play", "Play the montage", "Quick slideshow");
+  }
+}
+async function startMontage(st) {
+  const run = ++mtRun;
+  mtClear();
+  const first = !!(st && st.first), play = first || !!(st && st.play);
+  const stage = $("#mt-stage");
+  stage.innerHTML = ""; stage.classList.remove("done"); stage.style.height = "";
+  $("#mt-tip").hidden = true;
+  $("#btn-mt-skip").hidden = !play;
+  $("#btn-mt-go").hidden = $("#btn-mt-replay").hidden = true;
+  $("#btn-mt-rack").hidden = play;
+  $("#mt-eyebrow").textContent = play ? "Before we start…" : `${BDAY.length} photos`;
+  $("#mt-h").textContent = play ? "A few birthdays gone by" : "Birthdays gone by";
+  if (play) setTimeout(() => { if (run === mtRun) $("#btn-mt-skip").focus({ preventScroll: true }); }, 60);
+  if (!BDAY.length) { mtSetEnd(first); return; }
+  // sizes: measure every photo first (they were preloaded on the present screen)
+  const imgs = await Promise.all(BDAY.map(b => loadImg(b.photo)));
+  if (run !== mtRun) return;
+  const list = BDAY.map((b, i) => ({ src: b.photo, cap: b.caption || "", ar: imgs[i] ? imgs[i].naturalWidth / imgs[i].naturalHeight : .75, ok: !!imgs[i] })).filter(x => x.ok);
+  const wide = innerWidth > 700;
+  let W = stage.clientWidth, H = Math.max(stage.clientHeight, 300);
+  if (!wide) { const cols = 3; H = Math.max(H, Math.ceil(list.length / cols) * (W / cols) * 1.2); stage.style.height = H + "px"; }
+  const slots = mtSlots(list, W, H);
+  const sr = stage.getBoundingClientRect();
+  const visTop = Math.max(sr.top, 0), visBot = Math.min(sr.bottom, innerHeight);
+  const cx = W / 2, cy = (visTop + visBot) / 2 - sr.top;
+  const bigH = Math.min((visBot - visTop) * .9, innerHeight * .74);
+  const els = list.map((x, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "pz mt-photo"; b.dataset.mt = i; b.dataset.cap = x.cap;
+    b.setAttribute("aria-label", x.cap ? `${x.cap}: make it bigger` : "Make the photo bigger");
+    const bw = Math.min(bigH * x.ar, W * .9);
+    b.innerHTML = `<img src="${esc(x.src)}" alt=""><span class="mt-cap">${esc(x.cap)}</span>`;
+    b.style.width = bw + "px";
+    b.style.zIndex = String(10 + i);
+    return { b, x, slot: slots[i], bw };
+  });
+  els.forEach(({ b }) => { b.style.visibility = "hidden"; stage.appendChild(b); });
+  els.forEach(e => {
+    const h = e.b.offsetHeight, k = e.slot.w / e.bw;
+    e.k = k;
+    e.b.style.left = (e.slot.x - e.bw / 2) + "px";
+    e.b.style.top = (e.slot.y - h / 2) + "px";
+    e.b.style.setProperty("--rot", e.slot.rot.toFixed(1) + "deg");
+    e.b.style.setProperty("--k", k.toFixed(4));
+    e.dx = cx - e.slot.x; e.dy = cy - e.slot.y;
+  });
+  if (!play || reduceMotion) {
+    els.forEach((e, i) => {
+      e.b.style.visibility = "";
+      if (!reduceMotion) e.b.animate([{ opacity: 0, transform: `rotate(${e.slot.rot}deg) scale(${e.k * .8})` }, { opacity: 1, transform: `rotate(${e.slot.rot}deg) scale(${e.k})` }], { duration: 320, delay: i * 45, easing: "ease-out", fill: "backwards" });
+    });
+    mtSetEnd(first);
+    return;
+  }
+  // about a second a photo, quicker as the pile grows so it stays a short montage
+  const step = Math.round(Math.max(650, Math.min(1000, 17000 / els.length)));
+  for (let i = 0; i < els.length; i++) {
+    const e = els[i], tilt = (i % 2 ? 1 : -1) * (1.5 + (i % 3));
+    if (!wide) {
+      // on a phone the pile is taller than the screen: follow it down as it grows
+      const r = stage.getBoundingClientRect(), h = e.b.offsetHeight * e.k;
+      const over = r.top + e.slot.y + h / 2 + 24 - innerHeight;
+      const lift = over > 0 ? Math.min(over, Math.max(0, document.documentElement.scrollHeight - innerHeight - scrollY)) : 0;
+      if (lift > 0) scrollBy({ top: lift, behavior: "smooth" });
+      const top = r.top - lift, vt = Math.max(top, 0), vb = Math.min(top + r.height, innerHeight);
+      e.dy = (vt + vb) / 2 - top - e.slot.y;
+    }
+    e.b.style.visibility = "";
+    const big = `translate(${e.dx}px, ${e.dy}px) rotate(${tilt}deg) scale(1)`;
+    e.b.animate([
+      { transform: `translate(${e.dx}px, ${e.dy + 30}px) rotate(${tilt * 3}deg) scale(.7)`, opacity: 0 },
+      { transform: big, opacity: 1, offset: .28 },
+      { transform: `translate(${e.dx}px, ${e.dy}px) rotate(${tilt}deg) scale(1.035)`, offset: .66 },
+      { transform: `rotate(${e.slot.rot}deg) scale(${e.k})` }
+    ], { duration: 1500, easing: "cubic-bezier(.3,.7,.3,1)" });
+    if (i === 0) { primeAudio(); shutter(); }
+    if (!(await mtWait(i === els.length - 1 ? 1500 : step, run))) return;
+  }
+  mtSetEnd(first);
+}
+function skipMontage() {
+  const st = { first: !!(history.state && history.state.first) };
+  mtRun++; mtClear();
+  $$("#mt-stage .mt-photo").forEach(b => { b.getAnimations().forEach(a => a.finish()); b.style.visibility = ""; });
+  mtSetEnd(st.first);
+}
+function stopMontage() { mtRun++; mtClear(); }
+$("#btn-mt-skip").addEventListener("click", skipMontage);
+$("#btn-mt-go").addEventListener("click", () => { primeAudio(); go("intro", {}, { replace: true }); });
+$("#btn-mt-replay").addEventListener("click", () => startMontage({ play: true }));
+(() => {
+  const b = $("#btn-photos");
+  if (!BDAY.length) { b.hidden = true; return; }
+  setBtn(b, null, "Birthday photos", `${BDAY.length} birthdays gone by`);
+  b.insertAdjacentHTML("afterbegin", `<span class="b-ico"><span class="ph-stack">${BDAY.slice(0, 3).map(x => `<img src="${esc(x.photo)}" alt="" loading="lazy">`).join("")}</span></span>`);
+})();
 
 /* ---------- home photos and videos ---------- */
 let homeP = null, homePlayer = null, hmResume = false;
