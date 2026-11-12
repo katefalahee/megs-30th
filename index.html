@@ -44,6 +44,9 @@
    shell / paper / stripes / color   the tape and page colours
    photo / photoCaption / video / videoCaption   a home photo or home video
             for the whole tape (same rules as for songs)
+   bonus    optional hidden track: a song with the same fields as above. It sits
+            under a line at the bottom of that tape's list, plays after the
+            tape's last song, and isn't counted in the 30.
 
    Handy links once it's live (add these to the end of your site link):
      ?check    plays every song for a second, muted, and reports any
@@ -91,31 +94,32 @@ window.MIXTAPE = {
   // To add more: put the file in the photos/birthdays folder and add a line below, in age order.
   //   age:  how old she turned. Shows on a little "8 today" badge, with the year in pencil.
   //   note: the handwritten line under the photo ("" for none).
-  albumNote: "A few of your birthdays, from the very first one. Have a flick through, then go and make it thirty.", // DRAFT
+  albumNote: "A few of your birthdays, from the very first one. Pour yourself a Prosecco and have a flick through.",
+  albumLastNote: "Can't wait to see this one. The Prosecco's on me.",  // under the empty space for number 30
   birthdayPhotos: [
-    { photo: "photos/birthdays/01.jpg", age: 1,  note: "Bib says Monday. Face says \"who are all these people?\"" }, // DRAFT
-    { photo: "photos/birthdays/02.jpg", age: 2,  note: "Party hat, big bow, badge. Fully accessorised at two." }, // DRAFT
-    { photo: "photos/birthdays/03.jpg", age: 3,  note: "Already side-eyeing the cake. Ate it anyway." }, // DRAFT
-    { photo: "photos/birthdays/04.jpg", age: 4,  note: "It's written on the cake, so it's official." }, // DRAFT
-    { photo: "photos/birthdays/05.jpg", age: 5,  note: "Crowned queen of the party. The queen was not amused." }, // DRAFT
-    { photo: "photos/birthdays/06.jpg", age: 7,  note: "Full puff. The little one is taking notes." }, // DRAFT
-    { photo: "photos/birthdays/07.jpg", age: 8,  note: "Eight fingers. Zero chill." }, // DRAFT
-    { photo: "photos/birthdays/08.jpg", age: 10, note: "Double figures, and trusted with the big knife." }, // DRAFT
-    { photo: "photos/birthdays/09.jpg", age: 12, note: "Twelve candles, one big breath." }, // DRAFT
-    { photo: "photos/birthdays/10.jpg", age: 13, note: "Official teenager. It says so on the badge." }, // DRAFT
-    { photo: "photos/birthdays/11.jpg", age: 14, note: "Dressing gown birthdays are the best birthdays." }, // DRAFT
-    { photo: "photos/birthdays/12.jpg", age: 15, note: "Sleepover rules: pyjamas on, Smarties on top." }, // DRAFT
-    { photo: "photos/birthdays/13.jpg", age: 16, note: "Sweet sixteen. Pulling faces since 1996." }, // DRAFT
-    { photo: "photos/birthdays/14.jpg", age: 21, note: "Twenty-one candles versus one Megan. No contest." }, // DRAFT
-    { photo: "photos/birthdays/15.jpg", age: 22, note: "Eyes shut, wish loading…" }, // DRAFT
-    { photo: "photos/birthdays/16.jpg", age: 23, note: "Christmas pyjamas count as birthday pyjamas." }, // DRAFT
-    { photo: "photos/birthdays/17.jpg", age: 24, note: "Mid-speech. The candles waited patiently." }, // DRAFT
-    { photo: "photos/birthdays/18.jpg", age: 25, note: "A quarter of a century. The balloons did the maths." }, // DRAFT
-    { photo: "photos/birthdays/19.jpg", age: 25, note: "The other 25th: party of one, bubbles for one." }, // DRAFT
-    { photo: "photos/birthdays/20.jpg", age: 26, note: "Party hats, pizza and a Christmas tree. Peak December birthday." }, // DRAFT
-    { photo: "photos/birthdays/21.jpg", age: 27, note: "That face when everyone starts singing." }, // DRAFT
-    { photo: "photos/birthdays/22.jpg", age: 28, note: "Holding the cake like a trophy. Rightly so." }, // DRAFT
-    { photo: "photos/birthdays/23.jpg", age: 29, note: "Tayto and Barry's, opened in shorts. Home, special delivery." }, // DRAFT
+    { photo: "photos/birthdays/01.jpg", age: 1,  note: "Your very first birthday, and one candle all to yourself." },
+    { photo: "photos/birthdays/02.jpg", age: 2,  note: "Two, in your good tartan dress. Always destined for Scotland." },
+    { photo: "photos/birthdays/03.jpg", age: 3,  note: "Three. I've definitely seen you pull that face many times since." },
+    { photo: "photos/birthdays/04.jpg", age: 4,  note: "Four today. It said so on the cake." },
+    { photo: "photos/birthdays/05.jpg", age: 5,  note: "Five, in a tiara, with a full house around the table." },
+    { photo: "photos/birthdays/06.jpg", age: 7,  note: "Seven. Quick! Before Aileen gets there first!" },
+    { photo: "photos/birthdays/07.jpg", age: 8,  note: "Eight! Just in case anyone wasn't sure." },
+    { photo: "photos/birthdays/08.jpg", age: 10, note: "Double figures. Definitely wouldn't trust you with that knife." },
+    { photo: "photos/birthdays/09.jpg", age: 12, note: "Twelve candles, one big breath." },
+    { photo: "photos/birthdays/10.jpg", age: 13, note: "Thirteen. Officially a teenager, and couldn't look happier." },
+    { photo: "photos/birthdays/11.jpg", age: 14, note: "Fourteen, when sleep-ins meant presents were opened in pyjamas." },
+    { photo: "photos/birthdays/12.jpg", age: 15, note: "Fifteen. Chocolate cake, Smarties and a pyjama party." },
+    { photo: "photos/birthdays/13.jpg", age: 16, note: "Sweet sixteen, the tame version." },
+    { photo: "photos/birthdays/14.jpg", age: 21, note: "Twenty-one! Big breath, big wish." },
+    { photo: "photos/birthdays/15.jpg", age: 22, note: "Twenty-two. Eyes closed, wish made." },
+    { photo: "photos/birthdays/16.jpg", age: 23, note: "Twenty-three, cosy in the giraffe Christmas pyjamas." },
+    { photo: "photos/birthdays/17.jpg", age: 24, note: "Twenty-four. Mam and Dad, always cheering you on." },
+    { photo: "photos/birthdays/18.jpg", age: 25, note: "Twenty-five in Edinburgh, with the girls and the big balloons." },
+    { photo: "photos/birthdays/19.jpg", age: 25, note: "Then home, quarantined in Mam and Dad's room. I brought the Prosecco." },
+    { photo: "photos/birthdays/20.jpg", age: 26, note: "Twenty-six. Party hats, pizza and the Christmas tree up." },
+    { photo: "photos/birthdays/21.jpg", age: 27, note: "Twenty-seven, and that smile when the cake came out." },
+    { photo: "photos/birthdays/22.jpg", age: 28, note: "Twenty-eight, and your first birthday in Oz, away from home." },
+    { photo: "photos/birthdays/23.jpg", age: 29, note: "Twenty-nine, with a box of home: Tayto, Barry's and fudge." },
   ],
 
   // Home photos on songs pop up big as a surprise when the song starts:
@@ -138,7 +142,7 @@ window.MIXTAPE = {
       items: ["butterfly", "tie", "platforms", "vpet", "gelpens", "mic"],
       color: "#e06c8e", shell: "#e06c8e", paper: "#f6efe0", stripes: ["#e06c8e", "#f4bccb"],
       photo: "", photoCaption: "",
-      blurb: "Where it all started. School discos, butterfly clips, posters on the wall and the songs you knew before you could spell them.",
+      blurb: "Where it all started. School discos, butterfly clips, Groovy Chick on everything and the songs you knew before you could spell them.",
       tracks: [
         { title: "Wannabe", artist: "Spice Girls", year: 1996, yt: "gJLIiF15wjQ",
           photo: "photos/spice-girls.jpg", photoCaption: "Spice Girls, head to toe",
@@ -165,7 +169,7 @@ window.MIXTAPE = {
       items: ["clapper", "popcorn", "couch", "scooter", "espresso", "basketball"],
       color: "#b3302f", shell: "#b3302f", paper: "#f6efe0", stripes: ["#b3302f", "#e9b44c"],
       photo: "", photoCaption: "",
-      blurb: "The films and shows we lived through, from East High to Stars Hollow to Central Perk. Popcorn optional, singing along compulsory.",
+      blurb: "The films and shows we lived through, from Hogwarts to East High to Stars Hollow to Central Perk. Popcorn optional, singing along compulsory.",
       tracks: [
         { title: "Breaking Free", artist: "High School Musical cast", year: 2006, yt: "0qj67KE5VXI",
           screen: "High School Musical", screenYear: "2006", kind: "film",
@@ -177,7 +181,7 @@ window.MIXTAPE = {
           fact: "Hilary Duff plays two parts in the film: Lizzie, and the Italian pop star Isabella." },
         { title: "Where You Lead", artist: "Carole King & Louise Goffin", year: 2000, yt: "SNC6kQ6z-8E",
           screen: "Gilmore Girls", screenYear: "2000–2007", kind: "tv",
-          note: "Where you lead, I will follow. Even all the way to Australia.", // DRAFT
+          note: "Your teenage years were spent in Stars Hollow. Where you lead, I will follow, even all the way to Australia.", // DRAFT
           fact: "Carole King re-recorded it as the Gilmore Girls theme with her own daughter, Louise Goffin. A mother-daughter duet for a mother-daughter show." },
         { title: "Mamma Mia", artist: "Meryl Streep & the Mamma Mia! cast", year: 2008, yt: "MFKqiFG6HVs",
           screen: "Mamma Mia!", screenYear: "2008", kind: "film",
@@ -203,7 +207,8 @@ window.MIXTAPE = {
         { title: "It's All Coming Back to Me Now", artist: "Céline Dion", year: 1996, yt: "j8fHNdrZTSI",
           note: "One of your icons. Pure drama from the first piano note to the last. Full performance required, wind machine optional.", // DRAFT
           fact: "Written by Jim Steinman, the man behind Meat Loaf's biggest hits. It came out in 1996, the year you were born." },
-        { title: "You Belong With Me", artist: "Taylor Swift", year: 2009, yt: "VuNIsY6JdUw", note: "",
+        { title: "You Belong With Me", artist: "Taylor Swift", year: 2009, yt: "VuNIsY6JdUw",
+          note: "Peak MSN Messenger era. This was in someone's \"now playing\", guaranteed.", // DRAFT
           fact: "Taylor plays both girls in the video: the girl next door and the mean girlfriend." },
         { title: "Dancing Queen", artist: "ABBA", year: 1976, yt: "xFrGuyw1V8s",
           note: "Twenty years before you were born, and still the first song on at every party.", // DRAFT
@@ -245,9 +250,9 @@ window.MIXTAPE = {
       ]
     },
     {
-      letter: "E", label: "Turning 30", title: "The One Where I Turned 30", years: "2025, turning 30",
+      letter: "E", label: "Turning 30", title: "The One Where I Turned 30", years: "2025–2026, turning 30",
       pen: "type", ink: "#2b2420", cover: "gold", fx: "bubbles",
-      items: ["balloons", "wine", "ringbox", "midnightsun", "cheers", "cake"],
+      items: ["balloons", "wine", "cheeseboard", "ringbox", "midnightsun", "cheers"],
       color: "#c8992f", shell: "#1d1915", paper: "#f6efe0", stripes: ["#c8992f", "#ead08a"],
       photo: "", photoCaption: "", showAges: false,
       blurb: "The soundtrack to turning 30. New songs, new chapter, same you.",
@@ -258,17 +263,20 @@ window.MIXTAPE = {
         { title: "Where Is My Husband!", artist: "RAYE", year: 2025, yt: "rK5TyISxZ_M", note: "",
           fact: "In 2024 RAYE won six BRIT Awards in one night, more than anyone ever had." },
         { title: "Sally, When the Wine Runs Out", artist: "Role Model", year: 2025, yt: "ahMJnxdDCFY",
-          note: "Top up the glass. It's your birthday.", // DRAFT
+          note: "And when the wine runs out, there's always the Prosecco.", // DRAFT
           fact: "Role Model is the stage name of Tucker Pillsbury. He teased this song on TikTok after the 2025 Super Bowl and it went viral." },
         { title: "Midnight Sun", artist: "Zara Larsson", year: 2025, yt: "uvY8fdgezLQ",
-          note: "A summer birthday for once. Australia suits you.", // DRAFT
+          note: "A summer birthday for once. A cheese board, a cold glass and the sun still out. Australia suits you.", // DRAFT
           fact: "Zara won Sweden's Got Talent when she was 10. Midnight Sun became her biggest solo hit in America and got her a Grammy nomination." },
         { title: "The Sun Will Never Settle", artist: "Kingfishr", year: 2025, yt: "qIkN02ZS2K8", note: "",
           fact: "The Limerick trio's second Irish number one, after Killeagh, which spent 17 weeks at the top." },
-        { title: "Die on This Hill", artist: "Sienna Spiro", year: 2025, yt: "pxC9NhXv_1M",
+        { title: "Stop the Wedding!", artist: "Ashe", year: 2026, yt: "DLV8FpyxZPQ",
           note: "Thirty years down and the best bits are still to come. Happy birthday, Meg. I love you.", // DRAFT
-          fact: "Sienna came up with the first verse while she was trying to learn the piano part of Bohemian Rhapsody." }
-      ]
+          fact: "Ashe got the idea on her own wedding day in 2025, thinking about how different it felt to her first wedding at 23. That first marriage gave her the hit that started her career, Moral of the Story." }
+      ],
+      bonus: { title: "I Drink Wine", artist: "Adele", year: 2021, yt: "jDvYDzFOK9A",
+        note: "P.S. Adele's album is called 30, you're 30, and we drink wine. It had to go on somewhere. Pour a glass.", // DRAFT
+        fact: "Adele first wrote it as a 15-minute song. Her label told her no radio station would play that, so it came down to six minutes 16." }
     }
   ]
 };
@@ -489,6 +497,9 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .jrow:focus-visible{outline:none}
 .jrow:focus-visible::before{background:rgba(255,229,48,.88)}
 .jno{font-size:1.3rem; color:var(--pencil)}
+.jbonus-line{display:flex; align-items:center; gap:.7rem; margin:.5rem 0 .1rem; font-family:var(--font-gel); font-size:1.05rem; color:var(--pencil); list-style:none}
+.jbonus-line::before, .jbonus-line::after{content:""; flex:1; border-top:2px dashed currentColor; opacity:.45}
+.jbonus .jno{font-size:1.5rem; font-weight:700}
 .jtext{min-width:0; font-size:1.6rem; line-height:1.05; text-shadow:0 0 .6px rgba(28,42,99,.4)}
 .jtitle{font-weight:700}
 .jartist{font-weight:500; opacity:.8}
@@ -1723,6 +1734,11 @@ M.sides.forEach((side, si) => {
   side.index = si;
   side.tracks.forEach(t => { t.yt = ytIdFrom(t.yt) || t.yt; t.side = side; t.no = ALL.length + 1; ALL.push(t); });
 });
+// hidden tracks: not part of the 30, they play after their tape's last song
+const BONUS = [];
+M.sides.forEach(side => { const b = side.bonus; if (b && b.title) { b.yt = ytIdFrom(b.yt) || b.yt; b.side = side; b.bonus = true; b.no = 900 + BONUS.length; BONUS.push(b); } });
+const sideQueue = s => s.bonus && s.bonus.bonus ? s.tracks.concat([s.bonus]) : s.tracks;
+const EVERYTHING = ALL.concat(BONUS);
 [M.waitingMusic, M.birthdaySong].forEach(m => { if (m && m.yt) m.yt = ytIdFrom(m.yt) || m.yt; });
 const N = ALL.length;
 const ALL_COLORS = M.sides.map(s => s.color);
@@ -1853,6 +1869,7 @@ const STICKERS = {
   // F: the next 30
   balloons: `<path class="thin" d="M30 76C30 86 42 88 47 98M70 76C70 86 58 88 53 98" fill="none"/><text class="digit" x="30" y="74" text-anchor="middle" font-size="66" fill="#f2c94c">3</text><text class="digit" x="70" y="74" text-anchor="middle" font-size="66" fill="#f2c94c">0</text>${sparkle(88, 12, 8, "#fff")}`,
   cake: `<ellipse cx="50" cy="92" rx="42" ry="5" fill="#e9eef3"/><rect x="14" y="56" width="72" height="34" rx="6" fill="#ffd1dc"/><rect x="25" y="32" width="50" height="26" rx="6" fill="#fff4e8"/><g class="thin" fill="#6fb8ff"><rect x="33" y="16" width="5" height="16"/><rect x="47.5" y="14" width="5" height="18"/><rect x="62" y="16" width="5" height="16"/></g><g class="ns" fill="#ffb347"><path d="M35.5 4c-3 4-3 8 0 9 3-1 3-5 0-9z"/><path d="M50 2c-3 4-3 8 0 9 3-1 3-5 0-9z"/><path d="M64.5 4c-3 4-3 8 0 9 3-1 3-5 0-9z"/></g><g class="ns"><rect x="24" y="68" width="6" height="3" rx="1" fill="#5aa2ff" transform="rotate(20 27 69)"/><rect x="44" y="76" width="6" height="3" rx="1" fill="#ffd23f" transform="rotate(-25 47 77)"/><rect x="64" y="66" width="6" height="3" rx="1" fill="#4cc27a" transform="rotate(35 67 67)"/><rect x="72" y="80" width="6" height="3" rx="1" fill="#ff7f9b"/></g>`,
+  cheeseboard: `<rect x="5" y="40" width="80" height="46" rx="9" fill="#c98d4e"/><rect x="81" y="54" width="15" height="18" rx="6" fill="#c98d4e"/><circle class="ns" cx="90" cy="63" r="2.6" fill="#6e4421"/><g class="ns" fill="rgba(110,64,26,.28)"><rect x="12" y="49" width="38" height="1.8" rx="1"/><rect x="40" y="79" width="36" height="1.8" rx="1"/></g><path d="M13 67 L43 55 L46 66 Z" fill="#ffe58a"/><path d="M13 67 L46 66 L46 78 L13 79 Z" fill="#f7c948"/><g class="ns" fill="#dca234"><circle cx="24" cy="73" r="2.2"/><circle cx="36" cy="72" r="1.6"/><circle cx="40" cy="62" r="1.5"/></g><circle cx="63" cy="57" r="12" fill="#fff8e6"/><path class="thin" d="M63 57 L75 57 A12 12 0 0 0 70 47 Z" fill="#f4e2ad"/><circle cx="70" cy="76" r="7" fill="#c0393b"/><circle cx="80" cy="71" r="6.5" fill="#c0393b"/><g class="ns" fill="#f6c7b8"><circle cx="68" cy="74" r="1.3"/><circle cx="72" cy="78" r="1.1"/><circle cx="79" cy="69" r="1.2"/><circle cx="82" cy="73" r="1"/></g><rect x="47" y="72" width="13" height="13" rx="2" fill="#e8c27a" transform="rotate(-10 53 78)"/><g fill="#7b3f8c"><circle cx="22" cy="36" r="5.6"/><circle cx="31" cy="34" r="5.6"/><circle cx="26" cy="44" r="5.6"/><circle cx="35" cy="42" r="5.6"/><circle cx="30" cy="52" r="5"/></g><path d="M27 29 l5 -7" fill="none"/><path class="thin" d="M32 23 c4 -3 9 -2 11 1 c-4 3 -8 2 -11 -1z" fill="#6aa84f"/>`,
   cheers: `<g transform="rotate(-14 34 60)"><path d="M24 14H44L42 44C41 52 37 56 34 56C31 56 27 52 26 44Z" fill="#fff6d1"/><path class="ns" d="M26.5 26H41.5L40.5 44C39.5 50 37 53 34 53C31 53 28.5 50 27.5 44Z" fill="#f6d36b"/><line x1="34" y1="56" x2="34" y2="84"/><line x1="25" y1="86" x2="43" y2="86"/></g><g transform="rotate(14 66 60)"><path d="M56 14H76L74 44C73 52 69 56 66 56C63 56 59 52 58 44Z" fill="#fff6d1"/><path class="ns" d="M58.5 26H73.5L72.5 44C71.5 50 69 53 66 53C63 53 60.5 50 59.5 44Z" fill="#f6d36b"/><line x1="66" y1="56" x2="66" y2="84"/><line x1="57" y1="86" x2="75" y2="86"/></g>${sparkle(50, 8, 9, "#ffd23f")}<g class="ns" fill="#fff"><circle cx="33" cy="36" r="1.6"/><circle cx="36" cy="44" r="1.2"/><circle cx="67" cy="38" r="1.6"/></g>`,
   gift: `<rect x="18" y="40" width="64" height="52" rx="4" fill="#8f6cff"/><rect x="14" y="30" width="72" height="14" rx="3" fill="#a88bff"/><rect x="45" y="30" width="10" height="62" fill="#ffd23f"/><path d="M50 30C40 12 22 16 28 27C32 34 44 32 50 30Z" fill="#ffd23f"/><path d="M50 30C60 12 78 16 72 27C68 34 56 32 50 30Z" fill="#ffd23f"/><path class="hl" d="M24 50v14"/>`
 };
@@ -2089,7 +2106,7 @@ function trackRow(t, attrs, withMeta) {
   const media = (t.photo ? `<span class="jmedia">${ICON.camera}photo</span>` : "") + (t.video ? `<span class="jmedia">${ICON.film}home video</span>` : "");
   const meta = withMeta ? `<span class="jmeta">${a ? `<span class="jage">${a.line}</span>` : ""}${t.note ? `<span class="jheart">♥ note</span>` : ""}${media}</span>` : "";
   return `<li><button class="jrow${state.queue.length && state.queue[state.pos] === t ? " is-now" : ""}" type="button" ${attrs}>
-    <span class="jno">${t.no}.</span>
+    <span class="jno">${t.bonus ? "+" : t.no + "."}</span>
     <span class="jtext"><span class="jtitle">${esc(t.title)}</span> <span class="jartist">– ${esc(t.artist)}</span>${fromLine(t)}</span>${meta}
   </button></li>`;
 }
@@ -2110,7 +2127,7 @@ function renderSide(si, quiet) {
   sv.hidden = !s.video;
   if (s.video) { setBtn(sv, "film", "Watch the home video", s.videoCaption || "Home movie"); sv.onclick = () => openHomeMovie(s.video, s.videoCaption); }
   tintButtons($("#view-side"), s.color);
-  $("#btn-side-play").onclick = () => playQueue(s.tracks, 0, "side", s.index, $("#side-tape .tape"));
+  $("#btn-side-play").onclick = () => playQueue(sideQueue(s), 0, "side", s.index, $("#side-tape .tape"));
   const nxt = M.sides[s.index + 1];
   const nb = $("#btn-side-next");
   nb.hidden = !nxt;
@@ -2119,10 +2136,12 @@ function renderSide(si, quiet) {
     nb.setAttribute("aria-label", `Next tape: side ${nxt.letter}`);
     nb.onclick = () => { lastTile = nxt.index; go("side", { side: nxt.index }, { replace: true }); };
   }
-  $("#side-tracks").innerHTML = s.tracks.map((t, i) => trackRow(t, `data-i="${i}"`, true)).join("");
+  const q = sideQueue(s);
+  $("#side-tracks").innerHTML = s.tracks.map((t, i) => trackRow(t, `data-i="${i}"`, true)).join("") +
+    (q.length > s.tracks.length ? `<li class="jbonus-line" aria-hidden="true"><span>Hidden track</span></li>` + trackRow(s.bonus, `data-i="${s.tracks.length}"`, true).replace("<li>", '<li class="jbonus">') : "");
   $("#side-tracks").onclick = e => {
     const b = e.target.closest(".jrow"); if (!b) return;
-    playQueue(s.tracks, +b.dataset.i, "side", s.index, $("#side-tape .tape"));
+    playQueue(q, +b.dataset.i, "side", s.index, $("#side-tape .tape"));
   };
   // pulled off the rack: the case grows out of the rack, opens, and the tape comes out
   if (!reduceMotion && !quiet) {
@@ -2245,14 +2264,14 @@ document.addEventListener("click", e => {
 });
 $("#btn-open").addEventListener("click", () => { primeAudio(); go("library"); });
 const pvTape = () => { const el = $("#pv-tape .tape"); return el && el.getBoundingClientRect().width ? el : null; };
-$("#btn-all").addEventListener("click", () => playQueue(ALL, 0, "all", null, pvTape()));
-$("#btn-again").addEventListener("click", () => playQueue(ALL, 0, "all", null, $("#finale-tape .tape")));
+$("#btn-all").addEventListener("click", () => playQueue(EVERYTHING, 0, "all", null, pvTape()));
+$("#btn-again").addEventListener("click", () => playQueue(EVERYTHING, 0, "all", null, $("#finale-tape .tape")));
 function shuffle(list) {
   const q = list.slice();
   for (let i = q.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [q[i], q[j]] = [q[j], q[i]]; }
   return q;
 }
-$("#btn-shuffle").addEventListener("click", () => playQueue(shuffle(ALL), 0, "shuffle", null, pvTape()));
+$("#btn-shuffle").addEventListener("click", () => playQueue(shuffle(ALL).concat(BONUS), 0, "shuffle", null, pvTape()));
 
 /* ---------- countdown ---------- */
 function startCountdown() {
@@ -2806,7 +2825,7 @@ function endOfQueue() {
   if (nxt) {
     $("#ov-sideend-text").textContent = `That's the end of side ${s.letter}. Time for the next tape.`;
     setBtn($("#btn-flip"), "play", `Play side ${nxt.letter}`, `Flip the tape · ${nxt.label}`);
-    $("#btn-flip").onclick = () => { state.queue = nxt.tracks.slice(); state.pos = 0; state.kind = "side"; state.sideIndex = nxt.index; loadCurrent(); };
+    $("#btn-flip").onclick = () => { state.queue = sideQueue(nxt).slice(); state.pos = 0; state.kind = "side"; state.sideIndex = nxt.index; loadCurrent(); };
     $("#ov-sideend").hidden = false;
     if (currentView === "player") $("#btn-flip").focus();
     else go("player");
@@ -2890,7 +2909,8 @@ function renderNowPlaying(t) {
   $("#view-player").style.setProperty("--tape", s.color);
   $("#np").style.setProperty("--washi", s.color);
   if (currentView === "player") { const from = pendingInsert; pendingInsert = null; setWalkmanTape(s, from); }
-  const where = state.kind === "side" ? `${state.pos + 1} of ${state.queue.length} on side ${s.letter}` : state.kind === "shuffle" ? `Shuffle · ${state.pos + 1} of ${state.queue.length}` : `${state.pos + 1} of ${state.queue.length}`;
+  const qn = state.queue.filter(x => !x.bonus).length;   // the hidden track stays a secret
+  const where = t.bonus ? "Hidden track" : state.kind === "side" ? `${state.pos + 1} of ${qn} on side ${s.letter}` : state.kind === "shuffle" ? `Shuffle · ${state.pos + 1} of ${qn}` : `${state.pos + 1} of ${qn}`;
   $("#np-side").textContent = `Side ${s.letter} · ${where}`;
   const toSide = $("#btn-to-side");
   setBtn(toSide, "back", `Back to ${s.label}`);
@@ -2927,15 +2947,16 @@ function renderNowPlaying(t) {
   if (t.note) $("#np-note-text").textContent = t.note;
   $("#np-fact").hidden = !t.fact;
   if (t.fact) $("#np-fact-text").textContent = t.fact;
-  const rest = state.queue.slice(state.pos + 1, state.pos + 2);
-  $("#upnext").innerHTML = rest.length
+  const rest = state.queue.slice(state.pos + 1, state.pos + 2).filter(u => !u.bonus);
+  const teaser = state.queue[state.pos + 1] && state.queue[state.pos + 1].bonus;
+  $("#upnext").innerHTML = teaser ? `<li class="empty">That's the last of the 30… or is it?</li>` : rest.length
     ? rest.map((u, i) => trackRow(u, `data-pos="${state.pos + 1 + i}"`, false)).join("")
     : `<li class="empty">${state.kind === "side" && M.sides[state.sideIndex + 1] ? `That's the last song on side ${esc(s.letter)}.` : "That's the last song on the tape."}</li>`;
   const it = s.items || [];
   $("#crt-stickers").innerHTML = (it[0] ? sticker(it[0], "calc(100% - 4.6rem)", "38%", "4.2rem", 12, .1, "hide-small") : "") + (it[1] ? sticker(it[1], "-1.2rem", "calc(100% - 3.4rem)", "4rem", -10, .2, "hide-small") : "");
-  $("#lcd-track").textContent = "TRK " + pad(t.no);
+  $("#lcd-track").textContent = t.bonus ? "BONUS" : "TRK " + pad(t.no);
   $("#lcd-time").textContent = "0:00";
-  $("#mini-lcd").textContent = `${pad(t.no)} ${t.title} · ${t.artist}`;
+  $("#mini-lcd").textContent = `${t.bonus ? "+" : pad(t.no)} ${t.title} · ${t.artist}`;
   $("#mini-tape").innerHTML = sideTape(s, { cls: "live" });
   document.title = `${t.title} · 30 Years of ${FULL}`;
 }
@@ -3388,7 +3409,7 @@ function alPageHTML(x) {
     return `<div class="al-mount al-empty" style="--w:56%; --ar:.8; --rot:1.2deg"><p class="al-slot-txt">Number ${n}<br>goes here</p>
         <span class="al-badge" style="--bg:#b3302f" aria-hidden="true"><b>${n}</b><i>today</i></span>
         <span class="al-cn tl"></span><span class="al-cn tr"></span><span class="al-cn bl"></span><span class="al-cn br"></span>
-      </div><p class="al-note">Can't wait to see this one.</p>${M.birthday ? `<p class="al-date">December ${String(M.birthday).slice(0, 4)}</p>` : ""}`;
+      </div><p class="al-note">${esc(M.albumLastNote != null ? M.albumLastNote : "Can't wait to see this one.")}</p>${M.birthday ? `<p class="al-date">December ${String(M.birthday).slice(0, 4)}</p>` : ""}`;
   }
   return "";
 }
@@ -3673,7 +3694,7 @@ function checkList() {
     add(sd.video, sd.videoCaption, sd.label);
     sd.tracks.forEach(t => add(t.video, t.videoCaption, t.title));
   });
-  return extra.concat(ALL, homes);
+  return extra.concat(ALL, BONUS.map((b, i) => Object.assign(b, { label: "+" + (BONUS.length > 1 ? i + 1 : "") })), homes);
 }
 function renderCheckRows() {
   $("#check-rows").innerHTML = checkList().map(t => `<tr>
