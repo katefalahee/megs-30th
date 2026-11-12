@@ -86,34 +86,36 @@ window.MIXTAPE = {
 
   footer: "Made in Ireland, for Megan in Australia",
 
-  // Photos from her other birthdays. A quick montage plays straight after she unwraps
-  // the present, and they stay on the rack under "Birthday photos".
-  // To add more: put the file in the photos/birthdays folder and add a line below.
-  // The caption is optional ("" for none). They show in the order listed.
+  // Photos from her other birthdays, kept in a photo album. It opens straight after she
+  // unwraps the present, and stays on the rack under "Birthday photos".
+  // To add more: put the file in the photos/birthdays folder and add a line below, in age order.
+  //   age:  how old she turned. Shows on a little "8 today" badge, with the year in pencil.
+  //   note: the handwritten line under the photo ("" for none).
+  albumNote: "A few of your birthdays, from the very first one. Have a flick through, then go and make it thirty.", // DRAFT
   birthdayPhotos: [
-    { photo: "photos/birthdays/01.jpg", caption: "1st birthday" },
-    { photo: "photos/birthdays/02.jpg", caption: "2nd birthday" },
-    { photo: "photos/birthdays/03.jpg", caption: "3rd birthday" },
-    { photo: "photos/birthdays/04.jpg", caption: "4th birthday" },
-    { photo: "photos/birthdays/05.jpg", caption: "5th birthday" },
-    { photo: "photos/birthdays/06.jpg", caption: "7th birthday" },
-    { photo: "photos/birthdays/07.jpg", caption: "8th birthday" },
-    { photo: "photos/birthdays/08.jpg", caption: "10th birthday" },
-    { photo: "photos/birthdays/09.jpg", caption: "12th birthday" },
-    { photo: "photos/birthdays/10.jpg", caption: "13th birthday" },
-    { photo: "photos/birthdays/11.jpg", caption: "14th birthday" },
-    { photo: "photos/birthdays/12.jpg", caption: "15th birthday" },
-    { photo: "photos/birthdays/13.jpg", caption: "16th birthday" },
-    { photo: "photos/birthdays/14.jpg", caption: "21st birthday" },
-    { photo: "photos/birthdays/15.jpg", caption: "22nd birthday" },
-    { photo: "photos/birthdays/16.jpg", caption: "23rd birthday" },
-    { photo: "photos/birthdays/17.jpg", caption: "24th birthday" },
-    { photo: "photos/birthdays/18.jpg", caption: "25th birthday" },
-    { photo: "photos/birthdays/19.jpg", caption: "25th birthday" },
-    { photo: "photos/birthdays/20.jpg", caption: "26th birthday" },
-    { photo: "photos/birthdays/21.jpg", caption: "27th birthday" },
-    { photo: "photos/birthdays/22.jpg", caption: "28th birthday" },
-    { photo: "photos/birthdays/23.jpg", caption: "29th birthday" },
+    { photo: "photos/birthdays/01.jpg", age: 1,  note: "Bib says Monday. Face says \"who are all these people?\"" }, // DRAFT
+    { photo: "photos/birthdays/02.jpg", age: 2,  note: "Party hat, big bow, badge. Fully accessorised at two." }, // DRAFT
+    { photo: "photos/birthdays/03.jpg", age: 3,  note: "Already side-eyeing the cake. Ate it anyway." }, // DRAFT
+    { photo: "photos/birthdays/04.jpg", age: 4,  note: "It's written on the cake, so it's official." }, // DRAFT
+    { photo: "photos/birthdays/05.jpg", age: 5,  note: "Crowned queen of the party. The queen was not amused." }, // DRAFT
+    { photo: "photos/birthdays/06.jpg", age: 7,  note: "Full puff. The little one is taking notes." }, // DRAFT
+    { photo: "photos/birthdays/07.jpg", age: 8,  note: "Eight fingers. Zero chill." }, // DRAFT
+    { photo: "photos/birthdays/08.jpg", age: 10, note: "Double figures, and trusted with the big knife." }, // DRAFT
+    { photo: "photos/birthdays/09.jpg", age: 12, note: "Twelve candles, one big breath." }, // DRAFT
+    { photo: "photos/birthdays/10.jpg", age: 13, note: "Official teenager. It says so on the badge." }, // DRAFT
+    { photo: "photos/birthdays/11.jpg", age: 14, note: "Dressing gown birthdays are the best birthdays." }, // DRAFT
+    { photo: "photos/birthdays/12.jpg", age: 15, note: "Sleepover rules: pyjamas on, Smarties on top." }, // DRAFT
+    { photo: "photos/birthdays/13.jpg", age: 16, note: "Sweet sixteen. Pulling faces since 1996." }, // DRAFT
+    { photo: "photos/birthdays/14.jpg", age: 21, note: "Twenty-one candles versus one Megan. No contest." }, // DRAFT
+    { photo: "photos/birthdays/15.jpg", age: 22, note: "Eyes shut, wish loading…" }, // DRAFT
+    { photo: "photos/birthdays/16.jpg", age: 23, note: "Christmas pyjamas count as birthday pyjamas." }, // DRAFT
+    { photo: "photos/birthdays/17.jpg", age: 24, note: "Mid-speech. The candles waited patiently." }, // DRAFT
+    { photo: "photos/birthdays/18.jpg", age: 25, note: "A quarter of a century. The balloons did the maths." }, // DRAFT
+    { photo: "photos/birthdays/19.jpg", age: 25, note: "The other 25th: party of one, bubbles for one." }, // DRAFT
+    { photo: "photos/birthdays/20.jpg", age: 26, note: "Party hats, pizza and a Christmas tree. Peak December birthday." }, // DRAFT
+    { photo: "photos/birthdays/21.jpg", age: 27, note: "That face when everyone starts singing." }, // DRAFT
+    { photo: "photos/birthdays/22.jpg", age: 28, note: "Holding the cake like a trophy. Rightly so." }, // DRAFT
+    { photo: "photos/birthdays/23.jpg", age: 29, note: "Tayto and Barry's, opened in shorts. Home, special delivery." }, // DRAFT
   ],
 
   // Home photos on songs pop up big as a surprise when the song starts:
@@ -1041,56 +1043,12 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
   .intro{grid-template-areas:"art" "copy" "clock"}
 }
 
-/* ---------- the birthday cake ---------- */
-.cake-scene{display:grid; justify-items:center; text-align:center; gap:.7rem; width:min(100%, 46rem); margin-inline:auto}
-.cake-top{justify-self:start}
-.cake-eyebrow{color:var(--lamp)}
-#cake-h{font-size:clamp(2.4rem, 6vw, 4.6rem); color:var(--ink)}
-.cake-tip{margin-inline:auto}
-.cake-wrap{width:min(100%, 34rem, calc((100vh - 21rem) * 1.59)); min-width:15rem}
-#cake{display:block; width:100%; height:auto; overflow:visible}
-.cake-count{margin:0; font-family:var(--font-machine); font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
-.cake-actions, .cake-done{justify-content:center}
-#cake .flame{transform-box:fill-box; transform-origin:50% 100%; animation:flick .7s ease-in-out infinite alternate; animation-delay:var(--d); transition:opacity .25s, transform .25s}
-@keyframes flick{0%{transform:scale(1, 1) rotate(-3deg)} 50%{transform:scale(.9, 1.1) rotate(2deg)} 100%{transform:scale(1.05, .94) rotate(-1deg)}}
-#cake.windy .candle:not(.out) .flame{animation:lean .2s ease-in-out infinite alternate}
-@keyframes lean{from{transform:skewX(-20deg) scale(.92, .88)} to{transform:skewX(-34deg) scale(.8, .75)}}
-#cake .candle.out .flame{opacity:0; transform:scale(.2); animation:none}
-#cake .smoke{opacity:0; transform-box:fill-box; transform-origin:50% 100%}
-#cake .candle.out .smoke{animation:smoke 1.9s ease-out forwards}
-@keyframes smoke{0%{opacity:.8; transform:translateY(0) scaleX(1)} 100%{opacity:0; transform:translateY(-34px) scaleX(1.7)}}
-#cake .cake-glow{transition:opacity .35s}
-#btn-blow.held{transform:translateY(2px); filter:brightness(1.1)}
-
 /* ---------- pencil trick ---------- */
 .pencil{position:fixed; z-index:70; pointer-events:none; transform-origin:0 50%; filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
 .pencil svg{display:block; width:100%; height:auto}
 .tape.rewinding .reel{animation:spin .32s linear infinite reverse !important}
 .pencil-note{position:fixed; z-index:71; pointer-events:none; max-width:16rem; padding:.55rem .8rem .6rem; background:#fffdf6; color:var(--pen); font-family:var(--font-pen); font-size:1.3rem; line-height:1.15;
   box-shadow:0 10px 20px rgba(0,0,0,.4); transform:rotate(-3deg)}
-
-/* ---------- Guess the Year ---------- */
-.party-grid{display:grid; grid-template-columns:minmax(0, 1.6fr) minmax(0, 1fr); gap:clamp(1.2rem, 3vw, 3rem); align-items:center; max-width:min(100%, 198vh); margin-inline:auto}
-.party-grid > *{grid-area:auto}
-.party-tv #yt-party{position:absolute; inset:0; width:100%; height:100%; border:0}
-.pt-card{display:grid; gap:.7rem; align-content:start; --washi:#2c7a50}
-.pt-nav{margin:-.2rem 0 .2rem}
-#party-h{margin:0; font-family:var(--font-ui); font-weight:900; font-size:clamp(1.7rem, 2.6vw, 2.5rem); line-height:1.05; color:var(--pen); text-wrap:balance}
-.pt-artist{margin:0; font-size:1.2rem; color:var(--pen); opacity:.85}
-.pt-artist:empty{display:none}
-.pt-year{display:flex; gap:.35rem; margin:.4rem 0 .1rem; perspective:600px}
-.pt-year span{display:grid; place-items:center; width:3.1rem; height:4.2rem; border-radius:6px; font-family:var(--font-lcd, "VT323", monospace); font-size:3.4rem; line-height:1; color:#ffe9b8;
-  background:linear-gradient(180deg, #2c2520 0 49%, #1f1a16 51%); box-shadow:inset 0 0 0 1px rgba(0,0,0,.6), 0 4px 8px rgba(0,0,0,.25); position:relative}
-.pt-year span::after{content:""; position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(0,0,0,.55)}
-.pt-year.on span{animation:flap .55s cubic-bezier(.3,1.3,.5,1) both; animation-delay:calc(var(--i) * .14s)}
-@keyframes flap{0%{transform:rotateX(90deg)} 100%{transform:rotateX(0)}}
-.pt-age{margin:0; font-family:var(--font-pen); font-size:1.7rem; color:var(--pen-red)}
-.pt-age:empty{display:none}
-.pt-hint{margin:0; padding:.45rem .7rem; border-left:4px solid var(--hint, #c8992f); background:rgba(200,153,47,.1); color:var(--pen); font-size:.95rem}
-.pt-rules{margin:.2rem 0 0; font-size:.85rem; color:#6e6254}
-.pt-rules:empty{display:none}
-.pt-actions{margin-top:.3rem}
-@media (max-width: 1000px){ .party-grid{grid-template-columns:minmax(0, 1fr)} }
 
 /* ---------- home photos and videos ---------- */
 .np-media{display:flex; flex-wrap:wrap; align-items:flex-end; gap:1rem; margin:.3rem 0 .4rem}
@@ -1149,34 +1107,119 @@ body.hm-open{overflow:hidden}
 .lb-flash{position:fixed; inset:0; background:#fff; opacity:0; pointer-events:none}
 body.lb-open{overflow:hidden}
 
-/* ---------- birthday photo montage ---------- */
-.mt-wrap{display:grid; grid-template-rows:auto minmax(0, 1fr) auto; gap:1rem; width:min(100%, 200vh); min-height:calc(100vh - 2 * var(--pad-y, 2rem)); margin-inline:auto}
-.mt-head{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:.8rem 1.5rem}
-.mt-eyebrow{margin:0 0 .2rem; color:var(--lamp)}
-.mt-eyebrow:empty{display:none}
-#mt-h{margin:0; font-size:clamp(2rem, 4.6vw, 3.8rem); line-height:1; color:var(--ink); text-wrap:balance}
-.mt-actions{justify-content:flex-end}
-.mt-stage{position:relative; min-height:16rem}
-.mt-photo{position:absolute; display:block; padding:.55rem .55rem 0; background:#fbf7ee; border:0; border-radius:2px; cursor:zoom-in;
-  box-shadow:0 18px 34px rgba(0,0,0,.55); transform:rotate(var(--rot, 0deg)) scale(var(--k, 1)); transition:transform .18s ease, box-shadow .18s; transform-origin:50% 50%}
-.mt-photo img{display:block; width:100%; height:auto; background:#ddd}
-.mt-cap{display:block; min-height:1.6rem; padding:.35rem .3rem .45rem; text-align:center; font-family:var(--font-pen); font-size:1.6rem; line-height:1.05; color:var(--pen); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.mt-stage.done .mt-photo:hover, .mt-stage.done .mt-photo:focus-visible{transform:rotate(calc(var(--rot, 0deg) * .3)) scale(calc(var(--k, 1) * 1.1)); z-index:500 !important}
-.mt-photo:focus-visible{outline:none; box-shadow:0 0 0 calc(5px / var(--k, 1)) var(--lamp), 0 18px 34px rgba(0,0,0,.55)}
-.mt-stage:not(.done) .mt-photo{pointer-events:none}
-.mt-tip{margin:0; text-align:center; font-family:var(--font-machine); font-size:.55rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
+/* ---------- the birthday album ---------- */
+.al-wrap{display:grid; grid-template-rows:auto minmax(0, 1fr) auto auto; gap:.7rem; width:100%; min-height:calc(100vh - 2 * var(--pad-y, 2rem)); min-height:calc(100dvh - 2 * var(--pad-y, 2rem)); margin-inline:auto}
+.al-head{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:.6rem 1.5rem}
+.al-eyebrow{margin:0 0 .2rem; color:var(--lamp)}
+.al-eyebrow:empty{display:none}
+#al-h{margin:0; font-size:clamp(1.8rem, 4vw, 3.4rem); line-height:1; color:var(--ink); text-wrap:balance}
+.al-actions{justify-content:flex-end}
+.al-stage{position:relative; min-height:17rem; overflow:hidden}
+.album{position:absolute; inset:0; display:grid; place-items:center}
+.al-book{position:relative; width:calc(var(--pw, 300px) * 2); height:var(--ph, 385px); perspective:calc(var(--pw, 300px) * 4.5); transition:transform .85s cubic-bezier(.45,.05,.2,1); touch-action:pan-y; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent; color:#2b2420}
+.al-book.single{width:var(--pw, 300px)}
+.al-book.spread.closed{transform:translateX(-25%)}
+.al-book.instant, .al-book.instant *{transition:none !important}
+.al-shadow{position:absolute; top:0; bottom:0; left:0; right:0; border-radius:.4em; box-shadow:0 1.2em 2.4em rgba(0,0,0,.6), 0 .25em .5em rgba(0,0,0,.4); transition:left .85s cubic-bezier(.45,.05,.2,1)}
+.al-book.spread.closed .al-shadow{left:50%}
+.al-leaf{position:absolute; top:0; left:50%; width:var(--pw, 300px); height:100%; transform-origin:0 50%; transform-style:preserve-3d; transition:transform .85s cubic-bezier(.45,.05,.2,1), opacity .15s; cursor:pointer}
+.al-book.single .al-leaf{left:0}
+.al-leaf.turned{transform:rotateY(-180deg)}
+.al-book.single .al-leaf.turned{opacity:0; transition:transform .85s cubic-bezier(.45,.05,.2,1), opacity .25s .6s}
+.al-face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden}
+.al-face.bk{transform:rotateY(180deg)}
+.al-shade{position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.14) 55%, rgba(0,0,0,.3))}
+.al-face.bk .al-shade{background:linear-gradient(270deg, rgba(0,0,0,.55), rgba(0,0,0,.14) 55%, rgba(0,0,0,.3))}
+
+/* pages */
+.al-pg{position:absolute; inset:0; display:grid; align-content:center; justify-items:center; gap:.55em; padding:1.5em 1.7em 2.3em;
+  background:radial-gradient(130% 100% at 50% 45%, transparent 55%, rgba(140,100,40,.14)), #f3ebd9}
+.al-pg::before{content:""; position:absolute; inset:0; pointer-events:none; z-index:4}
+.pg-r{border-radius:0 .35em .35em 0}
+.pg-l{border-radius:.35em 0 0 .35em}
+.pg-r::before{background:linear-gradient(90deg, rgba(70,45,20,.34), rgba(70,45,20,.09) 5%, transparent 12%)}
+.pg-l::before{background:linear-gradient(270deg, rgba(70,45,20,.34), rgba(70,45,20,.09) 5%, transparent 12%)}
+.al-pg::after{content:""; position:absolute; top:.3em; bottom:.3em; width:.28em; pointer-events:none; background:repeating-linear-gradient(90deg, #d9cdb4 0 1px, #f6efe0 1px 2px)}
+.pg-r::after{right:0}
+.pg-l::after{left:0}
+.pg-cover::after, .pg-blank::after{display:none}
+
+/* the cover */
+.pg-cover{padding:1.6em 1.4em 1.6em 2.6em; gap:1.3em; color:#f3d27a; border-radius:0 .5em .5em 0;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,.09) 0 1px, transparent 1px 3px), radial-gradient(120% 100% at 32% 22%, #8e2b39, #611925 68%, #4a111b)}
+.pg-cover::before{z-index:0; background:linear-gradient(90deg, rgba(0,0,0,.5), rgba(0,0,0,.18) 1.2em, rgba(255,255,255,.07) 1.3em, transparent 1.6em)}
+.al-frame{position:absolute; inset:1.3em 1.2em 1.3em 2.5em; border:.09em solid rgba(232,190,100,.6); outline:.05em solid rgba(232,190,100,.35); outline-offset:-.35em; border-radius:.2em; pointer-events:none}
+.al-foil{position:relative; margin:0; font-family:var(--font-script); font-size:1.5em; line-height:1.4; background:linear-gradient(100deg, #f8e3a0, #c4923a 38%, #fbe7a8 55%, #a87428 82%); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 .05em 0 rgba(0,0,0,.45))}
+.al-label{position:relative; max-width:84%; padding:.75em 1.1em .8em; text-align:center; color:#2b2420; background:#f6efe0; border-radius:.15em; transform:rotate(-1.2deg);
+  box-shadow:0 0 0 .18em #c9a14a, 0 0 0 .3em #5e1823, 0 0 0 .38em #c9a14a, 0 .4em .9em rgba(0,0,0,.45)}
+.al-label-name{margin:0; font-family:var(--font-marker); font-size:1.35em; line-height:1.05}
+.al-label-years{margin:.25em 0 0; font-family:var(--font-pen); font-weight:700; font-size:1.3em; line-height:1; color:var(--pen)}
+.al-cnr{position:absolute; right:0; width:2.3em; height:2.3em; pointer-events:none}
+.al-cnr.t{top:0; border-top-right-radius:.5em; background:linear-gradient(45deg, transparent 50%, #a77a2a 50%, #f5dc93 68%, #c9a14a)}
+.al-cnr.b{bottom:0; border-bottom-right-radius:.5em; background:linear-gradient(135deg, transparent 50%, #a77a2a 50%, #f5dc93 68%, #c9a14a)}
+
+/* inside the cover */
+.pg-plate{background:radial-gradient(circle at 25% 25%, rgba(110,29,42,.17) 0 .14em, transparent .16em) 0 0 / 1.3em 1.3em, radial-gradient(circle at 75% 75%, rgba(196,146,58,.22) 0 .14em, transparent .16em) 0 0 / 1.3em 1.3em, #efe3c8}
+.al-plate{position:relative; width:84%; padding:1.2em 1.3em 1.1em; text-align:center; background:#fbf6ea; border:1px solid rgba(110,29,42,.4); outline:.12em double rgba(110,29,42,.4); outline-offset:.3em; box-shadow:0 .25em .6em rgba(0,0,0,.15); transform:rotate(.6deg)}
+.al-plate-h{margin:0; font-family:var(--font-machine); font-size:.48em; letter-spacing:.24em; text-transform:uppercase; color:#6e1d2a}
+.al-plate-name{margin:.35em 0 .55em; font-family:var(--font-script); font-size:1.45em; line-height:1.3; color:#2b2420}
+.al-plate-note{margin:0; font-family:var(--font-pen); font-weight:700; font-size:1.2em; line-height:1.1; color:var(--pen); text-wrap:balance}
+.al-plate-sign{margin:.5em 0 0; font-family:var(--font-pen); font-weight:700; font-size:1.25em; color:var(--pen)}
+.pg-blank{background:radial-gradient(130% 100% at 50% 45%, transparent 55%, rgba(140,100,40,.14)), #f3ebd9}
+
+/* a photo in its corners */
+.al-mount{position:relative; width:var(--w); aspect-ratio:var(--ar); transform:rotate(var(--rot)); flex:none}
+.al-mount::before{content:""; position:absolute; inset:-.3em; background:rgba(110,80,30,.09); border-radius:2px}
+.al-photo{position:absolute; inset:0; z-index:1; padding:0; border:.28em solid #fffdf8; border-radius:1px; background:#d8d2c4; cursor:zoom-in; box-shadow:0 .1em .25em rgba(0,0,0,.28); transition:transform .18s ease, box-shadow .18s ease, opacity .2s}
+.al-photo img{display:block; width:100%; height:100%; object-fit:cover; pointer-events:none}
+.al-photo:hover, .al-photo:focus-visible{transform:translateY(-.18em) rotate(-.8deg); box-shadow:0 .5em 1em rgba(0,0,0,.3)}
+.al-photo:focus-visible{outline:.2em solid var(--lamp); outline-offset:.25em}
+.al-photo.lifted{opacity:0; transition:none}
+.al-cn{position:absolute; z-index:2; width:1.55em; height:1.55em; pointer-events:none; filter:drop-shadow(0 .04em .04em rgba(0,0,0,.3))}
+.al-cn.tl{top:-.32em; left:-.32em; background:linear-gradient(135deg, #2a2522 0 49%, rgba(255,255,255,.18) 49.5%, transparent 51%)}
+.al-cn.tr{top:-.32em; right:-.32em; background:linear-gradient(225deg, #2a2522 0 49%, rgba(255,255,255,.18) 49.5%, transparent 51%)}
+.al-cn.bl{bottom:-.32em; left:-.32em; background:linear-gradient(45deg, #2a2522 0 49%, rgba(255,255,255,.18) 49.5%, transparent 51%)}
+.al-cn.br{bottom:-.32em; right:-.32em; background:linear-gradient(315deg, #2a2522 0 49%, rgba(255,255,255,.18) 49.5%, transparent 51%)}
+.al-badge{position:absolute; top:12%; right:-1.35em; z-index:3; display:grid; place-content:center; justify-items:center; width:2.8em; height:2.8em; border-radius:50%; color:#fff; line-height:1; text-align:center;
+  background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.5), transparent 42%), var(--bg, #b3302f);
+  box-shadow:0 0 0 .13em #fffdf8, 0 0 0 .19em rgba(0,0,0,.12), 0 .25em .5em rgba(0,0,0,.35); transform:rotate(12deg)}
+.al-badge b{font-family:var(--font-ui); font-weight:900; font-size:1.2em; letter-spacing:-.02em}
+.al-badge i{margin-top:.18em; font-style:normal; font-family:var(--font-machine); font-size:.3em; letter-spacing:.14em; text-transform:uppercase}
+.al-note{position:relative; z-index:1; margin:.35em 0 0; max-width:94%; text-align:center; font-family:var(--font-pen); font-weight:700; font-size:1.3em; line-height:1.05; color:var(--pen); text-wrap:balance}
+.al-note:empty{display:none}
+.al-date{position:absolute; bottom:.85em; margin:0; font-family:var(--font-gel); font-size:.72em; color:rgba(43,36,32,.5)}
+.pg-r .al-date{right:1.7em}
+.pg-l .al-date{left:1.7em}
+
+/* candles so far, and the space for number 30 */
+.al-cd-k{margin:0; font-family:var(--font-machine); font-size:.5em; letter-spacing:.24em; text-transform:uppercase; color:#6e1d2a}
+.al-cd-n{margin:0; font-family:var(--font-marker); font-size:4.2em; line-height:1; color:#b3302f; transform:rotate(-3deg)}
+.al-cd-sum{margin:0; font-family:var(--font-gel); font-size:.85em; color:rgba(43,36,32,.6)}
+.al-cd-art{width:62%; height:auto; color:var(--pen)}
+.al-cd-note{margin:.2em 0 0; max-width:86%; text-align:center; font-family:var(--font-pen); font-weight:700; font-size:1.25em; line-height:1.05; color:var(--pen)}
+.al-empty{display:grid; place-items:center}
+.al-empty::before{inset:0; background:none; border:.11em dashed rgba(43,36,32,.32)}
+.al-slot-txt{margin:0; padding:0 1em; text-align:center; font-family:var(--font-pen); font-weight:700; font-size:1.5em; line-height:1.05; color:rgba(43,36,32,.5)}
+
+/* below the book */
+.al-nav{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.6rem 1.2rem}
+.al-count{margin:0; min-width:10rem; text-align:center; font-family:var(--font-machine); font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
+.al-nav .btn[aria-disabled="true"]{opacity:.38}
+.al-tip{margin:0; text-align:center; font-family:var(--font-machine); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); opacity:.8}
+@media (max-width: 560px){
+  .al-head{align-items:flex-start}
+  .al-actions{justify-content:flex-start; width:100%}
+  .al-actions .btn-main{width:100%}
+  .al-count{order:-1; flex-basis:100%; min-width:0}
+}
+
+/* rack button */
 .btn-photos .b-ico{width:2.6rem; background:none; box-shadow:none; position:relative}
 .ph-stack{position:relative; display:block; width:2.4rem; height:2rem}
 .ph-stack img{position:absolute; top:50%; left:50%; width:1.35rem; height:1.6rem; object-fit:cover; border:2px solid #fbf7ee; border-bottom-width:5px; box-shadow:0 2px 4px rgba(0,0,0,.35); background:#ddd}
 .ph-stack img:nth-child(1){transform:translate(-95%, -50%) rotate(-14deg)}
 .ph-stack img:nth-child(2){transform:translate(-5%, -55%) rotate(12deg)}
 .ph-stack img:nth-child(3){transform:translate(-50%, -48%) rotate(-2deg)}
-@media (max-width: 560px){
-  .mt-head{align-items:flex-start}
-  .mt-actions{justify-content:flex-start; width:100%}
-  .mt-actions .btn-main{width:100%}
-  .mt-cap{font-size:1.4rem}
-}
 
 /* ambient animation behind each tape */
 #fx{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
@@ -1325,7 +1368,6 @@ main{position:relative; z-index:1}
         <div class="actions">
           <button class="btn btn-main" type="button" id="btn-open" data-autofocus data-icon="play" data-cap="5 tapes · {n} songs">Open your mixtape</button>
           <button class="btn btn-tag btn-card" type="button" data-go="card" data-icon="letter" data-cap="From {from}">Open your card</button>
-          <button class="btn btn-tag" type="button" data-go="cake" data-icon="cake" data-cap="30 candles" style="--acc:#e06c8e">Make a wish</button>
           <button class="btn btn-ghost" type="button" data-go="help" data-icon="tv">TV tips</button>
         </div>
       </div>
@@ -1335,26 +1377,6 @@ main{position:relative; z-index:1}
         <div class="wc-row" id="wc-away"></div>
         <p class="wc-quip" id="wc-quip"></p>
       </aside>
-    </div>
-  </section>
-
-  <!-- Birthday cake -->
-  <section class="view view-center" id="view-cake" hidden aria-labelledby="cake-h">
-    <div class="cake-scene">
-      <div class="actions cake-top"><button class="btn btn-ghost" type="button" data-back data-icon="back">Back</button></div>
-      <p class="print cake-eyebrow" id="cake-eyebrow">30 candles · no pressure</p>
-      <h1 class="marker" id="cake-h">Make a wish, <span data-to></span></h1>
-      <p class="lede cake-tip" id="cake-tip">Close your eyes, make a wish, then blow.</p>
-      <div class="cake-wrap"><svg id="cake" viewBox="0 122 600 378" role="img" aria-label="A birthday cake with 30 candles"></svg></div>
-      <p class="cake-count" id="cake-count" aria-live="polite"></p>
-      <div class="actions cake-actions" id="cake-actions">
-        <button class="btn btn-main" type="button" id="btn-blow" data-autofocus data-icon="cake" data-cap="Press and hold">Blow</button>
-        <button class="btn btn-tag" type="button" id="btn-mic" data-icon="mic" data-cap="Laptop or phone" style="--acc:#2e5cb8">Use the microphone</button>
-      </div>
-      <div class="actions cake-done" id="cake-done" hidden>
-        <button class="btn btn-main" type="button" id="btn-cake-open" data-icon="play" data-cap="Your wish is safe">Open your mixtape</button>
-        <button class="btn btn-tag" type="button" id="btn-relight" data-icon="cake" data-cap="Go again" style="--acc:#e06c8e">Light them again</button>
-      </div>
     </div>
   </section>
 
@@ -1369,8 +1391,7 @@ main{position:relative; z-index:1}
           <button class="btn btn-main" type="button" id="btn-all" data-autofocus data-icon="play" data-cap="All {n} songs, start to finish">Play everything</button>
           <button class="btn btn-tag" type="button" id="btn-shuffle" data-icon="shuffle" data-cap="Surprise me" style="--acc:#c8992f">Shuffle</button>
           <button class="btn btn-tag btn-card" type="button" data-go="card" data-icon="letter" data-cap="From {from}">Your card</button>
-          <button class="btn btn-tag btn-photos" type="button" data-go="montage" id="btn-photos" data-icon="camera" data-cap="Birthdays gone by" style="--acc:#c8992f">Birthday photos</button>
-          <button class="btn btn-tag" type="button" data-go="party" id="btn-party" data-icon="quiz" data-cap="Party game" style="--acc:#2c7a50">Guess the year</button>
+          <button class="btn btn-tag btn-photos" type="button" data-go="album" id="btn-photos" data-icon="camera" data-cap="Birthdays gone by" style="--acc:#c8992f">Birthday photos</button>
           <button class="btn btn-tag" type="button" data-go="bonus" id="btn-bonus" data-icon="star" data-cap="Bonus" style="--acc:#e06c8e" hidden>Hidden track</button>
         </div>
         <div class="lava" aria-hidden="true"><span class="lv-cap"></span><span class="lv-glass"><i></i><i></i><i></i><i></i><i></i></span><span class="lv-base"></span></div>
@@ -1613,57 +1634,27 @@ main{position:relative; z-index:1}
   </section>
 </main>
 
-<!-- Birthday photo montage -->
-<section class="view" id="view-montage" hidden aria-labelledby="mt-h">
-  <div class="mt-wrap">
-    <header class="mt-head">
+<!-- Birthday photo album -->
+<section class="view" id="view-album" hidden aria-labelledby="al-h">
+  <div class="al-wrap">
+    <header class="al-head">
       <div>
-        <p class="print mt-eyebrow" id="mt-eyebrow"></p>
-        <h1 class="marker" id="mt-h"></h1>
+        <p class="print al-eyebrow" id="al-eyebrow"></p>
+        <h1 class="marker" id="al-h"></h1>
       </div>
-      <div class="actions mt-actions">
-        <button class="btn btn-ghost icon-after" type="button" id="btn-mt-skip" data-icon="next">Skip</button>
-        <button class="btn btn-main" type="button" id="btn-mt-go" hidden></button>
-        <button class="btn btn-tag" type="button" id="btn-mt-replay" style="--acc:#c8992f" hidden></button>
-        <button class="btn btn-ghost" type="button" id="btn-mt-rack" data-go="library" data-icon="tapes" hidden>The rack</button>
+      <div class="actions al-actions">
+        <button class="btn btn-ghost icon-after" type="button" id="btn-al-skip" data-icon="next">Skip</button>
+        <button class="btn btn-main" type="button" id="btn-al-go" hidden></button>
+        <button class="btn btn-ghost" type="button" id="btn-al-rack" data-go="library" data-icon="tapes" hidden>The rack</button>
       </div>
     </header>
-    <div class="mt-stage" id="mt-stage" aria-live="polite"></div>
-    <p class="mt-tip" id="mt-tip" hidden>Pick any photo to see it big.</p>
-  </div>
-</section>
-
-<!-- Guess the Year -->
-<section class="view" id="view-party" hidden aria-labelledby="party-h">
-  <div class="party-grid">
-    <div class="crt party-tv">
-      <div class="video-wrap">
-        <div id="yt-party"></div>
-        <div class="overlay" id="pt-cover">
-          <p class="print" style="color:var(--lamp)">A party game for the telly</p>
-          <p class="big-msg">Guess the Year</p>
-        </div>
-        <div class="overlay" id="pt-offline" hidden><p class="big-msg">Can't reach YouTube</p><p>You can still play: read out the song and guess away.</p></div>
-      </div>
-      <div class="crt-panel" aria-hidden="true">
-        <span class="crt-badge">Colour<br>TV</span><span class="knob" style="--k:-30deg"></span><span class="knob" style="--k:40deg"></span><span class="grille"></span><span class="crt-led"></span>
-      </div>
+    <div class="al-stage" id="al-stage"><div class="album" id="album"><div class="al-book" id="al-book"></div></div></div>
+    <div class="al-nav">
+      <button class="btn btn-ghost" type="button" id="btn-al-prev" data-icon="prev">Back a page</button>
+      <p class="al-count" id="al-count" aria-live="polite"></p>
+      <button class="btn btn-ghost icon-after" type="button" id="btn-al-next" data-icon="next" data-autofocus>Turn the page</button>
     </div>
-    <article class="paper pt-card" id="pt-card">
-      <div class="actions pt-nav"><button class="btn btn-ghost" type="button" data-go="library" data-icon="back">The rack</button></div>
-      <p class="print" id="pt-count"></p>
-      <h1 id="party-h">Guess the Year</h1>
-      <p class="pt-artist" id="pt-artist"></p>
-      <div class="pt-year" id="pt-year" aria-live="polite"><span style="--i:0">?</span><span style="--i:1">?</span><span style="--i:2">?</span><span style="--i:3">?</span></div>
-      <p class="pt-age" id="pt-age"></p>
-      <p class="pt-hint" id="pt-hint" hidden></p>
-      <div class="np-fact pt-fact" id="pt-fact" hidden><p class="print">Liner notes · Did you know?</p><p class="fact-text" id="pt-fact-text"></p></div>
-      <div class="actions pt-actions">
-        <button class="btn btn-main" type="button" id="btn-pt-go" data-autofocus></button>
-        <button class="btn btn-tag" type="button" id="btn-pt-hint" data-icon="star" data-cap="Which tape?" style="--acc:#c8992f" hidden>Hint</button>
-      </div>
-      <p class="pt-rules" id="pt-rules"></p>
-    </article>
+    <p class="al-tip">Swipe, tap or use the arrows to turn the page · Pick a photo to take it out</p>
   </div>
 </section>
 
@@ -1782,10 +1773,7 @@ const ICON = {
   tv: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 20.5h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
   film: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M3 9.5h18M3 14.5h18M7.5 5v4.5M12 5v4.5M16.5 5v4.5M7.5 14.5V19M12 14.5V19M16.5 14.5V19" stroke="currentColor" stroke-width="1.8"/></svg>',
   camera: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h2.2l1.5-2h5.6l1.5 2h2.2a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="12.6" r="3.4" fill="none" stroke="currentColor" stroke-width="2.1"/></svg>',
-  cake: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16v-6.5A2.5 2.5 0 0 0 17.5 12h-11A2.5 2.5 0 0 0 4 14.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M4 16.5c2 1.4 3.5 1.4 5 0s3.5-1.4 5 0 3.5 1.4 6 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12V8.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 2.5c1.7 1.9 1.7 3.4 0 4.4-1.7-1-1.7-2.5 0-4.4z" fill="currentColor"/></svg>',
-  mic: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
   prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  quiz: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4a3.6 3.6 0 1 1 5.2 3.2c-1.1.6-1.8 1.4-1.8 2.7v.7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/></svg>'
 };
 // buttons: an icon disc, then a small caption over the label
 function btnInner(icon, label, cap, iconAfter) {
@@ -2219,9 +2207,7 @@ function render(st) {
   setFx(v === "side" ? (M.sides[st.side ?? lastTile ?? 0] || {}).fx : v === "player" && state.queue.length ? state.queue[state.pos].side.fx : null);
   if (v === "card") setupCard();
   if (v === "intro") startClocks(); else stopClocks();
-  if (v === "cake") startCake(); else stopCake();
-  if (v === "party") enterParty(); else leaveParty();
-  if (v === "montage") startMontage(st); else stopMontage();
+  if (v === "album") alStart(st); else alStop();
   if (v === "check") renderCheckRows();
   updateMinibar();
   focusDefault(v);
@@ -2575,7 +2561,7 @@ function unwrap() {
   unwrapping = true;
   stopWaitMusic(true);
   setTimeout(playBirthdaySong, 300);
-  const done = () => { try { localStorage.setItem(UNWRAP_KEY, "1"); } catch (e) {} go(BDAY.length ? "montage" : "intro", BDAY.length ? { first: true } : {}, { replace: true }); };
+  const done = () => { try { localStorage.setItem(UNWRAP_KEY, "1"); } catch (e) {} go(BDAY.length ? "album" : "intro", BDAY.length ? { first: true } : {}, { replace: true }); };
   if (reduceMotion) { done(); return; }
   const g = $("#gift"), q = sel => g.querySelector(sel);
   const opt = (duration, delay, easing = "cubic-bezier(.4,0,.2,1)") => ({ duration, delay, easing, fill: "forwards" });
@@ -2969,7 +2955,7 @@ setInterval(() => {
 }, 250);
 
 function updateMinibar() {
-  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale", "party", "cake", "montage"].includes(currentView);
+  const show = state.queue.length > 0 && !["player", "gift", "intro", "check", "finale", "album"].includes(currentView);
   $("#minibar").hidden = !show;
   document.body.classList.toggle("has-mini", show);
 }
@@ -3002,7 +2988,7 @@ function focusables() {
   const els = [];
   roots.forEach(r => r && els.push(...r.querySelectorAll("button, a[href], [tabindex='0']")));
   return els.filter(el => {
-    if (el.disabled || el.closest("[hidden]")) return false;
+    if (el.disabled || el.closest("[hidden]") || el.closest("[inert]")) return false;
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   });
@@ -3037,6 +3023,9 @@ function moveFocus(key) {
 document.addEventListener("keydown", e => {
   if (e.altKey || e.ctrlKey || e.metaKey) return;
   const k = e.key;
+  const turn = /^(ArrowRight|PageDown|MediaTrackNext|MediaFastForward)$/.test(k) ? 1 : /^(ArrowLeft|PageUp|MediaTrackPrevious|MediaRewind)$/.test(k) ? -1 : 0;
+  if (turn && !$("#lightbox").hidden && lbSet) { e.preventDefault(); lbStep(turn); return; }
+  if (turn && currentView === "album" && $("#lightbox").hidden) { e.preventDefault(); alUser(turn); return; }
   if (k === "ArrowUp" || k === "ArrowDown" || k === "ArrowLeft" || k === "ArrowRight") {
     e.preventDefault();
     const sc = $("#view-" + currentView + " [data-scroll]");
@@ -3157,188 +3146,6 @@ function startClocks() {
 }
 function stopClocks() { clearInterval(clockTimer); clockTimer = null; }
 
-/* ---------- the birthday cake ---------- */
-const CANDLES = 30;
-let cakeLit = [], cakeRaf = 0, cakeLast = 0, blowCarry = 0, cakeDone = false, holdUntil = 0, holdDown = false, holdStart = 0, puffAt = 0;
-let mic = null;
-function buildCake() {
-  const cx = 300, top = 236, rx = 182, ry = 50, bottom = 432;
-  const lower = x => top + ry * Math.sqrt(Math.max(0, 1 - ((x - cx) / rx) ** 2));
-  const drips = [];
-  for (let x = cx - rx; x <= cx + rx + .1; x += 6) drips.push([x, lower(x) + 8 + Math.max(0, Math.sin((x - cx) * .085)) ** 3 * 34 + Math.max(0, Math.sin((x - cx) * .21 + 1)) ** 6 * 16]);
-  const dripPath = `M${cx - rx} ${top} ` + drips.map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`).join(" ") + ` L${cx + rx} ${top} Z`;
-  const cols = ["#e06c8e", "#2e5cb8", "#c8992f", "#2c7a50", "#b3302f", "#f4bccb"];
-  const rows = [{ t: -.62, n: 9, s: .86 }, { t: 0, n: 10, s: .93 }, { t: .62, n: 11, s: 1 }];
-  let i = 0, candles = "";
-  rows.forEach(row => {
-    const y = top + row.t * ry * .78, half = rx * Math.sqrt(1 - (row.t * .78) ** 2) - 24;
-    for (let k = 0; k < row.n; k++) {
-      const x = cx - half + (2 * half) * (k + .5) / row.n + (Math.sin(i * 7.3) * 4);
-      const c = cols[i % cols.length], d = ((i * 37) % 70) / 100;
-      candles += `<g class="candle" data-i="${i}" transform="translate(${x.toFixed(1)} ${(y + 4).toFixed(1)}) scale(${row.s})">
-        <rect x="-5" y="-60" width="10" height="60" rx="2.5" fill="${c}"/>
-        <path d="M-5 -50l10-5v5l-10 5zM-5 -32l10-5v5l-10 5zM-5 -14l10-5v5l-10 5z" fill="#fff" opacity=".55"/>
-        <path d="M0 -60v-7" stroke="#3a2f27" stroke-width="1.8" stroke-linecap="round"/>
-        <g class="flame" style="--d:-${d}s"><circle cx="0" cy="-76" r="17" fill="url(#halo)"/><path d="M0 -92c7 9 8 16 0 23-8-7-7-14 0-23z" fill="url(#flameG)"/><ellipse cx="0" cy="-73" rx="2.4" ry="4" fill="#fff8c8"/></g>
-        <path class="smoke" d="M0 -68c-5-7 5-13 0-20s5-13 0-20" fill="none" stroke="#cfc8c0" stroke-width="2.6" stroke-linecap="round"/>
-      </g>`;
-      i++;
-    }
-  });
-  const sprinkles = Array.from({ length: 46 }, (_, k) => {
-    const a = (k * 137.5) % 360, rr = Math.sqrt(((k * 53) % 100) / 100), x = cx + Math.cos(a * Math.PI / 180) * rx * .88 * rr, y = top + Math.sin(a * Math.PI / 180) * ry * .8 * rr;
-    return `<rect x="${(x - 4).toFixed(1)}" y="${(y - 1.4).toFixed(1)}" width="8" height="2.8" rx="1.4" fill="${cols[k % cols.length]}" transform="rotate(${(k * 47) % 180} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
-  }).join("");
-  const name = esc(M.name || M.to);
-  $("#cake").innerHTML = `<defs>
-      <radialGradient id="halo"><stop offset="0" stop-color="#ffd27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
-      <linearGradient id="flameG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".55" stop-color="#ffb43c"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient>
-      <radialGradient id="cakeGlow"><stop offset="0" stop-color="#ffbe6b" stop-opacity=".45"/><stop offset="1" stop-color="#ffbe6b" stop-opacity="0"/></radialGradient>
-      <linearGradient id="sponge" x1="0" x2="1"><stop offset="0" stop-color="#e9dcc4"/><stop offset=".25" stop-color="#fbf4e6"/><stop offset=".7" stop-color="#f6eddc"/><stop offset="1" stop-color="#ddcdb0"/></linearGradient>
-    </defs>
-    <circle class="cake-glow" cx="300" cy="190" r="300" fill="url(#cakeGlow)"/>
-    <ellipse cx="300" cy="452" rx="262" ry="34" fill="#e7e2d8"/><ellipse cx="300" cy="446" rx="262" ry="34" fill="#f7f3ea"/>
-    <path d="M${cx - rx} ${top}V${bottom}A${rx} ${ry} 0 0 0 ${cx + rx} ${bottom}V${top}Z" fill="url(#sponge)"/>
-    <path d="M${cx - rx} ${bottom - 30}A${rx} ${ry} 0 0 0 ${cx + rx} ${bottom - 30}v14A${rx} ${ry} 0 0 1 ${cx - rx} ${bottom - 16}z" fill="#c8992f" opacity=".85"/>
-    <path d="${dripPath}" fill="#f0a9bd"/>
-    <ellipse cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}" fill="#f4b6c7"/>
-    <ellipse cx="${cx - 40}" cy="${top - 12}" rx="${rx * .55}" ry="${ry * .38}" fill="#fff" opacity=".18"/>
-    ${sprinkles}
-    <text x="${cx}" y="350" text-anchor="middle" font-family="Caveat, 'Gochi Hand', cursive" font-weight="700" font-size="54" fill="#e06c8e">Happy 30th</text>
-    <text x="${cx}" y="398" text-anchor="middle" font-family="Caveat, 'Gochi Hand', cursive" font-weight="700" font-size="44" fill="#2e5cb8">${name}</text>
-    ${candles}`;
-  cakeLit = Array.from({ length: CANDLES }, (_, k) => k);
-  cakeDone = false; blowCarry = 0;
-  $("#cake-actions").hidden = false; $("#cake-done").hidden = true;
-  $("#cake-h").innerHTML = `Make a wish, <span>${esc(M.to)}</span>`;
-  $("#cake-tip").textContent = "Close your eyes, make a wish, then blow.";
-  $("#btn-mic").hidden = !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-  setBtn($("#btn-mic"), "mic", "Use the microphone", "Laptop or phone");
-  updateCakeCount();
-}
-function updateCakeCount() {
-  const n = cakeLit.length;
-  $("#cake-count").textContent = n === CANDLES ? `${CANDLES} candles lit` : n ? `${n} still going` : "All out";
-  const g = $("#cake .cake-glow"); if (g) g.style.opacity = String(.15 + .85 * n / CANDLES);
-}
-function blowOut(amount) {
-  if (cakeDone) return;
-  blowCarry += amount;
-  let any = false;
-  while (blowCarry >= 1 && cakeLit.length) {
-    blowCarry -= 1;
-    const i = cakeLit.splice(Math.floor(Math.random() * cakeLit.length), 1)[0];
-    const el = $(`#cake .candle[data-i="${i}"]`); if (el) el.classList.add("out");
-    any = true;
-  }
-  if (any) {
-    updateCakeCount();
-    const now = performance.now();
-    if (now - puffAt > 140 && actx) { puffAt = now; try { noise(.18, x => Math.sin(Math.PI * x) * .9, "bandpass", 700, .22, actx.currentTime); } catch (e) {} }
-  }
-  if (!cakeLit.length) cakeFinished();
-}
-function chime() {
-  if (!actx) return;
-  try {
-    const t = actx.currentTime;
-    [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => {
-      const o = actx.createOscillator(), g = actx.createGain();
-      o.type = "triangle"; o.frequency.value = f;
-      g.gain.setValueAtTime(.0001, t + k * .09); g.gain.exponentialRampToValueAtTime(.22, t + k * .09 + .02); g.gain.exponentialRampToValueAtTime(.0001, t + k * .09 + 1.1);
-      o.connect(g); g.connect(actx.destination); o.start(t + k * .09); o.stop(t + k * .09 + 1.2);
-    });
-  } catch (e) {}
-}
-function cakeFinished() {
-  cakeDone = true; holdDown = false; holdUntil = 0;
-  stopMic();
-  $("#cake").classList.remove("windy");
-  $("#btn-blow").classList.remove("held");
-  setTimeout(() => { burst(); chime(); }, 350);
-  $("#cake-h").textContent = "Wish made!";
-  $("#cake-tip").textContent = "Don't tell anyone what it was. Not even me.";
-  $("#cake-actions").hidden = true; $("#cake-done").hidden = false;
-  setTimeout(() => { try { $("#btn-cake-open").focus({ preventScroll: true }); } catch (e) {} }, 60);
-}
-function cakeLoop(now) {
-  const dt = Math.min(.1, (now - (cakeLast || now)) / 1000); cakeLast = now;
-  let strength = 0;
-  if (holdDown || now < holdUntil) strength = 1;
-  if (mic && mic.an) {
-    mic.an.getFloatTimeDomainData(mic.buf);
-    let sum = 0; for (let k = 0; k < mic.buf.length; k++) sum += mic.buf[k] * mic.buf[k];
-    const rms = Math.sqrt(sum / mic.buf.length);
-    if (now < mic.calUntil) mic.base = Math.max(mic.base, rms);
-    else {
-      const th = Math.min(.24, Math.max(.07, mic.base * 2.4));
-      mic.loud = rms > th ? mic.loud + dt : 0;
-      if (mic.loud > .08) strength = Math.max(strength, Math.min(2.2, .7 + (rms - th) / th));
-    }
-  }
-  $("#cake").classList.toggle("windy", strength > 0 && !cakeDone);
-  if (strength > 0) blowOut(dt * 12 * strength);
-  cakeRaf = requestAnimationFrame(cakeLoop);
-}
-async function startMicBlow() {
-  const b = $("#btn-mic");
-  if (mic) return;
-  try {
-    primeAudio();
-    if (!actx) throw new Error("audio");
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } });
-    const an = actx.createAnalyser(); an.fftSize = 1024;
-    actx.createMediaStreamSource(stream).connect(an);
-    mic = { stream, an, buf: new Float32Array(an.fftSize), base: .02, calUntil: performance.now() + 700, loud: 0 };
-    if (bdayOn && bdayPlayer) { try { bdayPlayer.setVolume(30); } catch (e) {} }
-    setBtn(b, "mic", "Listening…", "Blow at the screen");
-    $("#cake-tip").textContent = "Listening. Take a big breath and blow at the screen.";
-  } catch (e) {
-    b.hidden = true;
-    $("#cake-tip").textContent = "No microphone here, so press and hold Blow instead.";
-    $("#btn-blow").focus({ preventScroll: true });
-  }
-}
-function stopMic() {
-  if (!mic) return;
-  try { mic.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
-  mic = null;
-}
-function startCake() {
-  buildCake();
-  cancelAnimationFrame(cakeRaf); cakeLast = 0;
-  cakeRaf = requestAnimationFrame(cakeLoop);
-}
-function stopCake() {
-  cancelAnimationFrame(cakeRaf); cakeRaf = 0;
-  holdDown = false; holdUntil = 0;
-  stopMic();
-}
-(() => {
-  const b = $("#btn-blow");
-  const down = () => { primeAudio(); holdDown = true; holdStart = performance.now(); b.classList.add("held"); };
-  const up = () => {
-    if (!holdDown) return;
-    holdDown = false; b.classList.remove("held");
-    if (performance.now() - holdStart < 220) blowOut(2.2);
-  };
-  b.addEventListener("pointerdown", e => { if (e.button === 0) { e.preventDefault(); down(); } });
-  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => b.addEventListener(ev, up));
-  b.addEventListener("keydown", e => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    e.preventDefault(); e.stopPropagation();
-    primeAudio();
-    if (!e.repeat) { holdStart = performance.now(); blowOut(1.2); }
-    holdUntil = performance.now() + 320;
-    b.classList.add("held");
-  });
-  b.addEventListener("keyup", e => { if (e.key === "Enter" || e.key === " ") { holdUntil = 0; b.classList.remove("held"); } });
-  b.addEventListener("click", e => e.preventDefault());
-  $("#btn-mic").addEventListener("click", startMicBlow);
-  $("#btn-relight").addEventListener("click", () => { buildCake(); $("#btn-blow").focus({ preventScroll: true }); });
-  $("#btn-cake-open").addEventListener("click", () => { primeAudio(); go("library"); });
-})();
-
 /* ---------- the pencil trick ---------- */
 let pencilBusy = false, mediaRewAt = Infinity;
 const PENCIL_SVG = `<svg viewBox="0 0 240 24" aria-hidden="true">
@@ -3394,114 +3201,6 @@ function pencilTrick() {
   }, reduceMotion ? 300 : 2300);
 }
 
-/* ---------- Guess the Year ---------- */
-const party = { order: [], i: -1, revealed: false, started: false };
-let partyP = null, partyPlayer = null;
-function ensurePartyPlayer() {
-  if (partyP) return partyP;
-  partyP = loadApi().then(() => new Promise(res => {
-    const p = new YT.Player("yt-party", {
-      width: "100%", height: "100%", playerVars: playerVars(),
-      events: {
-        onReady: () => { partyPlayer = p; try { p.getIframe().setAttribute("tabindex", "-1"); } catch (e) {} res(p); },
-        onStateChange: e => { if (e.data === 0 && party.started && !party.revealed) partyReveal(); },
-        onError: () => { if (party.started && !party.revealed) $("#pt-hint").hidden = false, $("#pt-hint").textContent = "This one won't play in here. Guess from the title!"; }
-      }
-    });
-  }));
-  partyP.catch(() => { partyP = null; });
-  return partyP;
-}
-function partyAge(t) {
-  const by = M.bornYear, who = M.to;
-  if (t.year < by) return `Before ${who} was born`;
-  if (t.year === by) return `The year ${who} was born`;
-  const age = t.year - by - 1;
-  return age < 1 ? `${who} was a baby` : `${who} was ${age}`;
-}
-function setTiles(text, on) {
-  const el = $("#pt-year");
-  el.classList.remove("on"); void el.offsetWidth;
-  [...el.children].forEach((sp, k) => { sp.textContent = text[k] || "?"; });
-  if (on) el.classList.add("on");
-}
-function partyIntro() {
-  party.started = false; party.revealed = false;
-  $("#pt-cover").hidden = false; $("#pt-offline").hidden = true;
-  $("#pt-count").textContent = `${N} songs · shuffled`;
-  $("#party-h").textContent = "Guess the Year";
-  $("#pt-artist").textContent = "";
-  setTiles("????", false);
-  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#btn-pt-hint").hidden = true;
-  $("#pt-rules").textContent = `Each song plays with its year hidden. Everyone shouts out a guess. Closest wins a point. No looking it up, and no help from the birthday girl.`;
-  setBtn($("#btn-pt-go"), "play", "Let's play", `${N} songs, shuffled`);
-}
-function partyRound() {
-  const t = party.order[party.i];
-  party.revealed = false;
-  $("#pt-cover").hidden = true;
-  $("#pt-count").textContent = `Song ${party.i + 1} of ${party.order.length}`;
-  $("#party-h").textContent = t.title;
-  $("#pt-artist").textContent = t.artist;
-  $("#pt-card").style.setProperty("--washi", t.side.color);
-  setTiles("????", false);
-  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#pt-rules").textContent = "";
-  $("#btn-pt-hint").hidden = false;
-  setBtn($("#btn-pt-hint"), "star", "Hint", "Which tape?");
-  setBtn($("#btn-pt-go"), "quiz", "Reveal the year", "Everyone guessed?");
-  ensurePartyPlayer().then(p => { $("#pt-offline").hidden = true; if (t.yt) p.loadVideoById(t.yt); }).catch(() => { $("#pt-offline").hidden = false; });
-}
-function partyReveal() {
-  const t = party.order[party.i];
-  party.revealed = true;
-  setTiles(String(t.year), true);
-  sfx("clunk");
-  $("#pt-age").textContent = partyAge(t);
-  $("#pt-hint").hidden = false;
-  $("#pt-hint").style.setProperty("--hint", t.side.color);
-  $("#pt-hint").textContent = `From side ${t.side.letter}: ${t.side.title}`;
-  $("#pt-fact-text").textContent = t.fact || "";
-  $("#pt-fact").hidden = !t.fact;
-  $("#btn-pt-hint").hidden = true;
-  const last = party.i >= party.order.length - 1;
-  setBtn($("#btn-pt-go"), last ? "star" : "next", last ? "Final scores" : "Next song", last ? "That's all of them" : `Song ${party.i + 2} of ${party.order.length}`);
-  $("#btn-pt-go").focus({ preventScroll: true });
-}
-function partyEnd() {
-  party.started = false;
-  try { partyPlayer && partyPlayer.stopVideo(); } catch (e) {}
-  $("#pt-cover").hidden = false;
-  $("#pt-count").textContent = "Game over";
-  $("#party-h").textContent = "That's all of them!";
-  $("#pt-artist").textContent = "Count up the points. Winner picks the next song.";
-  setTiles("3030", true);
-  $("#pt-age").textContent = ""; $("#pt-hint").hidden = true; $("#pt-fact").hidden = true; $("#btn-pt-hint").hidden = true;
-  setBtn($("#btn-pt-go"), "play", "Play again", "New shuffle");
-  burst();
-}
-$("#btn-pt-go").addEventListener("click", () => {
-  primeAudio();
-  if (!party.started) { party.order = shuffle(ALL); party.i = 0; party.started = true; partyRound(); return; }
-  if (!party.revealed) { partyReveal(); return; }
-  if (party.i >= party.order.length - 1) { partyEnd(); return; }
-  party.i++; partyRound();
-});
-$("#btn-pt-hint").addEventListener("click", () => {
-  const t = party.order[party.i];
-  $("#pt-hint").hidden = false;
-  $("#pt-hint").style.setProperty("--hint", t.side.color);
-  $("#pt-hint").textContent = `Hint: it's on side ${t.side.letter}, ${t.side.title}.`;
-  $("#btn-pt-hint").hidden = true;
-  $("#btn-pt-go").focus({ preventScroll: true });
-});
-function enterParty() {
-  if (state.playing) pause();
-  stopBirthday();
-  if (!party.started) partyIntro();
-  else if (partyPlayer && !party.revealed) { try { partyPlayer.playVideo(); } catch (e) {} }
-}
-function leaveParty() { if (partyPlayer) { try { partyPlayer.pauseVideo(); } catch (e) {} } }
-
 /* ---------- photos: make bigger, and the surprise ---------- */
 const SEEN_KEY = "megs-mixtape-photos-seen";
 let lbTimer = null, lbFrom = null, lbPrevFocus = null, surpriseTimer = null, surpriseTok = 0;
@@ -3523,8 +3222,10 @@ function lbShowSetItem() {
   const it = lbSet[lbIndex];
   $("#lb-img").src = it.src; $("#lb-img").alt = it.cap || "A photo";
   $("#lb-cap").textContent = it.cap || "";
-  $("#lb-eyebrow").textContent = `${lbIndex + 1} of ${lbSet.length}`;
+  $("#lb-eyebrow").textContent = it.eyebrow || `${lbIndex + 1} of ${lbSet.length}`;
   lbFrom = it.el || null;
+  $$(".al-photo.lifted").forEach(el => el.classList.remove("lifted"));
+  if (lbFrom && lbFrom.classList.contains("al-photo")) lbFrom.classList.add("lifted");
 }
 function lbStep(d) {
   if (!lbSet) return;
@@ -3543,6 +3244,7 @@ function openLightbox(src, cap, opts = {}) {
   $("#lb-cap").textContent = cap || "";
   $("#lb-eyebrow").textContent = opts.surprise ? "Look what I found…" : "";
   if (lbSet) lbShowSetItem();
+  else if (lbFrom && lbFrom.classList.contains("al-photo")) lbFrom.classList.add("lifted");
   $("#btn-lb-prev").hidden = $("#btn-lb-next").hidden = !lbSet;
   setBtn($("#btn-lb-close"), "back", currentView === "player" ? "Back to the song" : "Back", "", false);
   lb.hidden = false;
@@ -3570,12 +3272,16 @@ function closeLightbox(instant) {
   const lb = $("#lightbox");
   if (lb.hidden) return false;
   clearTimeout(lbTimer);
+  // an album photo goes back on the page it came from, even if she flicked to another
+  const synced = !!(lbSet && typeof lbSet.sync === "function");
+  if (synced) { lbSet.sync(lbIndex); lbFrom = lbSet[lbIndex].el || lbFrom; }
   const frame = $("#lb-frame");
   const target = lbFrom && lbFrom.getClientRects().length ? lbFrom : null;
-  const back = lbPrevFocus;
+  const back = synced && lbFrom ? lbFrom : lbPrevFocus;
   const done = () => {
     lb.hidden = true;
     document.body.classList.remove("lb-open");
+    $$(".al-photo.lifted").forEach(el => el.classList.remove("lifted"));
     if (!instant && back && back.isConnected && back.getClientRects().length) { try { back.focus({ preventScroll: true }); } catch (e) {} }
   };
   if (instant || reduceMotion) { lb.getAnimations().forEach(a => a.cancel()); done(); return true; }
@@ -3598,11 +3304,6 @@ document.addEventListener("click", e => {
   const fig = b.closest("figure"), img = b.querySelector("img");
   if (!img || !img.getAttribute("src")) return;
   sfx("click");
-  if (b.dataset.mt != null) {
-    const set = $$("#mt-stage .mt-photo").map(el => ({ src: el.querySelector("img").getAttribute("src"), cap: el.dataset.cap || "", el }));
-    openLightbox(img.getAttribute("src"), b.dataset.cap || "", { from: b, set, index: +b.dataset.mt });
-    return;
-  }
   openLightbox(img.getAttribute("src"), fig && fig.querySelector("figcaption") ? fig.querySelector("figcaption").textContent : "", { from: b });
 });
 function maybeSurprise(t) {
@@ -3616,9 +3317,9 @@ function maybeSurprise(t) {
   }, 1700);
 }
 
-/* ---------- birthday photo montage ---------- */
+/* ---------- birthday photos ---------- */
 const BDAY = (M.birthdayPhotos || []).filter(b => b && b.photo);
-let mtRun = 0, mtTimers = [], bdayPreloaded = false;
+let bdayPreloaded = false;
 function preloadBirthdays() {
   if (bdayPreloaded) return;
   bdayPreloaded = true;
@@ -3634,140 +3335,243 @@ function loadImg(src) {
     im.src = src;
   });
 }
-function mtSlots(list, W, H) {
-  const n = list.length, ars = list.map(x => x.ar || .75);
-  const avgAr = ars.reduce((a, b) => a + b, 0) / n;
-  const guess = Math.max(2, Math.min(n, Math.round(Math.sqrt(n * (W / H) / avgAr))));
-  // try a column either side and keep whichever lets the photos be biggest
-  let cols = guess, best = 0;
-  for (let c = Math.max(2, guess - 1); c <= Math.min(n, guess + 1); c++) {
-    const r = Math.ceil(n / c), size = Math.min((H / r) * .74, (W / c) * .86 / avgAr);
-    if (size > best + .5) { best = size; cols = c; }
-  }
-  const rows = Math.ceil(n / cols);
-  const cw = W / cols, ch = H / rows, r = rng(4242);
-  return list.map((x, i) => {
-    const row = Math.floor(i / cols), col = i % cols;
-    const inRow = row === rows - 1 ? n - row * cols : cols;
-    const off = (cols - inRow) * cw / 2;
-    const imgH = Math.min(ch * .74, (cw * .86) / x.ar);
-    return {
-      x: off + cw * (col + .5) + (r() - .5) * cw * .16,
-      y: ch * (row + .5) + (r() - .5) * ch * .12,
-      w: imgH * x.ar, rot: (r() - .5) * 14
-    };
+/* ---------- the birthday album ---------- */
+const AL_PA = .78;   // page width ÷ page height
+const AL_BADGE = ["#e06c8e", "#b3302f", "#2e5cb8", "#2c7a50", "#c8992f"];
+const al = { mode: "", leaves: [], leafEls: [], p: 0, max: 0, ars: [], run: 0, timers: [], idleT: 0, first: false, ended: false, touched: false, rt: 0 };
+function ordinal(n) { const s = n % 100; return n + (s >= 11 && s <= 13 ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th")); }
+function alPhotos() {
+  return BDAY.map((b, i) => {
+    let age = b.age != null && b.age !== "" ? +b.age : NaN;
+    if (!isFinite(age)) { const m = String(b.caption || "").match(/\d+/); age = m ? +m[0] : NaN; }
+    const note = b.note != null ? String(b.note) : (b.age != null ? String(b.caption || "") : "");
+    return { kind: "photo", i, src: b.photo, age: isFinite(age) ? age : null, note };
   });
 }
-function mtClear() { mtTimers.forEach(clearTimeout); mtTimers = []; }
-function mtWait(ms, run) { return new Promise(res => mtTimers.push(setTimeout(() => res(run === mtRun), ms))); }
-function mtSetEnd(first) {
-  if (scrollY > 0 && !$("#mt-stage").classList.contains("done")) scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-  $("#mt-stage").classList.add("done");
-  $("#btn-mt-skip").hidden = true;
-  $("#mt-tip").hidden = false;
-  if (first) {
-    $("#mt-eyebrow").textContent = `${BDAY.length} birthdays, give or take`;
-    $("#mt-h").textContent = "Now for number 30!";
-    $("#btn-mt-go").hidden = false; $("#btn-mt-replay").hidden = true; $("#btn-mt-rack").hidden = true;
-    setBtn($("#btn-mt-go"), "play", "On to number 30", "Your birthday mixtape");
-    $("#btn-mt-go").focus({ preventScroll: true });
+function alContent() {
+  const S = alPhotos();
+  if (S.length % 2) S.push({ kind: "candles" });   // keeps the space for number 30 on a right-hand page
+  S.push({ kind: "slot" });
+  return S;
+}
+function alAgeLine(x) { return x.age != null ? `${ordinal(x.age)} birthday${M.bornYear ? " · December " + (M.bornYear + x.age) : ""}` : ""; }
+function alPageHTML(x) {
+  const ages = alPhotos().map(p => p.age).filter(a => a != null);
+  if (x.kind === "cover") {
+    const yrs = ages.length && M.bornYear ? `${M.bornYear + Math.min(...ages)} – ${M.bornYear + Math.max(...ages)}` : "";
+    return `<span class="al-frame"></span><p class="al-foil">Photographs</p>
+      <div class="al-label"><p class="al-label-name">${esc(FULL)}'s birthdays</p>${yrs ? `<p class="al-label-years">${yrs}</p>` : ""}</div>
+      <span class="al-cnr t"></span><span class="al-cnr b"></span>`;
+  }
+  if (x.kind === "plate") {
+    return `<div class="al-plate"><p class="al-plate-h">This album belongs to</p><p class="al-plate-name">${esc(FULL)}</p>
+      ${M.albumNote ? `<p class="al-plate-note">${esc(M.albumNote)}</p>` : ""}<p class="al-plate-sign">${esc(M.signature || (M.from + " x"))}</p></div>`;
+  }
+  if (x.kind === "photo") {
+    const r = rng(11 + x.i * 37), rot = ((r() - .5) * 5).toFixed(1);
+    const ar = al.ars[x.i] || .75, w = Math.min(82, 63 * ar / AL_PA);
+    const what = x.age != null ? `${ordinal(x.age)} birthday` : "A birthday";
+    return `<div class="al-mount" style="--w:${w.toFixed(1)}%; --ar:${ar.toFixed(3)}; --rot:${rot}deg">
+        <button class="al-photo" type="button" data-i="${x.i}" aria-label="${esc(what + (x.note ? ". " + x.note.replace(/[.!?…]+$/, "") : ""))}. Take it out to see it big"><img src="${esc(x.src)}" alt="" draggable="false">${x.age != null ? `<span class="al-badge" style="--bg:${AL_BADGE[x.i % AL_BADGE.length]}" aria-hidden="true"><b>${x.age}</b><i>today</i></span>` : ""}</button>
+        <span class="al-cn tl"></span><span class="al-cn tr"></span><span class="al-cn bl"></span><span class="al-cn br"></span>
+      </div><p class="al-note">${esc(x.note)}</p>${x.age != null && M.bornYear ? `<p class="al-date">December ${M.bornYear + x.age}</p>` : ""}`;
+  }
+  if (x.kind === "candles") {
+    const n = Math.max(1, ageNow() - 1), sum = n * (n + 1) / 2;
+    const art = `<svg class="al-cd-art" viewBox="0 0 120 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      ${[20, 46, 72, 98].map((x0, k) => `<path d="M${x0 - 4} 38v-${18 - k % 2 * 4}h8v${18 - k % 2 * 4}"/><path d="M${x0} ${20 - k % 2 * 4}v-3"/><path d="M${x0} ${15 - k % 2 * 4}c-3-3 0-7 0-9c0 2 3 6 0 9z" fill="#ffb347" stroke="#c46a1c"/>`).join("")}
+      <path d="M8 38.5h104" stroke-dasharray="2 3"/></svg>`;
+    return `<p class="al-cd-k">Candles blown out so far</p><p class="al-cd-n">${sum}</p><p class="al-cd-sum">1 + 2 + 3 + … + ${n}</p>${art}<p class="al-cd-note">Give or take a few trick ones that kept relighting.</p>`;
+  }
+  if (x.kind === "slot") {
+    const n = ageNow();
+    return `<div class="al-mount al-empty" style="--w:56%; --ar:.8; --rot:1.2deg"><p class="al-slot-txt">Number ${n}<br>goes here</p>
+        <span class="al-badge" style="--bg:#b3302f" aria-hidden="true"><b>${n}</b><i>today</i></span>
+        <span class="al-cn tl"></span><span class="al-cn tr"></span><span class="al-cn bl"></span><span class="al-cn br"></span>
+      </div><p class="al-note">Can't wait to see this one.</p>${M.birthday ? `<p class="al-date">December ${String(M.birthday).slice(0, 4)}</p>` : ""}`;
+  }
+  return "";
+}
+function ageNow() { return M.bornYear && M.birthday ? +String(M.birthday).slice(0, 4) - M.bornYear : 30; }
+function alFace(x, side) {
+  const cls = side === "front" ? "pg-r" : "pg-l";
+  return `<div class="al-face ${side === "front" ? "fr" : "bk"}"><div class="al-pg ${cls} pg-${x.kind}">${alPageHTML(x)}</div><span class="al-shade"></span></div>`;
+}
+function alBuild(mode) {
+  const S = alContent(), cover = { kind: "cover" }, plate = { kind: "plate" };
+  let leaves;
+  if (mode === "spread") {
+    leaves = [{ front: cover, back: plate }];
+    for (let k = 0; k < S.length; k += 2) leaves.push({ front: S[k], back: S[k + 1] || { kind: "blank" } });
   } else {
-    $("#mt-eyebrow").textContent = `${BDAY.length} photos`;
-    $("#mt-h").textContent = "Birthdays gone by";
-    $("#btn-mt-go").hidden = true; $("#btn-mt-replay").hidden = false; $("#btn-mt-rack").hidden = false;
-    setBtn($("#btn-mt-replay"), "play", "Play the montage", "Quick slideshow");
+    leaves = [cover, plate, ...S].map(x => ({ front: x, back: { kind: "blank" } }));
+  }
+  al.mode = mode; al.leaves = leaves; al.max = leaves.length - 1;
+  const book = $("#al-book");
+  book.className = "al-book " + mode;
+  book.innerHTML = `<div class="al-shadow"></div>` + leaves.map((l, i) => `<div class="al-leaf" data-l="${i}">${alFace(l.front, "front")}${alFace(l.back, "back")}</div>`).join("");
+  al.leafEls = $$("#al-book .al-leaf");
+}
+function alVisibleAt(p) {
+  if (!al.leaves.length) return [];
+  if (al.mode === "spread") return [p > 0 ? al.leaves[p - 1].back : null, al.leaves[p] ? al.leaves[p].front : null].filter(Boolean);
+  return al.leaves[p] ? [al.leaves[p].front] : [];
+}
+function alFind(i) {
+  for (let p = 0; p <= al.max; p++) if (alVisibleAt(p).some(x => x.kind === "photo" && x.i === i)) return p;
+  return 0;
+}
+function alZ(i, turned) { return 10 + (turned ? i : al.leaves.length - i); }
+function alApply(instant) {
+  const book = $("#al-book");
+  if (instant) book.classList.add("instant");
+  al.leafEls.forEach((el, i) => {
+    const t = i < al.p;
+    el.classList.toggle("turned", t);
+    if (!el._moving || instant) { el._moving = false; clearTimeout(el._t); clearTimeout(el._h); el.style.zIndex = alZ(i, t); }
+    // only the sides facing her can be picked (the remote would otherwise find hidden photos)
+    el.children[0].toggleAttribute("inert", i !== al.p);
+    el.children[1].toggleAttribute("inert", !(al.mode === "spread" && i === al.p - 1));
+  });
+  book.classList.toggle("closed", al.p === 0);
+  if (instant) { void book.offsetWidth; book.classList.remove("instant"); }
+  const parts = alVisibleAt(al.p).map(x => x.kind === "photo" ? (x.age != null ? `Age ${x.age}` : "") : x.kind === "candles" ? "Candles so far" : x.kind === "slot" ? `Number ${ageNow()}` : "").filter(Boolean);
+  $("#al-count").textContent = parts.join(" · ");
+  $("#btn-al-prev").setAttribute("aria-disabled", String(al.p <= 0));
+  $("#btn-al-next").setAttribute("aria-disabled", String(al.p >= al.max));
+}
+function paperSfx(len) {
+  if (!actx) return;
+  try {
+    const t = actx.currentTime, L = len || .28;
+    noise(L, x => Math.sin(Math.PI * Math.min(1, x * 1.5)) * (1 - x * .5), "bandpass", 1700 + Math.random() * 900, .16, t);
+    noise(.05, x => 1 - x, "highpass", 3600, .05, t + L * .75);
+  } catch (e) {}
+}
+function alTurn(d, opts = {}) {
+  const np = al.p + d;
+  if (np < 0 || np > al.max) {
+    if (!reduceMotion) $("#album").animate([{ transform: "translateX(0)" }, { transform: `translateX(${-d * 9}px)` }, { transform: "translateX(0)" }], { duration: 260, easing: "ease-out" });
+    return false;
+  }
+  const i = d > 0 ? al.p : al.p - 1, el = al.leafEls[i], L = al.leaves.length, dur = reduceMotion ? 0 : 850;
+  el.getAnimations().forEach(a => a.cancel());
+  al.p = np;
+  // the moving page stays on top: over the right-hand pages first, then over the left
+  el._moving = true; clearTimeout(el._t); clearTimeout(el._h);
+  el.style.zIndex = 1000 + (d > 0 ? L - i : i);
+  el._h = setTimeout(() => { el.style.zIndex = 1000 + (d > 0 ? i : L - i); }, dur / 2);
+  el._t = setTimeout(() => { el._moving = false; el.style.zIndex = alZ(i, i < al.p); }, dur + 30);
+  alApply();
+  if (dur) {
+    const A = [{ opacity: 0 }, { opacity: .55, offset: .5 }, { opacity: .55 }], B = [{ opacity: .55 }, { opacity: .55, offset: .5 }, { opacity: 0 }];
+    el.querySelector(".al-face.fr .al-shade").animate(d > 0 ? A : B, { duration: dur, easing: "ease-in-out" });
+    el.querySelector(".al-face.bk .al-shade").animate(d > 0 ? B : A, { duration: dur, easing: "ease-in-out" });
+  }
+  if (!opts.silent) paperSfx();
+  if (al.p >= al.max) alEnd();
+  return true;
+}
+function alUser(d) { al.touched = true; clearInterval(al.idleT); primeAudio(); alTurn(d); }
+function alClear() { al.timers.forEach(clearTimeout); al.timers = []; clearInterval(al.idleT); }
+function alLater(fn, ms, run) { al.timers.push(setTimeout(() => { if (run === al.run && currentView === "album") fn(); }, ms)); }
+function alIdle() {
+  clearInterval(al.idleT);
+  if (reduceMotion) return;
+  // until she turns a page herself, lift the corner now and then as a hint
+  al.idleT = setInterval(() => {
+    if (currentView !== "album" || al.touched || al.p >= al.max || !$("#lightbox").hidden) return;
+    const el = al.leafEls[al.p];
+    if (!el || el._moving) return;
+    el.animate([{ transform: "rotateY(0deg)" }, { transform: "rotateY(-18deg)", offset: .45 }, { transform: "rotateY(0deg)" }], { duration: 1100, easing: "ease-in-out" });
+  }, 4800);
+}
+function alRiffle() {
+  al.touched = true; clearInterval(al.idleT);
+  primeAudio();
+  if (al.p >= al.max) { alEnd(); return; }
+  if (actx) { try { noise(Math.min(1.4, .07 * (al.max - al.p) + .4), x => (.55 + .45 * Math.sin(x * 90)) * (1 - x * .7), "bandpass", 2300, .13, actx.currentTime); } catch (e) {} }
+  const run = al.run;
+  const step = () => { if (run !== al.run || al.p >= al.max) return; alTurn(1, { silent: true }); al.timers.push(setTimeout(step, reduceMotion ? 0 : 75)); };
+  step();
+}
+function alEnd() {
+  if (!al.first || al.ended) return;
+  al.ended = true;
+  $("#btn-al-skip").hidden = true; $("#btn-al-go").hidden = false;
+  $("#al-eyebrow").textContent = `${BDAY.length} birthdays, give or take`;
+  $("#al-h").textContent = `Now for number ${ageNow()}!`;
+  setBtn($("#btn-al-go"), "play", `On to number ${ageNow()}`, "Your birthday mixtape");
+  const run = al.run;
+  setTimeout(() => { if (run === al.run && $("#lightbox").hidden) { try { $("#btn-al-go").focus({ preventScroll: true }); } catch (e) {} } }, reduceMotion ? 0 : 900);
+}
+function alLayout(force) {
+  const st = $("#al-stage");
+  if (!st || !st.clientWidth) return;
+  const W = st.clientWidth - 16, H = st.clientHeight - 16;
+  // two pages side by side, unless one page on its own would be far bigger (phones, an upright iPad)
+  const spreadW = Math.min(W / 2, H * AL_PA), singleW = Math.min(W, H * AL_PA);
+  const mode = W >= 600 && H >= 260 && spreadW >= singleW * .62 ? "spread" : "single";
+  const pw = Math.max(150, Math.floor(mode === "spread" ? spreadW : singleW));
+  const a = $("#album");
+  a.style.setProperty("--pw", pw + "px"); a.style.setProperty("--ph", Math.round(pw / AL_PA) + "px"); a.style.fontSize = (pw / 20).toFixed(2) + "px";
+  if (force || mode !== al.mode) {
+    const keep = al.leaves.length ? alVisibleAt(al.p).find(x => x.kind === "photo") : null;
+    const wasEnd = al.leaves.length && al.p >= al.max;
+    alBuild(mode);
+    if (keep) al.p = alFind(keep.i); else if (wasEnd) al.p = al.max; else al.p = Math.min(al.p, al.max);
+    alApply(true);
   }
 }
-async function startMontage(st) {
-  const run = ++mtRun;
-  mtClear();
-  const first = !!(st && st.first), play = first || !!(st && st.play);
-  const stage = $("#mt-stage");
-  stage.innerHTML = ""; stage.classList.remove("done"); stage.style.height = "";
-  $("#mt-tip").hidden = true;
-  $("#btn-mt-skip").hidden = !play;
-  $("#btn-mt-go").hidden = $("#btn-mt-replay").hidden = true;
-  $("#btn-mt-rack").hidden = play;
-  $("#mt-eyebrow").textContent = play ? "Before we start…" : `${BDAY.length} photos`;
-  $("#mt-h").textContent = play ? "A few birthdays gone by" : "Birthdays gone by";
-  if (play) setTimeout(() => { if (run === mtRun) $("#btn-mt-skip").focus({ preventScroll: true }); }, 60);
-  if (!BDAY.length) { mtSetEnd(first); return; }
-  // sizes: measure every photo first (they were preloaded on the present screen)
+async function alStart(st) {
+  const run = ++al.run;
+  alClear();
+  al.first = !!(st && st.first); al.ended = false; al.touched = false;
+  $("#btn-al-skip").hidden = !al.first; $("#btn-al-go").hidden = true; $("#btn-al-rack").hidden = al.first;
+  $("#al-eyebrow").textContent = al.first ? "Before we start…" : `${BDAY.length} photos`;
+  $("#al-h").textContent = al.first ? "A few birthdays gone by" : "Birthdays gone by";
   const imgs = await Promise.all(BDAY.map(b => loadImg(b.photo)));
-  if (run !== mtRun) return;
-  const list = BDAY.map((b, i) => ({ src: b.photo, cap: b.caption || "", ar: imgs[i] ? imgs[i].naturalWidth / imgs[i].naturalHeight : .75, ok: !!imgs[i] })).filter(x => x.ok);
-  const wide = innerWidth > 700;
-  let W = stage.clientWidth, H = Math.max(stage.clientHeight, 300);
-  if (!wide) { const cols = 3; H = Math.max(H, Math.ceil(list.length / cols) * (W / cols) * 1.2); stage.style.height = H + "px"; }
-  const slots = mtSlots(list, W, H);
-  const sr = stage.getBoundingClientRect();
-  const visTop = Math.max(sr.top, 0), visBot = Math.min(sr.bottom, innerHeight);
-  const cx = W / 2, cy = (visTop + visBot) / 2 - sr.top;
-  const bigH = Math.min((visBot - visTop) * .9, innerHeight * .74);
-  const els = list.map((x, i) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.className = "pz mt-photo"; b.dataset.mt = i; b.dataset.cap = x.cap;
-    b.setAttribute("aria-label", x.cap ? `${x.cap}: make it bigger` : "Make the photo bigger");
-    const bw = Math.min(bigH * x.ar, W * .9);
-    b.innerHTML = `<img src="${esc(x.src)}" alt=""><span class="mt-cap">${esc(x.cap)}</span>`;
-    b.style.width = bw + "px";
-    b.style.zIndex = String(10 + i);
-    return { b, x, slot: slots[i], bw };
-  });
-  els.forEach(({ b }) => { b.style.visibility = "hidden"; stage.appendChild(b); });
-  els.forEach(e => {
-    const h = e.b.offsetHeight, k = e.slot.w / e.bw;
-    e.k = k;
-    e.b.style.left = (e.slot.x - e.bw / 2) + "px";
-    e.b.style.top = (e.slot.y - h / 2) + "px";
-    e.b.style.setProperty("--rot", e.slot.rot.toFixed(1) + "deg");
-    e.b.style.setProperty("--k", k.toFixed(4));
-    e.dx = cx - e.slot.x; e.dy = cy - e.slot.y;
-  });
-  if (!play || reduceMotion) {
-    els.forEach((e, i) => {
-      e.b.style.visibility = "";
-      if (!reduceMotion) e.b.animate([{ opacity: 0, transform: `rotate(${e.slot.rot}deg) scale(${e.k * .8})` }, { opacity: 1, transform: `rotate(${e.slot.rot}deg) scale(${e.k})` }], { duration: 320, delay: i * 45, easing: "ease-out", fill: "backwards" });
-    });
-    mtSetEnd(first);
-    return;
-  }
-  // about a second a photo, quicker as the pile grows so it stays a short montage
-  const step = Math.round(Math.max(650, Math.min(1000, 17000 / els.length)));
-  for (let i = 0; i < els.length; i++) {
-    const e = els[i], tilt = (i % 2 ? 1 : -1) * (1.5 + (i % 3));
-    if (!wide) {
-      // on a phone the pile is taller than the screen: follow it down as it grows
-      const r = stage.getBoundingClientRect(), h = e.b.offsetHeight * e.k;
-      const over = r.top + e.slot.y + h / 2 + 24 - innerHeight;
-      const lift = over > 0 ? Math.min(over, Math.max(0, document.documentElement.scrollHeight - innerHeight - scrollY)) : 0;
-      if (lift > 0) scrollBy({ top: lift, behavior: "smooth" });
-      const top = r.top - lift, vt = Math.max(top, 0), vb = Math.min(top + r.height, innerHeight);
-      e.dy = (vt + vb) / 2 - top - e.slot.y;
-    }
-    e.b.style.visibility = "";
-    const big = `translate(${e.dx}px, ${e.dy}px) rotate(${tilt}deg) scale(1)`;
-    e.b.animate([
-      { transform: `translate(${e.dx}px, ${e.dy + 30}px) rotate(${tilt * 3}deg) scale(.7)`, opacity: 0 },
-      { transform: big, opacity: 1, offset: .28 },
-      { transform: `translate(${e.dx}px, ${e.dy}px) rotate(${tilt}deg) scale(1.035)`, offset: .66 },
-      { transform: `rotate(${e.slot.rot}deg) scale(${e.k})` }
-    ], { duration: 1500, easing: "cubic-bezier(.3,.7,.3,1)" });
-    if (i === 0) { primeAudio(); shutter(); }
-    if (!(await mtWait(i === els.length - 1 ? 1500 : step, run))) return;
-  }
-  mtSetEnd(first);
+  if (run !== al.run) return;
+  al.ars = imgs.map(im => im && im.naturalWidth ? im.naturalWidth / im.naturalHeight : .75);
+  al.p = 0; al.leaves = [];
+  alLayout(true);
+  alLater(() => { alTurn(1); alIdle(); }, reduceMotion ? 60 : al.first ? 1100 : 450, run);
 }
-function skipMontage() {
-  const st = { first: !!(history.state && history.state.first) };
-  mtRun++; mtClear();
-  $$("#mt-stage .mt-photo").forEach(b => { b.getAnimations().forEach(a => a.finish()); b.style.visibility = ""; });
-  mtSetEnd(st.first);
+function alStop() { al.run++; alClear(); }
+function alPullOut(ph) {
+  al.touched = true; clearInterval(al.idleT);
+  const set = alPhotos().map(x => ({ src: x.src, cap: x.note || (x.age != null ? `${ordinal(x.age)} birthday` : ""), eyebrow: alAgeLine(x), el: $(`#al-book .al-photo[data-i="${x.i}"]`) }));
+  set.sync = i => { const p = alFind(i); if (p !== al.p) { al.p = p; alApply(true); } };
+  const i = +ph.dataset.i;
+  sfx("click");
+  openLightbox(set[i].src, set[i].cap, { from: ph, set, index: i });
 }
-function stopMontage() { mtRun++; mtClear(); }
-$("#btn-mt-skip").addEventListener("click", skipMontage);
-$("#btn-mt-go").addEventListener("click", () => { primeAudio(); go("intro", {}, { replace: true }); });
-$("#btn-mt-replay").addEventListener("click", () => startMontage({ play: true }));
+(() => {
+  const book = $("#al-book");
+  let sx = 0, sy = 0, pid = null, swiped = false;
+  book.addEventListener("pointerdown", e => { sx = e.clientX; sy = e.clientY; pid = e.pointerId; swiped = false; });
+  book.addEventListener("pointerup", e => {
+    if (e.pointerId !== pid) return;
+    pid = null;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) { swiped = true; alUser(dx < 0 ? 1 : -1); }
+  });
+  book.addEventListener("pointercancel", () => { pid = null; });
+  book.addEventListener("click", e => {
+    if (swiped) { swiped = false; e.preventDefault(); return; }
+    const ph = e.target.closest(".al-photo");
+    if (ph) { e.preventDefault(); alPullOut(ph); return; }
+    // a tap on the paper turns the page that way
+    const r = book.getBoundingClientRect(), x = e.clientX - r.left;
+    if (al.mode === "spread" && al.p > 0) alUser(x < r.width / 2 ? -1 : 1);
+    else alUser(al.mode === "single" && al.p > 0 && x < r.width * .22 ? -1 : 1);
+  });
+  $("#btn-al-next").addEventListener("click", () => alUser(1));
+  $("#btn-al-prev").addEventListener("click", () => alUser(-1));
+  $("#btn-al-skip").addEventListener("click", alRiffle);
+  $("#btn-al-go").addEventListener("click", () => { primeAudio(); go("intro", {}, { replace: true }); });
+  window.addEventListener("resize", () => { if (currentView !== "album") return; clearTimeout(al.rt); al.rt = setTimeout(() => alLayout(false), 140); });
+})();
 (() => {
   const b = $("#btn-photos");
   if (!BDAY.length) { b.hidden = true; return; }
