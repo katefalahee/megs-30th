@@ -208,7 +208,7 @@ window.MIXTAPE = {
           note: "One of your icons. Pure drama from the first piano note to the last. Full performance required, wind machine optional.", // DRAFT
           fact: "Written by Jim Steinman, the man behind Meat Loaf's biggest hits. It came out in 1996, the year you were born." },
         { title: "You Belong With Me", artist: "Taylor Swift", year: 2009, yt: "VuNIsY6JdUw",
-          note: "Peak MSN Messenger era. This was in someone's \"now playing\", guaranteed.", // DRAFT
+          note: "The one that started the Taylor obsession. On repeat at home and on every family holiday, so we all know every word too.",
           fact: "Taylor plays both girls in the video: the girl next door and the mean girlfriend." },
         { title: "Dancing Queen", artist: "ABBA", year: 1976, yt: "xFrGuyw1V8s",
           note: "Twenty years before you were born, and still the first song on at every party.", // DRAFT
@@ -1055,25 +1055,54 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
 .intro{grid-template-areas:"art copy" "clock copy"}
 .intro-art{grid-area:art}
 .intro-copy{grid-area:copy}
-.worldclock{grid-area:clock; justify-self:center; align-self:start; width:min(100%, 31rem); display:grid; gap:.55rem; padding:1rem 1.1rem .9rem;
-  border-radius:14px; background:linear-gradient(180deg, #1d1814, #13100d); color:#f3ead6;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.08), 0 18px 34px rgba(0,0,0,.5)}
-.wc-head{display:flex; justify-content:space-between; gap:1rem; color:#a8998a; font-size:.52rem}
-.wc-row{display:grid; grid-template-columns:minmax(0, 1fr) auto auto; grid-template-areas:"city time wx" "status status status"; align-items:center; gap:.15rem .9rem;
-  padding:.55rem .7rem .6rem; border-radius:9px; background:rgba(255,255,255,.035); box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
-.wc-city{grid-area:city; font-family:var(--font-machine); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.worldclock{grid-area:clock; justify-self:center; align-self:start; width:min(100%, 31rem); display:grid; gap:.6rem; padding:.95rem 1rem .85rem;
+  border-radius:18px; background:linear-gradient(180deg, rgba(46,36,60,.94), rgba(24,18,32,.94)); color:#f3ead6;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1), inset 0 1px 0 rgba(255,255,255,.12), 0 18px 34px rgba(0,0,0,.5), 0 0 70px rgba(130,100,220,.14)}
+/* the route along the top: a little plane on its way from home to her */
+.wc-head{display:grid; gap:.3rem}
+.wc-route{display:flex; align-items:center; gap:.7rem; color:#f3ead6; font-size:.62rem}
+.wc-path{position:relative; flex:1; min-width:3rem; height:2px; background:repeating-linear-gradient(90deg, rgba(255,179,71,.7) 0 4px, transparent 4px 9px)}
+.wc-plane{position:absolute; top:50%; left:0; width:1.15rem; height:1.15rem; margin-top:-.58rem; color:var(--lamp); filter:drop-shadow(0 0 6px rgba(255,179,71,.6)); animation:wcFly 11s ease-in-out infinite}
+@keyframes wcFly{0%{left:0; opacity:0} 8%{opacity:1} 88%{opacity:1} 100%{left:calc(100% - 1.15rem); opacity:0}}
+@media (prefers-reduced-motion: reduce){ .wc-plane{animation:none; left:calc(50% - .58rem)} }
+.wc-km{color:#a99cb8; font-size:.5rem; text-align:center}
+/* each city is a window onto its own sky, worked out from the local time and weather */
+.wc-row{--sky:linear-gradient(165deg, #0c1233, #18245a 60%, #29306a); --sky-ink:#f6eedc; --sky-soft:#cfcbe4; --land:#0a0f26; --orb:none;
+  position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0, 1fr) auto auto; grid-template-areas:"city time wx" "status status status"; align-items:center; gap:.2rem .9rem;
+  padding:.65rem .8rem .7rem; border-radius:13px; color:var(--sky-ink); background:var(--sky);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14), inset 0 -14px 24px rgba(0,0,0,.14), 0 6px 14px rgba(0,0,0,.3); transition:background .8s}
+.wc-row::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:var(--orb)}
+.wc-row::after{content:""; position:absolute; right:0; bottom:0; width:64%; height:56%; z-index:-1; pointer-events:none; background:var(--land); opacity:.9;
+  -webkit-mask:var(--shape) right bottom / 100% 100% no-repeat; mask:var(--shape) right bottom / 100% 100% no-repeat}
+#wc-home{--shape:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 60V40C22 28 44 30 66 37S104 46 124 33 168 20 200 31V60Z'/%3E%3Cpath d='M70 60V48C96 40 118 41 140 47S182 52 200 46V60Z' opacity='.7'/%3E%3C/svg%3E")}
+#wc-away{--shape:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 60V41Q12 35 25 41T50 41T75 41T100 41T125 41T150 41T175 41T200 41V60Z'/%3E%3Cpath d='M0 60V50Q12 45 25 50T50 50T75 50T100 50T125 50T150 50T175 50T200 50V60Z' opacity='.7'/%3E%3C/svg%3E")}
+.wc-row.sky-day{--sky:linear-gradient(165deg, #4f9fe2, #8cc6f1 55%, #d9edfb); --sky-ink:#14204a; --sky-soft:#253766; --land:#4f9a58;
+  --orb:radial-gradient(circle at 89% 30%, rgba(255,238,160,.6), rgba(255,214,90,.2) 1.5rem, transparent 3.2rem)}
+.wc-row.sky-day.grey{--sky:linear-gradient(165deg, #8797ab, #aebccb 58%, #d1d9e2); --sky-ink:#1b2536; --sky-soft:#2f3a4d; --land:#5e8a63;
+  --orb:radial-gradient(ellipse 60% 70% at 85% 25%, rgba(255,255,255,.45), transparent 70%)}
+.wc-row.sky-dawn, .wc-row.sky-dusk{--sky-ink:#fff6e6; --sky-soft:#f6dccf; --land:#33284e;
+  --orb:radial-gradient(circle at 86% 96%, rgba(255,214,140,.95) 0 .65rem, rgba(255,150,100,.4) 1.2rem, transparent 3.2rem)}
+.wc-row.sky-dawn{--sky:linear-gradient(165deg, #3a2d6e, #b45f9a 58%, #f7b08a)}
+.wc-row.sky-dusk{--sky:linear-gradient(165deg, #22275e, #7a4387 52%, #ef8a5c)}
+.wc-row.sky-dawn.grey, .wc-row.sky-dusk.grey{--sky:linear-gradient(165deg, #3d3a58, #85708c 58%, #b99a96); --orb:none}
+.wc-row.sky-night{--orb:radial-gradient(circle at 89% 30%, rgba(225,225,255,.24), transparent 2.8rem), radial-gradient(1.4px 1.4px at 8% 22%, rgba(255,255,255,0.9) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 17% 64%, rgba(255,255,255,0.6) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 26% 30%, rgba(255,255,255,0.8) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 34% 12%, rgba(255,255,255,0.7) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 43% 48%, rgba(255,255,255,0.5) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 52% 20%, rgba(255,255,255,0.9) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 60% 58%, rgba(255,255,255,0.6) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 67% 10%, rgba(255,255,255,0.7) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 74% 40%, rgba(255,255,255,0.8) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 79% 70%, rgba(255,255,255,0.5) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 93% 52%, rgba(255,255,255,0.7) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 97% 14%, rgba(255,255,255,0.6) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 39% 80%, rgba(255,255,255,0.5) 50%, transparent 52%), radial-gradient(1.4px 1.4px at 13% 44%, rgba(255,255,255,0.7) 50%, transparent 52%)}
+.wc-row.sky-night.grey{--orb:radial-gradient(circle at 89% 30%, rgba(225,225,255,.1), transparent 2.4rem)}
+#wc-away.sky-day{--land:#2f86cf}
+#wc-away.sky-day.grey{--land:#56809f}
+#wc-away.sky-night{--land:#071029}
+.wc-city{grid-area:city; font-family:var(--font-machine); font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-shadow:0 1px 6px rgba(0,0,0,.18)}
 .wc-time{grid-area:time; display:flex; align-items:baseline; gap:.4rem}
-.wc-time small{font-family:var(--font-machine); font-size:.5rem; letter-spacing:.14em; text-transform:uppercase; color:#a8998a}
+.wc-time small{font-family:var(--font-machine); font-size:.5rem; letter-spacing:.14em; text-transform:uppercase; color:var(--sky-soft)}
 .wc-flaps{display:flex; gap:2px}
 .wc-flaps span{position:relative; display:inline-grid; place-items:center; width:1.25rem; height:1.75rem; border-radius:3px; font-family:var(--font-lcd, "VT323", monospace); font-size:1.55rem; line-height:1;
   background:linear-gradient(180deg, #2c2520 0 49%, #221c18 51%); color:#ffe9b8; box-shadow:inset 0 0 0 1px rgba(0,0,0,.5)}
 .wc-flaps span::after{content:""; position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(0,0,0,.6)}
-.wc-flaps span.colon{width:.5rem; background:none; box-shadow:none}
+.wc-flaps span.colon{width:.5rem; background:none; box-shadow:none; color:var(--sky-ink, #ffe9b8)}
 .wc-flaps span.colon::after{display:none}
 .wc-wx{grid-area:wx; display:flex; align-items:center; gap:.35rem; font-family:var(--font-ui); font-weight:800; font-size:1.05rem; min-width:3.4rem; justify-content:flex-end}
-.wc-wx svg{width:1.45rem; height:1.45rem}
-.wc-status{grid-area:status; font-size:.8rem; color:#cbbfae}
-.wc-status b{color:#fff3dc; font-weight:700}
+.wc-wx svg{width:1.5rem; height:1.5rem; filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35))}
+.wc-status{grid-area:status; font-size:.8rem; color:var(--sky-soft)}
+.wc-status b{color:var(--sky-ink); font-weight:700}
 .wc-quip{margin:.15rem 0 0; font-family:var(--font-pen); font-size:1.35rem; line-height:1.15; color:var(--lamp); text-wrap:balance}
 .wc-quip:empty{display:none}
 @media (max-width: 900px){
@@ -1409,7 +1438,10 @@ main{position:relative; z-index:1}
         </div>
       </div>
       <aside class="worldclock" id="worldclock" aria-label="The time and weather at home and where you are">
-        <p class="wc-head print"><span id="wc-route"></span><span id="wc-km"></span></p>
+        <div class="wc-head">
+          <p class="wc-route print"><span id="wc-from"></span><span class="wc-path" aria-hidden="true"><svg class="wc-plane" viewBox="0 0 24 24"><path fill="currentColor" transform="rotate(90 12 12)" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></span><span id="wc-to"></span></p>
+          <p class="wc-km print" id="wc-km"></p>
+        </div>
         <div class="wc-row" id="wc-home"></div>
         <div class="wc-row" id="wc-away"></div>
         <p class="wc-quip" id="wc-quip"></p>
@@ -3151,7 +3183,14 @@ function kmApart() {
 }
 let clockTimer = null, wxTimer = null, wx = { home: null, away: null };
 function flaps(hh, mm) { return `<span class="wc-flaps" aria-hidden="true">${[...hh].map(c => `<span>${c}</span>`).join("")}<span class="colon">:</span>${[...mm].map(c => `<span>${c}</span>`).join("")}</span>`; }
+function skyPhase(p, w) {
+  const h = p.h, day = w && typeof w.day === "boolean" ? w.day : (h >= 7 && h < 18);
+  if (day) return h < 8 ? "dawn" : h >= 17 ? "dusk" : "day";
+  return h >= 15 && h < 21 ? "dusk" : h >= 4 && h < 9 ? "dawn" : "night";
+}
+const GREY_SKY = ["cloud", "fog", "drizzle", "rain", "snow", "storm"];
 function clockRow(el, place, p, w, status) {
+  el.className = "wc-row sky-" + skyPhase(p, w) + (w && GREY_SKY.includes(w.k) ? " grey" : "");
   const wxHtml = w ? `<span class="wc-wx" title="${esc(w.word)}">${WX_ICON[w.k] || ""}<span>${w.t}°</span></span>` : `<span class="wc-wx"></span>`;
   el.innerHTML = `<span class="wc-city">${esc(place)}</span><span class="wc-time">${flaps(p.hh, p.mm)}<small>${esc(p.wd)}</small></span>${wxHtml}<span class="wc-status">${status}</span>`;
   el.setAttribute("aria-label", `${place}: ${p.hh}:${p.mm}${w ? `, ${w.t} degrees and ${w.word}` : ""}`);
@@ -3166,7 +3205,7 @@ function drawClocks() {
   clockRow($("#wc-home"), HOME.place, ph, wx.home, `<b>${esc(M.from)}</b> is ${esc(kate)}`);
   clockRow($("#wc-away"), AWAY.place, pa, wx.away, `<b>You</b>: ${esc(meg)}`);
   const hrs = Math.round((zoneOffsetMin(AWAY.tz) - zoneOffsetMin(HOME.tz)) / 60);
-  $("#wc-route").textContent = `${HOME.place} → ${AWAY.place}`;
+  $("#wc-from").textContent = HOME.place; $("#wc-to").textContent = AWAY.place;
   $("#wc-km").textContent = `${kmApart().toLocaleString("en-IE")} km · ${Math.abs(hrs)} hours ${hrs >= 0 ? "ahead" : "behind"}`;
   let q = "";
   if (wx.home && wx.away) {
@@ -3181,7 +3220,7 @@ function drawClocks() {
 function fetchWx(pl) {
   const u = `https://api.open-meteo.com/v1/forecast?latitude=${pl.lat}&longitude=${pl.lon}&current=temperature_2m,weather_code,is_day&timezone=auto`;
   return fetch(u).then(r => r.ok ? r.json() : Promise.reject(new Error("weather")))
-    .then(j => Object.assign({ t: Math.round(j.current.temperature_2m) }, wxKind(j.current.weather_code, j.current.is_day === 1)));
+    .then(j => Object.assign({ t: Math.round(j.current.temperature_2m), day: j.current.is_day === 1 }, wxKind(j.current.weather_code, j.current.is_day === 1)));
 }
 function loadWeather() {
   if (!window.fetch || window.MIXTAPE_PREVIEW) return;
