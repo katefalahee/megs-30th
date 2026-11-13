@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='1' y='6' width='30' height='20' rx='3' fill='%2326211d'/%3E%3Crect x='3.5' y='8' width='25' height='11' rx='1.5' fill='%23f6ecd6'/%3E%3Crect x='3.5' y='9.5' width='25' height='2' fill='%23ffb347'/%3E%3Ccircle cx='11' cy='15' r='2.4' fill='%2326211d'/%3E%3Ccircle cx='21' cy='15' r='2.4' fill='%2326211d'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Caveat:wght@500;700&family=Gochi+Hand&family=Homemade+Apple&family=Michroma&family=Permanent+Marker&family=Rubik+Mono+One&family=Special+Elite&family=VT323&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Caveat:wght@500;700&family=Gochi+Hand&family=Homemade+Apple&family=Michroma&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Rubik+Mono+One&family=Special+Elite&family=VT323&display=swap">
 
 <script>
 /* =====================================================================
@@ -85,7 +85,15 @@ window.MIXTAPE = {
 
   // Optional extras. Upload the files next to index.html and put the file name here.
   voiceNote: "",    // e.g. "voice-note.m4a"  adds a "Hidden track" button
-  introPhoto: "",   // e.g. "photos/us.jpg"   adds a polaroid to the opening screen
+  introPhoto: "photos/family.jpg",   // the main photo: a big polaroid on the opening screen, and inside the card
+  introPhotoCaption: "All of us",
+  // The birthday card. Nine photos on the front, read left to right and top to bottom
+  // (square photos work best), and six in the two photo-booth strips inside.
+  cardFront: ["photos/card/front-1.jpg", "photos/card/front-2.jpg", "photos/card/front-3.jpg",
+              "photos/card/front-4.jpg", "photos/card/front-5.jpg", "photos/card/front-6.jpg",
+              "photos/card/front-7.jpg", "photos/card/front-8.jpg", "photos/card/front-9.jpg"],
+  cardStrips: ["photos/card/strip-1.jpg", "photos/card/strip-2.jpg", "photos/card/strip-3.jpg",
+               "photos/card/strip-4.jpg", "photos/card/strip-5.jpg", "photos/card/strip-6.jpg"],
 
   footer: "Made in Ireland, for Megan in Australia",
 
@@ -133,7 +141,7 @@ window.MIXTAPE = {
   kateIs: { 0: "fast asleep", 7: "having breakfast", 9: "at work", 13: "on her lunch", 14: "at work",
             17: "on the way home", 18: "having dinner", 19: "on the couch", 23: "heading to bed", weekend: "enjoying the weekend" },
   // ...and what you reckon she's up to, wherever she is
-  megIs: { 0: "hopefully asleep", 7: "up and about", 12: "probably at the beach", 18: "out out, hopefully", 23: "should be asleep", birthday: "it's your birthday!" },
+  megIs: { 0: "hopefully asleep", 7: "up and about", 12: "probably at the beach", 18: "out out, hopefully", 23: "should be asleep", birthday: "out celebrating with the girls. It's your birthday!" },
 
   sides: [
     {
@@ -150,6 +158,7 @@ window.MIXTAPE = {
           fact: "Wannabe went to number one in 37 countries and became the biggest-selling debut single of its time." },
         { title: "Reach", artist: "S Club 7", year: 2000, yt: "50kP4S0peAs",
           note: "Hairbrush microphone at the ready, arms in the air for the chorus. Non-negotiable.", // DRAFT
+          photo: "photos/reach-for-the-stars.jpg", photoCaption: "Reach for the stars, they said. Nobody mentioned how to get back down",
           fact: "Co-written by Cathy Dennis, who also co-wrote Kylie's Can't Get You Out of My Head. It got to number two in the UK." },
         { title: "One Step Closer", artist: "S Club Juniors", year: 2002, yt: "y-QMwcVKpxg", note: "",
           fact: "Two of the S Club Juniors, Frankie and Rochelle, grew up to join The Saturdays." },
@@ -159,7 +168,8 @@ window.MIXTAPE = {
         { title: "One for the Radio", artist: "McFly", year: 2008, yt: "hv6cA7NZ2w0", note: "",
           photo: "photos/the-band.jpg", photoCaption: "The band's first gig",
           fact: "The album it came from, Radio:Active, was given away free with a Sunday newspaper. The single still got to number two." },
-        { title: "Sound of the Underground", artist: "Girls Aloud", year: 2002, yt: "V9Wv4SCBiTE", note: "",
+        { title: "Sound of the Underground", artist: "Girls Aloud", year: 2002, yt: "V9Wv4SCBiTE",
+          note: "Always more of a Bratz girl than a Barbie girl. Girls Aloud were basically Bratz with a record deal.",
           fact: "Girls Aloud were put together on the TV show Popstars: The Rivals, and this was the Christmas number one in 2002. Nadine is from Derry." }
       ]
     },
@@ -174,6 +184,7 @@ window.MIXTAPE = {
         { title: "Breaking Free", artist: "High School Musical cast", year: 2006, yt: "0qj67KE5VXI",
           screen: "High School Musical", screenYear: "2006", kind: "film",
           note: "Straight home from school, telly on, and the whole living room turned into East High.", // DRAFT
+          photo: "photos/muscles.jpg", photoCaption: "Swimsuit on, muscles out. Breaking free on pure strength",
           fact: "In the first film, most of Troy's singing voice is actually Drew Seeley, not Zac Efron." },
         { title: "What Dreams Are Made Of", artist: "Hilary Duff", year: 2003, yt: "ktGEJhJVqfM",
           screen: "The Lizzie McGuire Movie", screenYear: "2003", kind: "film",
@@ -182,6 +193,7 @@ window.MIXTAPE = {
         { title: "Where You Lead", artist: "Carole King & Louise Goffin", year: 2000, yt: "SNC6kQ6z-8E",
           screen: "Gilmore Girls", screenYear: "2000–2007", kind: "tv",
           note: "Your teenage years were spent in Stars Hollow. Where you lead, I will follow, even all the way to Australia.", // DRAFT
+          photo: "photos/football-final.jpg", photoCaption: "You came to mine and Aileen's football final. Where we lead, you follow",
           fact: "Carole King re-recorded it as the Gilmore Girls theme with her own daughter, Louise Goffin. A mother-daughter duet for a mother-daughter show." },
         { title: "Mamma Mia", artist: "Meryl Streep & the Mamma Mia! cast", year: 2008, yt: "MFKqiFG6HVs",
           screen: "Mamma Mia!", screenYear: "2008", kind: "film",
@@ -193,6 +205,7 @@ window.MIXTAPE = {
         { title: "I'll Be There for You", artist: "The Rembrandts", year: 1995, yt: "q-9kPks0IfE",
           screen: "Friends", screenYear: "1994–2004", kind: "tv",
           note: "However far away you are, I'll be there for you. That's the deal.", // DRAFT
+          photo: "photos/sisters-beach.jpg", photoCaption: "Sisters on the beach. The poses are compulsory",
           fact: "Nearly every Friends episode is called The One Where… or The One With…, which is where these tapes get their names." }
       ]
     },
@@ -209,11 +222,14 @@ window.MIXTAPE = {
           fact: "Written by Jim Steinman, the man behind Meat Loaf's biggest hits. It came out in 1996, the year you were born." },
         { title: "You Belong With Me", artist: "Taylor Swift", year: 2009, yt: "VuNIsY6JdUw",
           note: "The one that started the Taylor obsession. On repeat at home and on every family holiday, so we all know every word too.",
+          photo: "photos/girl-next-door.jpg", photoCaption: "The T-shirt says it all",
           fact: "Taylor plays both girls in the video: the girl next door and the mean girlfriend." },
         { title: "Dancing Queen", artist: "ABBA", year: 1976, yt: "xFrGuyw1V8s",
           note: "Twenty years before you were born, and still the first song on at every party.", // DRAFT
+          photo: "photos/holiday-dancing.jpg", photoCaption: "First up dancing on holidays. A dancing queen long before seventeen",
           fact: "It's ABBA's only number one in America." },
         { title: "Lucky", artist: "Britney Spears", year: 2000, yt: "4vvBAONkYwI", note: "",
+          photo: "photos/star-glasses.jpg", photoCaption: "Star glasses on. A Hollywood girl from the very start",
           fact: "Co-written by Max Martin, the Swedish hitmaker behind ...Baby One More Time." },
         { title: "Everytime We Touch", artist: "Cascada", year: 2006, yt: "4G6QDNC4jPs",
           note: "Glow sticks up. Nobody in history has sung this one quietly.", // DRAFT
@@ -233,21 +249,29 @@ window.MIXTAPE = {
       tracks: [
         { title: "N17", artist: "The Saw Doctors", year: 1989, yt: "32-WdYOeJLk",
           note: "For every time Ireland feels far away. The N17 will always bring you home, and the kettle's on whenever you're back.", // DRAFT
+          photo: "photos/meath-flag.jpg", photoCaption: "Flying the Meath flag with Mam. For us, it's the M3 straight home",
           fact: "The N17 road starts in Tuam, the Saw Doctors' home town. The song is about being far from Ireland and dreaming of the road home." },
         { title: "Las Vegas (In the Hills of Donegal)", artist: "Goats Don't Shave", year: 1992, yt: "vpPe-afaLcU", note: "",
+          photo: "photos/tractor-wave.jpg", photoCaption: "Waving from the cab. Who needs Las Vegas when you have the farm?",
           fact: "The band named themselves after a Dungloe pub regular who was told to stop acting the goat and have a shave, and walked off muttering \"goats don't shave!\" The song got to number four in Ireland, and Croke Park played it when Donegal won the All-Ireland in 2012." },
         { title: "Zombie", artist: "The Cranberries", year: 1994, yt: "6Ejga4kJUts",
           note: "The song every Irish crowd belts out like they wrote it themselves.", // DRAFT
           fact: "In 2020 it became the first song by an Irish band to pass a billion views on YouTube." },
         { title: "Wagon Wheel", artist: "Nathan Carter", year: 2012, yt: "pOJFKlcT8OE",
           note: "If you've been to an Irish wedding, you've jived to this. No exceptions.", // DRAFT
+          photo: "photos/tractor-thumbs-up.jpg", photoCaption: "Hands on the wheel and a thumbs up. A farm girl from the start",
           fact: "The chorus started as an unfinished Bob Dylan sketch from 1973. Nathan was born in Liverpool to parents from Newry, and moved to Ireland at 18." },
         { title: "World of Our Own", artist: "Westlife", year: 2001, yt: "Jal-vzO8bVE", note: "",
+          photo: "photos/granny-race.jpg", photoCaption: "Racing Granny and Grandad, with a sneaky head start",
           fact: "Westlife are from Sligo, and this was one of their 14 UK number ones." },
         { title: "C'est la Vie", artist: "B*Witched", year: 1998, yt: "UvjLgjtJKsc",
           note: "Double denim and the dance from the video. Ireland's finest girl band.", // DRAFT
           fact: "B*Witched's first four singles all went to number one in the UK. Twins Edele and Keavy are Boyzone star Shane Lynch's sisters." }
-      ]
+      ],
+      bonus: { title: "Friends in Low Places", artist: "Garth Brooks", year: 1990, yt: "eBdyGZ4wv60",
+        note: "Your 30th, away in Australia with the girls. Garth is basically Irish at this stage, so get them all singing this one.",
+        photo: "photos/tractor-seat.jpg", photoCaption: "The original friends in low places",
+        fact: "In 2014 Garth sold 400,000 tickets for five nights in Croke Park, then cancelled the lot when only three got a licence. All five or none, he said. He finally played his five nights there in 2022." }
     },
     {
       letter: "E", label: "Turning 30", title: "The One Where I Turned 30", years: "2025–2026, turning 30",
@@ -259,11 +283,13 @@ window.MIXTAPE = {
       tracks: [
         { title: "Man I Need", artist: "Olivia Dean", year: 2025, yt: "oIv_Y2RPQ_A",
           note: "Thirty, and only taking the love you deserve.", // DRAFT
+          photo: "photos/celebrating.jpg", photoCaption: "Sequins on, glass up. Birthday mode",
           fact: "It spent 21 weeks at number one in Australia, the second-longest run ever there. Practically an Aussie anthem." },
         { title: "Where Is My Husband!", artist: "RAYE", year: 2025, yt: "rK5TyISxZ_M", note: "",
           fact: "In 2024 RAYE won six BRIT Awards in one night, more than anyone ever had." },
         { title: "Sally, When the Wine Runs Out", artist: "Role Model", year: 2025, yt: "ahMJnxdDCFY",
           note: "And when the wine runs out, there's always the Prosecco.", // DRAFT
+          photo: "photos/edinburgh-drinks.jpg", photoCaption: "Me and you, takeaway drinks in Edinburgh",
           fact: "Role Model is the stage name of Tucker Pillsbury. He teased this song on TikTok after the 2025 Super Bowl and it went viral." },
         { title: "Midnight Sun", artist: "Zara Larsson", year: 2025, yt: "uvY8fdgezLQ",
           note: "A summer birthday for once. A cheese board, a cold glass and the sun still out. Australia suits you.", // DRAFT
@@ -272,10 +298,12 @@ window.MIXTAPE = {
           fact: "The Limerick trio's second Irish number one, after Killeagh, which spent 17 weeks at the top." },
         { title: "Stop the Wedding!", artist: "Ashe", year: 2026, yt: "DLV8FpyxZPQ",
           note: "Thirty years down and the best bits are still to come. Happy birthday, Meg. I love you.", // DRAFT
+          photo: "photos/me-and-you.jpg", photoCaption: "Me and you. Here's to the next thirty",
           fact: "Ashe got the idea on her own wedding day in 2025, thinking about how different it felt to her first wedding at 23. That first marriage gave her the hit that started her career, Moral of the Story." }
       ],
       bonus: { title: "I Drink Wine", artist: "Adele", year: 2021, yt: "jDvYDzFOK9A",
         note: "P.S. Adele's album is called 30, you're 30, and we drink wine. It had to go on somewhere. Pour a glass.", // DRAFT
+        photo: "photos/glasses-of-red.jpg", photoCaption: "Me and you, glasses of red, as per usual",
         fact: "Adele first wrote it as a 15-minute song. Her label told her no radio station would play that, so it came down to six minutes 16." }
     }
   ]
@@ -314,6 +342,7 @@ window.MIXTAPE = {
   --font-gel:"Gochi Hand", "Comic Sans MS", cursive;
   --font-type:"Special Elite", "Courier New", monospace;
   --font-serif:Georgia, "Times New Roman", Times, serif;
+  --font-display:"Playfair Display", Georgia, "Times New Roman", serif;
   --font-machine:"Michroma", "Eurostile", "Segoe UI", sans-serif;
   --font-lcd:"VT323", "Cascadia Mono", ui-monospace, monospace;
   --font-dymo:"Rubik Mono One", "Arial Black", sans-serif;
@@ -706,7 +735,15 @@ body.has-mini .view{padding-bottom:calc(var(--pad-y) + 6rem)}
 .intro-art .case{width:76%; transform:rotate(-5deg); z-index:2; justify-self:start}
 .intro-art .loose-tape{position:absolute; z-index:1; width:60%; right:-4%; top:-2%; filter:drop-shadow(0 1.2rem 1.4rem rgba(0,0,0,.6)); animation:tapeOut 1.2s cubic-bezier(.2,.8,.2,1) .25s both}
 @keyframes tapeOut{from{transform:translate(-34%, 14%) rotate(-5deg)} to{transform:translate(0, 0) rotate(9deg)}}
-.intro-art .polaroid{position:absolute; z-index:3; left:-1%; bottom:-4%; width:32%; transform:rotate(-8deg)}
+.intro-art .polaroid{position:absolute; z-index:3; left:-3%; bottom:-10%; width:44%; transform:rotate(-7deg); animation:polIn .9s cubic-bezier(.2,.8,.2,1) .6s both}
+@keyframes polIn{from{transform:translate(-18%, 22%) rotate(-16deg); opacity:0} to{transform:rotate(-7deg); opacity:1}}
+.main-photo img{aspect-ratio:4 / 5; object-position:50% 38%}
+.main-photo figcaption{font-size:1.4rem}
+.pol-btn{display:block; position:relative; width:100%; padding:0; border:0; background:none; cursor:zoom-in; border-radius:2px}
+.pol-btn img{display:block}
+.pol-btn:focus-visible{outline:.2rem solid var(--lamp); outline-offset:.35rem}
+.pol-zoom{position:absolute; right:.4rem; bottom:.4rem; width:1.7rem; height:1.7rem; border-radius:50%; background:rgba(255,255,255,.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232b2420' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7'/%3E%3C/svg%3E") center / 58% no-repeat; box-shadow:0 2px 6px rgba(0,0,0,.3)}
+@media (prefers-reduced-motion: reduce){ .intro-art .polaroid{animation:none} }
 .intro-copy{display:grid; gap:1.6rem; justify-items:start}
 .intro-copy .print{color:var(--lamp)}
 .intro-copy .paper{max-width:27em; --pr:-1.4deg}
@@ -957,19 +994,48 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
 .env-seal{position:absolute; left:50%; top:58%; width:11%; aspect-ratio:1; margin:-5.5% 0 0 -5.5%; z-index:5; border-radius:50%;
   background:radial-gradient(circle at 35% 30%, #f06a6a, #c42a2f 55%, #8e1a1e); box-shadow:0 3px 6px rgba(0,0,0,.4), inset 0 -3px 5px rgba(0,0,0,.25)}
 .env-seal::after{content:"♥"; position:absolute; inset:0; display:grid; place-items:center; color:rgba(255,255,255,.55); font-size:5cqi; line-height:1}
-.cf{position:absolute; inset:0; container-type:inline-size; overflow:hidden; display:grid; place-items:center; align-content:center; text-align:center;
-  background:radial-gradient(circle, #ff7f9b 0 2px, transparent 2.5px) 0 0 / 31px 37px, radial-gradient(circle, #5aa2ff 0 2px, transparent 2.5px) 13px 17px / 41px 29px,
-    radial-gradient(circle, #ffd23f 0 2px, transparent 2.5px) 23px 7px / 27px 43px, radial-gradient(circle, #4cc27a 0 1.6px, transparent 2px) 7px 25px / 47px 39px, var(--paper)}
+/* card front: printed on heavy ivory stock, a photo grid and gold foil */
+.cover .face, .env-card, .cl-phone{container-type:inline-size}
+.cf{--ivory:#f7f2e8; --plum:#3b1b35; --gold:#b98a3a; --mute:#8b7e70;
+  position:absolute; inset:0; container-type:inline-size; overflow:hidden; display:grid; grid-template-rows:auto 1fr; justify-items:center;
+  padding:7.5cqi 7.5cqi 0; color:var(--plum);
+  background:radial-gradient(120% 90% at 30% 20%, rgba(255,255,255,.55), transparent 60%), repeating-linear-gradient(45deg, rgba(120,90,50,.018) 0 2px, transparent 2px 5px), var(--ivory)}
+.cf::before{content:""; position:absolute; inset:2.8cqi; border:.22cqi solid rgba(185,138,58,.55); outline:.12cqi solid rgba(185,138,58,.3); outline-offset:-1.1cqi; pointer-events:none}
 .cf p{margin:0; line-height:1}
-.cf-happy{font-family:var(--font-pen); font-weight:700; color:var(--pen); font-size:14cqi; transform:rotate(-4deg)}
-.cf-30{font-family:var(--font-ui); font-weight:900; font-size:58cqi; letter-spacing:-.04em; line-height:.86 !important; color:transparent; -webkit-background-clip:text; background-clip:text; -webkit-text-stroke:.6cqi #1c1917; filter:drop-shadow(1.2cqi 1.2cqi 0 rgba(28,25,23,.9))}
-.cf-name{font-family:var(--font-script); color:var(--pen-red); font-size:10cqi; margin-top:3cqi !important}
-.cf-est{font-family:var(--font-machine); font-size:2.6cqi; letter-spacing:.2em; text-transform:uppercase; color:#857b6c; margin-top:5cqi !important}
-.cl{position:absolute; inset:0; container-type:inline-size; background:#fbf8f1; display:grid; align-content:space-between; justify-items:center; text-align:center; padding:9% 8%}
-.cl .print{color:#857b6c; font-size:2.8cqi}
-.cl-km{font-family:var(--font-pen); font-weight:700; color:var(--pen); font-size:8cqi; line-height:1.05; margin:0}
-.cl .polaroid{position:relative; width:52%; transform:rotate(-4deg)}
-.cl-art{position:relative; width:100%; height:44cqi}
+.cf-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5cqi; width:100%}
+.cf-grid img, .cf-row img{display:block; width:100%; aspect-ratio:1; object-fit:cover; background:#e6dfd2; filter:saturate(.92) contrast(1.03) sepia(.06); box-shadow:0 0 0 .12cqi rgba(60,40,20,.08)}
+.cf-band{display:grid; place-content:center; justify-items:center; gap:2.4cqi; text-align:center; padding-bottom:5cqi}
+.cf-happy{font-family:var(--font-display); font-style:italic; font-weight:500; font-size:15cqi; letter-spacing:-.01em; white-space:nowrap}
+.cf-happy span{font-weight:600; padding-right:.06em; color:#a8792c;
+  background:linear-gradient(100deg, #8e621c 0%, #c99a45 28%, #e9cd86 46%, #b5853a 62%, #d8b066 80%, #8e621c 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+.cf-name{display:flex; align-items:center; gap:2.4cqi; font-family:var(--font-ui); font-weight:600; font-size:3.6cqi; letter-spacing:.55em; margin-right:-.55em !important; text-transform:uppercase}
+.cf-name::before, .cf-name::after{content:""; width:7cqi; height:.2cqi; background:var(--gold)}
+.cf-years{font-family:var(--font-ui); font-weight:500; font-size:2.3cqi; letter-spacing:.32em; margin-right:-.32em !important; color:var(--mute)}
+/* the same card, peeking out of the envelope */
+.cf-env{grid-template-rows:auto auto; align-content:start; gap:3.4cqi; padding:5cqi 5cqi 0}
+.cf-env::before{inset:1.8cqi}
+.cf-row{display:grid; grid-template-columns:repeat(5, 1fr); gap:1.2cqi; width:100%}
+.cf-env .cf-band{gap:1.6cqi; padding:0}
+.cf-env .cf-happy{font-size:10cqi}
+.cf-env .cf-name{font-size:2.4cqi}
+.cf-env .cf-name::before, .cf-env .cf-name::after{width:5cqi}
+/* inside the card: the family photo between two photo-booth strips */
+.cl{position:absolute; inset:0; container-type:inline-size; isolation:isolate; color:#3b1b35; text-align:center; display:grid; grid-template-rows:auto 1fr auto; justify-items:center; padding:8cqi 6cqi 9cqi;
+  background:radial-gradient(120% 90% at 70% 15%, rgba(255,255,255,.6), transparent 60%), #f7f2e8}
+.cl::before{content:""; position:absolute; inset:2.8cqi; border:.22cqi solid rgba(185,138,58,.45); outline:.12cqi solid rgba(185,138,58,.25); outline-offset:-1.1cqi; pointer-events:none}
+.cl p.cl-from{margin:0; text-shadow:none; line-height:1.2; font-family:var(--font-ui); font-weight:600; font-size:2.5cqi; letter-spacing:.38em; margin-right:-.38em; text-transform:uppercase; color:#a07a3a}
+.cl-photos{position:relative; width:100%; min-height:0}
+.cl-photos [data-lb]{cursor:zoom-in}
+.cl .polaroid{position:absolute; left:50%; top:50%; width:45cqi; margin:0; padding:2.4cqi 2.4cqi 9cqi; transform:translate(-50%, -52%) rotate(-2.5deg); z-index:2; box-shadow:0 1.6cqi 3.4cqi rgba(40,20,10,.28)}
+.cl .polaroid figcaption{bottom:2.2cqi; font-size:5.6cqi}
+.booth{position:absolute; top:50%; width:22.5cqi; display:grid; gap:1.3cqi; padding:1.7cqi 1.7cqi 6cqi; background:#fdfcf8; z-index:1;
+  box-shadow:0 1.2cqi 2.6cqi rgba(40,20,10,.25), inset 0 0 0 .1cqi rgba(0,0,0,.05)}
+.booth img{display:block; width:100%; aspect-ratio:4 / 3; object-fit:cover; background:#e6dfd2; filter:saturate(.9) contrast(1.04)}
+.booth.left{left:1.5cqi; transform:translateY(-58%) rotate(-7deg)}
+.booth.right{right:1.5cqi; transform:translateY(-40%) rotate(6deg)}
+.cl p.cl-km{margin:0; text-shadow:none; color:#3b1b35; font-family:var(--font-display); font-style:italic; font-weight:500; font-size:6.4cqi; line-height:1.15}
+.cl p.cl-km span{display:block; margin-top:1.4cqi; font-family:var(--font-ui); font-style:normal; font-weight:600; font-size:2.3cqi; letter-spacing:.36em; margin-right:-.36em; text-transform:uppercase; color:#a07a3a}
+.cl-phone{display:none}
 .book-wrap{width:100%; display:grid; justify-items:center}
 .book{position:relative; width:min(100%, 66rem, 110vh, calc((100vh - 12.5rem) * 1.5)); aspect-ratio:2 / 1.32; perspective:2400px; transform:translateX(-25%); transition:transform 1.1s cubic-bezier(.45,.05,.25,1)}
 .book.open{transform:none}
@@ -978,7 +1044,7 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
 .pg-right .greet{font-family:var(--font-script); font-size:4cqi; line-height:1.7}
 .pg-right .sign-off{margin-bottom:.1em}
 .pg-right .sign{font-size:4.4cqi}
-.cover{position:absolute; left:50%; top:0; width:50%; height:100%; transform-origin:0 50%; transform-style:preserve-3d; transition:transform 1.1s cubic-bezier(.45,.05,.25,1)}
+.cover{position:absolute; z-index:3; left:50%; top:0; width:50%; height:100%; transform-origin:0 50%; transform-style:preserve-3d; transition:transform 1.1s cubic-bezier(.45,.05,.25,1)}
 .book.open .cover{transform:rotateY(-180deg)}
 .face{position:absolute; inset:0; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:0 22px 40px -8px rgba(0,0,0,.6)}
 .face.front{border-radius:0 4px 4px 0}
@@ -989,7 +1055,8 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((100vh - 19.5rem - mi
   .pg-right p{font-size:max(1.25rem, 5.6cqi)}
   .pg-right .greet{font-size:max(1rem, 4.8cqi)}
   .pg-right .sign{font-size:max(1.05rem, 5cqi)}
-  .cover{left:0; width:100%}
+  .cover{left:0; width:100%; height:auto; aspect-ratio:1 / 1.32}
+  .cl-phone{display:block; position:relative; aspect-ratio:1 / 1.32; margin:-2.2rem -2.5rem 1.8rem; overflow:hidden; border-radius:4px 4px 0 0}
   .book.open .cover{transform:rotateY(-100deg); opacity:0; transition:transform 1s cubic-bezier(.45,.05,.25,1), opacity .35s .65s; pointer-events:none}
 }
 
@@ -1329,7 +1396,7 @@ main{position:relative; z-index:1}
   .gift{width:min(74%, 24rem)}
   .tag{font-size:1rem}
   .intro{grid-template-columns:1fr; min-height:0}
-  .intro-art{max-width:32rem; width:100%; justify-self:center}
+  .intro-art{max-width:32rem; width:100%; justify-self:center; margin-bottom:1.6rem}
   .side-grid{grid-template-columns:1fr}
   .side-stage{max-width:32rem; justify-self:center}
   .lib-preview, .lava{display:none}
@@ -1424,7 +1491,7 @@ main{position:relative; z-index:1}
       <div class="intro-art" id="intro-art">
         <div class="loose-tape" id="intro-tape"></div>
         <div class="case"><div class="jcover" data-cover></div></div>
-        <figure class="polaroid" id="intro-photo" hidden><img alt=""></figure>
+        <figure class="polaroid main-photo" id="intro-photo" hidden><button class="pol-btn" type="button" aria-label="See the family photo bigger"><img alt=""><span class="pol-zoom" aria-hidden="true"></span></button><figcaption></figcaption></figure>
       </div>
       <div class="intro-copy">
         <p class="print" id="intro-date"></p>
@@ -1796,7 +1863,7 @@ M.sides.forEach((side, si) => {
 const BONUS = [];
 M.sides.forEach(side => { const b = side.bonus; if (b && b.title) { b.yt = ytIdFrom(b.yt) || b.yt; b.side = side; b.bonus = true; b.no = 900 + BONUS.length; BONUS.push(b); } });
 const sideQueue = s => s.bonus && s.bonus.bonus ? s.tracks.concat([s.bonus]) : s.tracks;
-const EVERYTHING = ALL.concat(BONUS);
+const EVERYTHING = M.sides.flatMap(s => sideQueue(s));
 [M.waitingMusic, M.birthdaySong].forEach(m => { if (m && m.yt) m.yt = ytIdFrom(m.yt) || m.yt; });
 const N = ALL.length;
 const ALL_COLORS = M.sides.map(s => s.color);
@@ -2072,7 +2139,11 @@ $$("[data-cover]").forEach(el => {
     <p class="jc-sub">love, ${esc(M.from)} <b>♥</b></p>`;
   el.querySelector(".jc-stripes").style.background = stripeBg(ALL_COLORS);
 });
-if (M.introPhoto) { const f = $("#intro-photo"); f.querySelector("img").src = M.introPhoto; f.hidden = false; }
+if (M.introPhoto) {
+  const f = $("#intro-photo"), cap = M.introPhotoCaption || "";
+  f.querySelector("img").src = M.introPhoto; f.querySelector("figcaption").textContent = cap; f.hidden = false;
+  f.querySelector(".pol-btn").addEventListener("click", e => { primeAudio(); sfx("click"); openLightbox(M.introPhoto, cap, { from: e.currentTarget }); });
+}
 {
   const paras = M.letter.slice();
   const greet = paras.length && paras[0].length < 30 ? paras.shift() : null;
@@ -2349,19 +2420,38 @@ function startCountdown() {
 function stopCountdown() { clearInterval(countdownTimer); countdownTimer = null; }
 
 /* ---------- the birthday card ---------- */
-function cardFrontHTML() {
-  return `<div class="cf"><p class="cf-happy">Happy</p><p class="cf-30">30</p><p class="cf-name">${esc(FULL)}</p><p class="cf-est">Est. ${M.bornYear}</p>` +
-    sticker("cake", "4%", "70%", "24%", -8, 0) + sticker("star", "76%", "5%", "16%", 12, 0) + sticker("heart", "80%", "74%", "13%", 10, 0) + `</div>`;
+const CARD_FRONT = (M.cardFront || []).filter(Boolean), CARD_STRIPS = (M.cardStrips || []).filter(Boolean);
+function cardFrontHTML(env) {
+  const band = `<div class="cf-band"><p class="cf-happy">Happy <span>30th</span></p><p class="cf-name">${esc(FULL)}</p>` +
+    (env ? "" : `<p class="cf-years">${M.bornYear} &nbsp;·&nbsp; ${M.bornYear + 30}</p>`) + `</div>`;
+  if (env) {
+    const pick = [0, 2, 5, 6, 8].map(k => CARD_FRONT[k]).filter(Boolean);
+    return `<div class="cf cf-env"><div class="cf-row">${pick.map(src => `<img src="${esc(src)}" alt="">`).join("")}</div>${band}</div>`;
+  }
+  return `<div class="cf"><div class="cf-grid">${CARD_FRONT.slice(0, 9).map(src => `<img src="${esc(src)}" alt="">`).join("")}</div>${band}</div>`;
+}
+function cardInsideHTML() {
+  const strip = (list, side) => list.length ? `<div class="booth ${side}">${list.map(src => `<img src="${esc(src)}" alt="" data-lb="${esc(src)}">`).join("")}</div>` : "";
+  const half = Math.ceil(CARD_STRIPS.length / 2);
+  return `<div class="cl"><p class="cl-from">From Ireland, with love</p><div class="cl-photos">` +
+    strip(CARD_STRIPS.slice(0, half), "left") + strip(CARD_STRIPS.slice(half), "right") +
+    (M.introPhoto ? `<figure class="polaroid main-photo"><img src="${esc(M.introPhoto)}" alt="" data-lb="${esc(M.introPhoto)}" data-cap="${esc(M.introPhotoCaption || "")}"><figcaption>${esc(M.introPhotoCaption || "")}</figcaption></figure>` : "") +
+    `</div><p class="cl-km">17,000 km away, never far.<span>${esc(M.from)} x</span></p></div>`;
 }
 $("#card-front").innerHTML = cardFrontHTML();
-$("#env-card").innerHTML = cardFrontHTML();
-$$(".cf-30").forEach(el => el.style.backgroundImage = stripeBg(ALL_COLORS));
+$("#env-card").innerHTML = cardFrontHTML(true);
 $(".env-to").textContent = FULL;
 $(".env-pocket").insertAdjacentHTML("beforeend", `<span class="stamp">${HARP}<span>ÉIRE</span></span><span class="postmark">ÉIRE<br>${esc(M.birthday.slice(8, 10))} XII ${esc(M.birthday.slice(2, 4))}</span>`);
-$("#card-inside").innerHTML = `<div class="cl"><p class="print">From Ireland, with love</p>` +
-  (M.introPhoto ? `<figure class="polaroid"><img src="${esc(M.introPhoto)}" alt=""></figure>` :
-    `<div class="cl-art">${sticker("boardingpass", "18%", "8%", "64%", -6, 0)}${sticker("shamrock", "2%", "56%", "26%", -12, 0)}${sticker("heart", "74%", "60%", "22%", 10, 0)}</div>`) +
-  `<p class="cl-km">17,000 km away,<br>never far.</p></div>`;
+$("#card-inside").innerHTML = cardInsideHTML();
+$("#letter").insertAdjacentHTML("afterbegin", `<div class="cl-phone" aria-hidden="true">${cardInsideHTML()}</div>`);
+// any photo inside the card can be taken out and looked at properly
+$$("#card-inside, #letter").forEach(root => root.addEventListener("click", e => {
+  const img = e.target.closest("[data-lb]"); if (!img) return;
+  const all = [...root.querySelectorAll("[data-lb]")], set = all.map(el => ({ src: el.dataset.lb, cap: el.dataset.cap || "", el }));
+  const k = all.indexOf(img);
+  primeAudio(); sfx("click");
+  openLightbox(set[k].src, set[k].cap, { from: img, set, index: k });
+}));
 let cardOpening = false;
 function setupCard() {
   cardOpening = false;
@@ -3007,7 +3097,8 @@ function renderNowPlaying(t) {
   if (t.fact) $("#np-fact-text").textContent = t.fact;
   const rest = state.queue.slice(state.pos + 1, state.pos + 2).filter(u => !u.bonus);
   const teaser = state.queue[state.pos + 1] && state.queue[state.pos + 1].bonus;
-  $("#upnext").innerHTML = teaser ? `<li class="empty">That's the last of the 30… or is it?</li>` : rest.length
+  const lastSide = s === M.sides[M.sides.length - 1];
+  $("#upnext").innerHTML = teaser ? `<li class="empty">${lastSide ? "That's the last of the 30" : `That's the end of side ${esc(s.letter)}`}… or is it?</li>` : rest.length
     ? rest.map((u, i) => trackRow(u, `data-pos="${state.pos + 1 + i}"`, false)).join("")
     : `<li class="empty">${state.kind === "side" && M.sides[state.sideIndex + 1] ? `That's the last song on side ${esc(s.letter)}.` : "That's the last song on the tape."}</li>`;
   const it = s.items || [];
