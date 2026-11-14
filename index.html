@@ -130,8 +130,9 @@ window.MIXTAPE = {
     { photo: "photos/birthdays/23.jpg", age: 29, note: "Twenty-nine, with a box of home: Tayto, Barry's and fudge." },
   ],
 
-  // Home photos on songs pop up big as a surprise when the song starts:
-  // "first time" (once per device), "every time" or "never". Tapping a photo always makes it bigger.
+  // Home photos and home videos on songs pop up as a surprise when the song opens:
+  // "first time" (once per device), "every time" or "never". A video opens first and the song
+  // waits until it's closed. Tapping a photo always makes it bigger.
   photoPopUp: "every time",
 
   // The two clocks on the opening screen, with live weather.
@@ -150,7 +151,7 @@ window.MIXTAPE = {
       items: ["butterfly", "tie", "platforms", "vpet", "gelpens", "mic"],
       color: "#e06c8e", shell: "#e06c8e", paper: "#f6efe0", stripes: ["#e06c8e", "#f4bccb"],
       photo: "", photoCaption: "",
-      blurb: "Where it all started. School discos, butterfly clips, Groovy Chick on everything and the songs you knew before you could spell them.",
+      blurb: "Where it all started. School discos, butterfly clips, Pokémon cards, Groovy Chick on everything and the songs you knew before you could spell them.",
       tracks: [
         { title: "Wannabe", artist: "Spice Girls", year: 1996, yt: "gJLIiF15wjQ",
           photo: "photos/spice-girls.jpg", photoCaption: "Spice Girls, head to toe",
@@ -160,13 +161,15 @@ window.MIXTAPE = {
           note: "Hairbrush microphone at the ready, arms in the air for the chorus. Non-negotiable.", // DRAFT
           photo: "photos/reach-for-the-stars.jpg", photoCaption: "Reach for the stars, they said. It'll be fun, they said",
           fact: "Co-written by Cathy Dennis, who also co-wrote Kylie's Can't Get You Out of My Head. It got to number two in the UK." },
-        { title: "One Step Closer", artist: "S Club Juniors", year: 2002, yt: "y-QMwcVKpxg", note: "",
+        { title: "One Step Closer", artist: "S Club Juniors", year: 2002, yt: "y-QMwcVKpxg",
+          note: "Straight from the Teletubbies, the Tweenies and Bear in the Big Blue House to S Club Juniors. A natural career progression.",
           fact: "Two of the S Club Juniors, Frankie and Rochelle, grew up to join The Saturdays." },
         { title: "Complicated", artist: "Avril Lavigne", year: 2002, yt: "5NPBIwQyPWE",
           note: "Shirt, tie and a whole lot of attitude. Avril made a school uniform look cool.", // DRAFT
           photo: "photos/then-and-now.jpg", photoCaption: "From headlock to hug. Not so complicated after all",
           fact: "Avril was only 17 when it came out as her very first single, and it was nominated for Song of the Year at the Grammys." },
-        { title: "One for the Radio", artist: "McFly", year: 2008, yt: "hv6cA7NZ2w0", note: "",
+        { title: "One for the Radio", artist: "McFly", year: 2008, yt: "hv6cA7NZ2w0",
+          note: "Our pocket money went on KISS magazine, and KISS magazine went on McFly.",
           photo: "photos/the-band.jpg", photoCaption: "The band's first gig",
           fact: "The album it came from, Radio:Active, was given away free with a Sunday newspaper. The single still got to number two." },
         { title: "Sound of the Underground", artist: "Girls Aloud", year: 2002, yt: "V9Wv4SCBiTE",
@@ -181,7 +184,7 @@ window.MIXTAPE = {
       items: ["clapper", "popcorn", "couch", "scooter", "espresso", "basketball"],
       color: "#b3302f", shell: "#b3302f", paper: "#f6efe0", stripes: ["#b3302f", "#e9b44c"],
       photo: "", photoCaption: "",
-      blurb: "The films and shows we lived through, from Hogwarts to East High to Stars Hollow to Central Perk. Popcorn optional, singing along compulsory.",
+      blurb: "The films and shows we lived through, from Hogwarts and Bridget Jones to East High, Stars Hollow and Central Perk. Popcorn optional, singing along compulsory.",
       tracks: [
         { title: "Breaking Free", artist: "High School Musical cast", year: 2006, yt: "0qj67KE5VXI",
           screen: "High School Musical", screenYear: "2006", kind: "film",
@@ -224,6 +227,7 @@ window.MIXTAPE = {
       tracks: [
         { title: "It's All Coming Back to Me Now", artist: "Céline Dion", year: 1996, yt: "j8fHNdrZTSI",
           note: "One of your icons. Pure drama from the first piano note to the last. Full performance required, wind machine optional.", // DRAFT
+          video: "videos/celine-in-the-car.mp4", videoCaption: "Passenger seat, power ballad, zero shame",
           fact: "Written by Jim Steinman, the man behind Meat Loaf's biggest hits. It came out in 1996, the year you were born." },
         { title: "You Belong With Me", artist: "Taylor Swift", year: 2009, yt: "VuNIsY6JdUw",
           note: "The one that started the Taylor obsession. On repeat at home and on every family holiday, so we all know every word too.",
@@ -233,7 +237,8 @@ window.MIXTAPE = {
           note: "Twenty years before you were born, and still the first song on at every party.", // DRAFT
           photo: "photos/holiday-dancing.jpg", photoCaption: "First up dancing on holidays. A dancing queen long before seventeen",
           fact: "It's ABBA's only number one in America." },
-        { title: "Lucky", artist: "Britney Spears", year: 2000, yt: "4vvBAONkYwI", note: "",
+        { title: "Lucky", artist: "Britney Spears", year: 2000, yt: "4vvBAONkYwI",
+          note: "Those drives up to Mam and Aileen in the hospital.",
           photo: "photos/star-glasses.jpg", photoCaption: "Star glasses on. A Hollywood girl from the very start",
           fact: "Co-written by Max Martin, the Swedish hitmaker behind ...Baby One More Time." },
         { title: "Everytime We Touch", artist: "Cascada", year: 2006, yt: "4G6QDNC4jPs",
@@ -2943,6 +2948,7 @@ function armWatchdog(token) {
 }
 function onState(e) {
   lastState = e.data;
+  if (e.data === 1 && !$("#homemovie").hidden) { hmResume = true; pause(); return; }
   if (e.data === 1) { setPlaying(true); $("#ov-tap").hidden = true; }
   else if (e.data === 2) setPlaying(false);
   else if (e.data === 0) { setPlaying(false); next(); }
@@ -3498,7 +3504,17 @@ document.addEventListener("click", e => {
 function maybeSurprise(t) {
   clearTimeout(surpriseTimer);
   const tok = ++surpriseTok;
-  if (!t || !t.photo || popMode().startsWith("never") || photoSeen(t.photo)) return;
+  if (!t || popMode().startsWith("never")) return;
+  // a home video comes first: it opens straight away and the song waits underneath until it's closed
+  if (t.video && !photoSeen(t.video)) {
+    surpriseTimer = setTimeout(() => {
+      if (tok !== surpriseTok || currentView !== "player" || !$("#homemovie").hidden || !$("#lightbox").hidden) return;
+      markPhotoSeen(t.video);
+      openHomeMovie(t.video, t.videoCaption);
+    }, 450);
+    return;
+  }
+  if (!t.photo || photoSeen(t.photo)) return;
   surpriseTimer = setTimeout(() => {
     if (tok !== surpriseTok || currentView !== "player" || !$("#homemovie").hidden || !$("#lightbox").hidden) return;
     markPhotoSeen(t.photo);
@@ -3772,7 +3788,7 @@ function alPullOut(ph) {
 let homeP = null, homePlayer = null, hmResume = false;
 function openHomeMovie(src, cap) {
   if (!src) return;
-  hmResume = state.playing;
+  hmResume = state.playing || (lastState === 3 || lastState === -1 || lastState === 5) && state.queue.length > 0 && currentView === "player";
   if (state.playing) pause();
   stopBirthday();
   const box = $("#homemovie"), vid = $("#hm-video"), id = ytIdFrom(src);
