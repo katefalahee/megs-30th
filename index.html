@@ -633,6 +633,7 @@ body.touch .linkish{min-height:var(--tap); display:inline-flex; align-items:cent
 @media (prefers-reduced-motion: reduce){ .btn-take .eq rect{animation:none} }
 .side-main > .actions{display:flex; flex-wrap:wrap; align-items:center; gap:.9rem 1rem}
 .side-main > .actions #btn-side-next{margin-left:auto}
+.side-main > .actions.tight .btn-main{order:-1; width:100%}
 .overlay .actions, .finale .actions{justify-content:center}
 
 /* pen on white paper, held on with washi tape */
@@ -1184,6 +1185,8 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((var(--sh) - 19.5rem 
 .book.open .cover{transform:rotateY(-180deg)}
 .face{position:absolute; inset:0; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:0 22px 40px -8px rgba(0,0,0,.6)}
 .face.front{border-radius:0 4px 4px 0}
+.cover .face{transition:visibility 0s .42s}
+.book.open .cover .face.front, .book:not(.open) .cover .face.back{visibility:hidden}
 .face.back{transform:rotateY(180deg); border-radius:4px 0 0 4px; box-shadow:inset -14px 0 18px -12px rgba(0,0,0,.25), 0 22px 40px -8px rgba(0,0,0,.6)}
 /* short, wide screens (a laptop, a TV's own browser, a phone on its side): Back sits in the corner so the card gets the height */
 @media (min-aspect-ratio: 3/2) and (max-height: 820px){
@@ -1207,6 +1210,7 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((var(--sh) - 19.5rem 
   .cover{left:0; width:100%; height:auto; aspect-ratio:1 / 1.32}
   .cl-phone{display:block; position:relative; aspect-ratio:1 / 1.32; margin:-2.2rem -2.5rem 1.8rem; overflow:hidden; border-radius:4px 4px 0 0}
   .book.open .cover{transform:rotateY(-100deg); opacity:0; transition:transform 1s var(--ease), opacity .35s .65s; pointer-events:none}
+  .book.open .cover .face.front{visibility:visible}
   /* closed, the card is only as tall as its front: the letter waits underneath, out of sight */
   .book:not(.open) .cover{transition:transform 1s var(--ease), opacity .3s}
   .book:not(.open) .pg-right{aspect-ratio:1 / 1.32; min-height:0; overflow:hidden; visibility:hidden}
@@ -1416,6 +1420,11 @@ body.lb-open{overflow:hidden}
 .al-book.single .al-leaf.turned{opacity:0; transition:transform .85s var(--ease), opacity .25s .6s}
 .al-face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden}
 .al-face.bk{transform:rotateY(180deg)}
+/* WebKit (iPad, iPhone) can let a page's writing show through from behind, mirrored, even with the back
+   hidden. So the side facing away is switched off too, at the moment the page is edge-on: 38% of the way
+   through a turn on this easing curve. */
+.al-face{transition:visibility 0s calc(var(--al-turn, .85s) * .38)}
+.al-leaf.turned .al-face.fr, .al-leaf:not(.turned) .al-face.bk{visibility:hidden}
 .al-shade{position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.14) 55%, rgba(0,0,0,.3))}
 .al-face.bk .al-shade{background:linear-gradient(270deg, rgba(0,0,0,.55), rgba(0,0,0,.14) 55%, rgba(0,0,0,.3))}
 
@@ -2674,7 +2683,21 @@ function fitTitles(root) {
 }
 function fitView() { const v = $("#view-" + currentView); if (v && (currentView === "library" || currentView === "side")) fitTitles(v); }
 let fitTimer = 0;
-window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitView, 120); });
+window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => { fitView(); sideRow(); }, 120); });
+// the tape page's top row: when The rack, Play and Next can't share one line (iPads, phones), Play takes the
+// line to itself and The rack and Next sit under it, left and right, instead of Next wrapping on its own
+function sideRow() {
+  const row = document.querySelector(".side-main > .actions");
+  if (!row || currentView !== "side") return;
+  row.classList.remove("tight");
+  const tops = [...row.children].filter(e => !e.hidden).map(e => e.offsetTop);
+  let tight = tops.length > 1 && Math.max(...tops) - Math.min(...tops) > 20;
+  // once one tape has needed it at this screen width, keep it for every tape, so the buttons don't jump about
+  if (sideRow.w === innerWidth && sideRow.t) tight = true;
+  sideRow.w = innerWidth; sideRow.t = tight;
+  row.classList.toggle("tight", tight);
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(sideRow);
 window.addEventListener("orientationchange", () => setTimeout(fitView, 350));
 if (document.fonts) {
   document.fonts.ready.then(fitView);
@@ -2716,6 +2739,7 @@ function render(st) {
   fitChip();
   focusDefault(v);
   if (v === "library" || v === "side") { fitView(); requestAnimationFrame(fitView); }
+  if (v === "side") { sideRow(); requestAnimationFrame(sideRow); }
 }
 function focusDefault(v) {
   const view = $("#view-" + v);
@@ -3060,13 +3084,14 @@ function hideChip() { chipKind = null; $("#music-chip").hidden = true; document.
 function fitChip() {
   const chip = $("#music-chip");
   if (!chip) return;
-  document.querySelectorAll(".al-head, .lib-head").forEach(h => {
+  document.querySelectorAll(".al-head, .lib-head, .side-main > .actions").forEach(h => {
     h.style.paddingRight = "";
     if (chip.hidden || h.offsetParent === null) return;
     const c = chip.getBoundingClientRect(), r = h.getBoundingClientRect(), top = r.top + window.scrollY;
     if (top < c.bottom + 6 && top + r.height > c.top && r.right > c.left - 10) h.style.paddingRight = Math.ceil(r.right - c.left + 14) + "px";
   });
   if (currentView === "album" && typeof alLayout === "function") { try { alLayout(false); } catch (e) {} }
+  if (currentView === "side" && typeof sideRow === "function") sideRow();
 }
 window.addEventListener("resize", () => { clearTimeout(fitChip.t); fitChip.t = setTimeout(fitChip, 160); });
 window.addEventListener("orientationchange", () => setTimeout(fitChip, 380));
