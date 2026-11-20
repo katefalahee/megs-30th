@@ -87,9 +87,9 @@ window.MIXTAPE = {
     "Thirty songs, one for every year. It starts in 1996, the year you arrived, and runs right up to now: school discos, the films and shows we lived through, the songs we knew every word of, a little piece of home for whenever Australia feels very far away, and the soundtrack to turning 30.",
     "I've left notes on some of the songs and a fun fact on every one. Play it start to finish or skip to your favourites. Either way, turn it up.",
     "Making it was like flicking back through our whole lives. Hairbrush microphones and S Club routines, with Lorna in the line-up and Aileen running in to steal the show. The Late Late Show dance. Pocket money gone on KISS magazine and Pokémon cards, Groovy Chick on everything, and you, always more Bratz than Barbie. Home and Away watched secretly in Mulvihill's, Sabrina, and X Factor nights with the whole Cheryl routine learned off by the Sunday.",
-    "Then it was Hogwarts, Stars Hollow and East High. Taylor on repeat on every family holiday until the whole car knew every word, Celine at full blast from the passenger seat, and you, first up dancing every single time. Wherever we led, you followed, usually to a freezing sideline, and you were always there.",
+    "Then it was Hogwarts, Stars Hollow and East High. Taylor on repeat on every family holiday until the whole car knew every word, Celine at full blast from the passenger seat, and you, first up dancing every single time. Wherever we led, you followed, usually to a freezing sideline, and you were always there. You even played football when you didn't really want to, always more the artsy, creative one: mini leagues, then the two of us together at U16, and you still powered through.",
     "And all the bits of home that made us: the farm and the tractor, Mam and Dad, racing Granny and Grandad with a sneaky head start, Rome with all the grandparents, flying the Meath flag with Mam. Wherever you are, that's where you come from, and the M3 will always bring you home.",
-    "Lucky will always take me back to those drives up to Mam and Aileen in the hospital. We got through the hard bits together, the way we always do.",
+    "Lucky will always take me back to the car on the way up to Mam in the hospital, when she was having Aileen. Britney on the way there, and a brand-new baby sister at the end of it. Still one of our best stories.",
     "Your 25th was two parties in one: Edinburgh with the girls and the big balloons, then home and straight into quarantine in Mam and Dad's room, with me on Prosecco duty. That's us, really. A bottle of Prosecco or a glass of red, a cheese board and a good catch-up, and the world is sorted.",
     "Then you went and did the bravest thing of all and moved to the other side of the world. Your 28th was your first birthday in Oz, your 29th came with a box of home (Tayto, Barry's and fudge), and this year it's thirty songs and a whole lot of missing you. I won't pretend it's easy having you 17,000 km away. Something happens and you're the first person I want to tell, and nine times out of ten you're asleep.",
     "I'm so proud of you and everything you've done, Meg. You're brave, you're great craic, and you've grown into the kind of person I'd want as a best friend even if you weren't my sister. I miss you loads.",
@@ -98,6 +98,12 @@ window.MIXTAPE = {
   signoff: "Love always,",
   signature: "Kate x",
   ps: "P.S. Don't switch off the last two tapes too early. That's all I'm saying.",   // under your name ("" for none)
+  // Handwritten notes tucked inside the card. Write one on paper, take a photo of it (flat, in daylight),
+  // put the photo in a photos/notes folder and add a line here. They sit after your letter, in the folded part,
+  // and open full size when she taps one. Leave the list empty for none.
+  handwrittenNotes: [
+    // { from: "Mam", photo: "photos/notes/mam.jpg" },
+  ],
 
   // The letter is read in two sittings. The card at the start shows the paragraphs before this one;
   // the rest stays folded over until the end of the tape (she can unfold it early if she can't wait).
@@ -119,7 +125,7 @@ window.MIXTAPE = {
 
   // The same songs somewhere she can play them with her phone locked (a Spotify or Apple Music playlist link).
   // "" for none.
-  playlist: "",
+  playlist: "https://open.spotify.com/playlist/37i9dQZF1FwProe9O1ZD7U",
   introPhoto: "photos/family.jpg",   // the main photo: the big polaroid in the middle of the card
   introPhotoCaption: "All of us",
   // The birthday card. Nine photos on the front, read left to right and top to bottom
@@ -139,6 +145,10 @@ window.MIXTAPE = {
   //   note: the handwritten line under the photo ("" for none).
   albumNote: "A few of your birthdays, from the very first one. Pour yourself a Prosecco and have a flick through.",
   albumLastNote: "Can't wait to see this one. The Prosecco's on me.",  // under the empty space for number 30
+  // On the day she can fill that empty space herself: tap it, take a photo (or pick one) and it goes straight in.
+  // It's kept on her phone only, with a button to send it to you. false = the space stays empty.
+  albumAddPhoto: true,
+  albumDayNote: "On the day itself. Happy 30th, Meg.",   // under her photo, once she's added it
   // After the day: add the real photo to the birthdayPhotos list above with age: 30, and it fills that empty space.
   birthdayPhotos: [
     { photo: "photos/birthdays/01.jpg", age: 1,  note: "Your very first birthday, and one candle all to yourself." },
@@ -1137,6 +1147,15 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((var(--sh) - 19.5rem 
 .lt-flow{height:100%; column-width:var(--lt-w, 30rem); column-gap:var(--lt-gap, 3rem); column-fill:auto; transition:transform .6s var(--ease)}
 .lt-flow > p{orphans:2; widows:2}
 .lt-end{break-inside:avoid}
+/* handwritten notes, photographed and tucked in after the letter */
+.lt-notes{display:grid; justify-items:center; gap:1.6em; margin-top:1.4em; padding-bottom:.6em}
+.pg-right .lt-notes-h{margin:0; break-after:avoid; font-family:var(--font-ui); font-weight:600; font-stretch:108%; font-size:max(.7rem, var(--min-text)); letter-spacing:.2em; margin-right:-.2em; text-transform:uppercase; color:var(--gold-ink); text-shadow:none}
+.lt-note{position:relative; margin:0; padding-top:.6em; max-width:94%; display:grid; justify-items:center; gap:.45em; break-inside:avoid; transform:rotate(var(--rot))}
+.lt-note::before{content:""; position:absolute; z-index:1; top:.05em; left:50%; width:4.6em; height:1.15em; transform:translateX(-50%) rotate(-3deg); opacity:.85;
+  background:repeating-linear-gradient(-45deg, rgba(224,108,142,.75) 0 .3em, rgba(240,160,184,.75) .3em .6em)}
+.lt-note img{display:block; max-width:100%; width:auto; height:auto; max-height:min(34rem, 72vh); max-height:min(34rem, calc(var(--lt-h, 100vh) - 7rem)); background:#fff; padding:.4em; cursor:zoom-in;
+  box-shadow:0 .7em 1.3em -.6em rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.06)}
+.lt-note figcaption{font-family:var(--font-script); font-size:1.05em; line-height:1.1; color:var(--pen)}
 .lt-nav{display:flex; align-items:center; gap:.9rem}
 .lt-nav[hidden]{display:none}
 .lt-nav .al-count{margin:0; min-width:6.5rem; text-align:center}
@@ -1449,12 +1468,23 @@ body.lb-open{overflow:hidden}
 .al-cd-note{margin:.2em 0 0; max-width:86%; text-align:center; font-family:var(--font-pen); font-weight:700; font-size:1.25em; line-height:1.05; color:var(--pen)}
 .al-empty{display:grid; place-items:center}
 .al-empty::before{inset:0; background:none; border:.11em dashed rgba(43,36,32,.32)}
+.al-add{position:absolute; inset:0; z-index:2; display:grid; place-content:center; justify-items:center; gap:.7em; padding:0 .6em; border:0; background:none; color:inherit; font:inherit; cursor:pointer; border-radius:2px}
+.al-add:hover .al-add-cta, .al-add:focus-visible .al-add-cta{background:var(--action); color:#fff}
+.al-add-cta{display:inline-flex; align-items:center; gap:.4em; padding:.45em .8em; border-radius:var(--r-pill); background:rgba(204,54,64,.1); color:#9e2a33; font-family:var(--font-ui); font-weight:700; font-size:max(.62em, var(--min-text)); line-height:1.15; text-align:left; transition:background var(--t-press), color var(--t-press)}
+.al-add-cta svg{width:1.35em; height:1.35em; flex:none}
 .al-slot-txt{margin:0; padding:0 1em; text-align:center; font-family:var(--font-pen); font-weight:700; font-size:1.5em; line-height:1.05; color:rgba(43,36,32,.5)}
 
 /* below the book */
 .al-nav{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.6rem 1.2rem}
 .al-count{margin:0; min-width:10rem; text-align:center; font-family:var(--font-machine); font-weight:600; font-stretch:108%; font-size:max(.6rem, var(--min-text)); letter-spacing:.108em; text-transform:uppercase; color:var(--ink-soft)}
 .al-nav .btn[aria-disabled="true"]{opacity:.38}
+.al-foot{position:relative; display:grid; place-items:center; min-height:var(--tap)}
+.al-foot > *{grid-area:1 / 1}
+body.al-day .al-tip{visibility:hidden}
+.al-mine{justify-content:center; gap:.5rem .8rem}
+.al-day-msg{position:absolute; z-index:40; left:50%; bottom:.6rem; transform:translateX(-50%); width:max-content; max-width:calc(100% - 2rem); margin:0; padding:.55rem 1rem; border-radius:var(--r-pill);
+  background:var(--room-3); color:var(--ink); box-shadow:var(--shadow-2); text-align:center; font-family:var(--font-ui); font-weight:600; font-size:max(.85rem, var(--min-text)); line-height:1.3; pointer-events:none}
+.al-day-msg:empty{display:none}
 .al-tip{margin:0; text-align:center; font-family:var(--font-machine); font-weight:600; font-stretch:108%; font-size:max(.52rem, var(--min-text)); letter-spacing:.108em; text-transform:uppercase; color:var(--ink-soft); opacity:.8}
 @media (max-width: 560px){
   .al-head{align-items:flex-start}
@@ -1559,6 +1589,11 @@ main{position:relative; z-index:1}
 @media (max-height: 520px){
   .al-stage{min-height:8rem}
   .al-tip{display:none}
+  .al-wrap{grid-template-columns:minmax(0, 1fr) auto; grid-template-rows:auto minmax(0, 1fr) auto; grid-template-areas:"head head" "stage stage" "nav foot"}
+  .al-head{grid-area:head} .al-stage{grid-area:stage} .al-nav{grid-area:nav} .al-foot{grid-area:foot; min-height:0}
+  body:not(.al-day) .al-foot{display:none}
+  body:not(.al-day) .al-nav{grid-column:1 / -1}
+  body.al-day .al-nav .al-count{display:none}
   .al-wrap{gap:.45rem}
   #al-h{font-size:clamp(1.4rem, 7vh, 2.2rem)}
   .hm-inner{gap:.5rem; width:min(100%, 72rem, calc((var(--sh) - 11rem) * 1.78))}
@@ -1590,6 +1625,7 @@ main{position:relative; z-index:1}
 /* the music chip gets a row of its own on a phone, so it never sits on a heading */
 @media (max-width: 760px) and (min-height: 521px){
   body.has-chip:not([data-view="gift"]) .view{padding-top:calc(var(--pad-y) + 3.7rem)}
+  body.has-chip .al-wrap{min-height:calc(var(--sh) - 2 * var(--pad-y, 2rem) - 3.7rem); min-height:calc(100dvh - 2 * var(--pad-y, 2rem) - 3.7rem)}
   body.has-chip #view-card .card-top{top:calc(var(--pad-y) + 3.7rem)}
 }
 /* the present, its countdown and its button on one phone screen */
@@ -2072,13 +2108,20 @@ body.touch .wm-key{height:2.9rem}
         <button class="btn btn-ghost" type="button" id="btn-al-rack" data-go="library" data-icon="tapes" hidden>The rack</button>
       </div>
     </header>
-    <div class="al-stage" id="al-stage"><div class="album" id="album"><div class="al-book" id="al-book"></div></div></div>
+    <div class="al-stage" id="al-stage"><div class="album" id="album"><div class="al-book" id="al-book"></div></div><p class="al-day-msg" id="al-day-msg" role="status"></p></div>
     <div class="al-nav">
       <button class="btn btn-ghost" type="button" id="btn-al-prev" data-icon="prev">Back a page</button>
       <p class="al-count" id="al-count" aria-live="polite"></p>
       <button class="btn btn-ghost icon-after" type="button" id="btn-al-next" data-icon="next" data-autofocus>Turn the page</button>
     </div>
-    <p class="al-tip">Swipe, tap or use the arrows to turn the page · Pick a photo to take it out</p>
+    <div class="al-foot">
+      <p class="al-tip">Swipe, tap or use the arrows to turn the page · Pick a photo to take it out</p>
+      <div class="actions al-mine" id="al-mine" hidden>
+        <button class="btn btn-ghost" type="button" id="btn-day-add" data-icon="camera">Add today's photo</button>
+        <button class="btn btn-ghost" type="button" id="btn-day-send" data-icon="letter" hidden>Send it home</button>
+        <button class="btn btn-ghost" type="button" id="btn-day-change" data-icon="camera" hidden>Change it</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2730,6 +2773,16 @@ function cardInsideHTML() {
     (M.introPhoto ? `<figure class="polaroid main-photo"><img src="${esc(M.introPhoto)}" alt="${esc(M.introPhotoCaption || "A family photo")}" data-lb="${esc(M.introPhoto)}" data-cap="${esc(M.introPhotoCaption || "")}"><figcaption>${esc(M.introPhotoCaption || "")}</figcaption></figure>` : "") +
     `</div><p class="cl-km">17,000 km away, never far.<span>${esc(M.from)} x</span></p></div>`;
 }
+// notes from home, written by hand and photographed, tucked in after the letter
+const NOTES = (M.handwrittenNotes || []).filter(n => n && n.photo);
+function notesHTML() {
+  if (!NOTES.length) return "";
+  return `<div class="lt-notes" data-lb-group><p class="lt-notes-h">Tucked inside</p>` + NOTES.map((n, k) => {
+    const cap = n.from ? "From " + n.from : "", rot = (k % 2 ? 1.3 : -1.1) * (1 + (k % 3) * .25);
+    return `<figure class="lt-note" style="--rot:${rot.toFixed(2)}deg"><img src="${esc(n.photo)}" alt="${esc(n.from ? "A handwritten note from " + n.from : "A handwritten note")}" data-lb="${esc(n.photo)}" data-cap="${esc(cap)}">` +
+      (cap ? `<figcaption>${esc(cap)}</figcaption>` : "") + `</figure>`;
+  }).join("") + `</div>`;
+}
 // the letter is read in two sittings: the start of it in the card, the rest folded over until the end of the tape
 const LT_SPLIT = (() => { const n = Math.floor(+M.letterSplitAt || 0) - 1; return n > 0 && n < M.letter.length ? n : 0; })();
 const LETTER_KEY = "megs-mixtape-letter-unfolded";
@@ -2746,10 +2799,14 @@ function renderLetter() {
     (greet ? `<p class="greet">${esc(greet)}</p>` : "") + paras.map((p, k) => `<p${LT_SPLIT && k + off === LT_SPLIT ? ' id="lt-more"' : ""}>${esc(p)}</p>`).join("") +
     `<div class="lt-end"><p class="sign-off">${esc(M.signoff || "")}</p><p class="sign">${esc(M.signature || M.from + " x")}${DOODLE_HEART}</p>` +
     (M.ps ? `<p class="ps">${esc(M.ps)}</p>` : "") + `</div>` +
+    (cardBuilt && letterOpen ? notesHTML() : "") +
     (letterOpen ? "" : `<div class="lt-fold"><p class="lt-fold-note">${esc(M.letterFoldNote || "The rest is folded over. It's for after the last song.")}</p><button class="btn btn-ghost" type="button" id="btn-unfold">${btnInner("letter", "Unfold it now")}</button></div>`) +
     `</div></div>`;
 }
 renderLetter();
+$("#letter").addEventListener("load", e => {
+  if (e.target.closest && e.target.closest(".lt-note") && currentView === "card") { clearTimeout(ltLayout.n); ltLayout.n = setTimeout(() => ltLayout(true), 60); }
+}, true);
 function buildCard() {
   if (cardBuilt) return;
   cardBuilt = true;
@@ -2783,10 +2840,11 @@ $(".env-pocket").insertAdjacentHTML("beforeend", `<span class="stamp">${HARP}<sp
 // any photo inside the card can be taken out and looked at properly
 $$("#card-front, #card-inside, #letter").forEach(root => root.addEventListener("click", e => {
   const img = e.target.closest("[data-lb]");
+  const group = (img && img.closest("[data-lb-group]")) || root;
   // the front of the card: a photo comes out to look at, anywhere else opens the card
   if (!img) { if (root.id === "card-front" && cardStage === "cover") openBook(); return; }
   if (root.id === "card-front" && cardStage !== "cover") return;
-  const all = [...root.querySelectorAll("[data-lb]")], set = all.map(el => ({ src: el.dataset.lb, cap: el.dataset.cap || "", el }));
+  const all = [...group.querySelectorAll("[data-lb]")], set = all.map(el => ({ src: el.dataset.lb, cap: el.dataset.cap || "", el }));
   const k = all.indexOf(img);
   primeAudio(); sfx("click");
   openLightbox(set[k].src, set[k].cap, { from: img, set, index: k });
@@ -2798,6 +2856,7 @@ function ltLayout(keep) {
   const flow = $("#lt-flow"), view = flow.parentElement;
   if (!ltBook() || $("#book-wrap").hidden) { ltPages = 1; ltPage = 0; flow.style.transform = ""; ltNav(); return; }
   const w = view.clientWidth, gap = Math.round(w * .14);
+  flow.style.setProperty("--lt-h", view.clientHeight + "px");
   flow.style.setProperty("--lt-w", w + "px"); flow.style.setProperty("--lt-gap", gap + "px");
   ltStep = w + gap;
   ltPages = Math.max(1, Math.round((flow.scrollWidth + gap) / ltStep));
@@ -4037,6 +4096,12 @@ function maybeSurprise(t) {
 
 /* ---------- birthday photos ---------- */
 const BDAY = (M.birthdayPhotos || []).filter(b => b && b.photo);
+/* number 30: on the day she can fill the empty space at the back of the album with her own photo.
+   It lives on her phone (this browser) only; "Send it to Kate" gets it home. A real age-30 photo in the list wins. */
+const DAY_KEY = "megs-mixtape-number-30";
+const DAY_OK = M.albumAddPhoto !== false && !BDAY.some(b => +b.age === ageNow());
+const dayEntry = src => ({ photo: src, age: ageNow(), note: M.albumDayNote != null ? M.albumDayNote : "On the day itself.", mine: true });
+try { if (DAY_OK && !CARD_FRESH) { const d = localStorage.getItem(DAY_KEY); if (d && d.startsWith("data:image/")) BDAY.push(dayEntry(d)); } } catch (e) {}
 let bdayPreloaded = false;
 function preloadBirthdays() {
   if (bdayPreloaded) return;
@@ -4105,7 +4170,9 @@ function alPageHTML(x) {
   }
   if (x.kind === "slot") {
     const n = ageNow();
-    return `<div class="al-mount al-empty" style="--w:56%; --ar:.8; --rot:1.2deg"><p class="al-slot-txt">Number ${n}<br>goes here</p>
+    return `<div class="al-mount al-empty" style="--w:56%; --ar:.8; --rot:1.2deg">` + (DAY_OK
+        ? `<button class="al-add" type="button" aria-label="Add a photo for number ${n}"><span class="al-slot-txt">Number ${n}<br>goes here</span><span class="al-add-cta">${ICON.camera}${TOUCH ? "Tap" : "Click"} to add today's photo</span></button>`
+        : `<p class="al-slot-txt">Number ${n}<br>goes here</p>`) + `
         <span class="al-badge" style="--bg:#b3302f" aria-hidden="true"><b>${n}</b><i>today</i></span>
         <span class="al-cn tl"></span><span class="al-cn tr"></span><span class="al-cn bl"></span><span class="al-cn br"></span>
       </div><p class="al-note">${esc(M.albumLastNote != null ? M.albumLastNote : "Can't wait to see this one.")}</p>${M.birthday ? `<p class="al-date">December ${String(M.birthday).slice(0, 4)}</p>` : ""}`;
@@ -4159,6 +4226,7 @@ function alApply(instant) {
   const shown = alVisibleAt(al.p).filter(x => x.kind === "photo").map(x => x.i + 1), total = alPhotos().length;
   if (shown.length) parts.push(`${shown.length > 1 ? shown[0] + "–" + shown[shown.length - 1] : shown[0]} of ${total}`);
   $("#al-count").textContent = parts.join(" · ");
+  syncDayButtons();
   $("#btn-al-prev").setAttribute("aria-disabled", String(al.p <= 0));
   $("#btn-al-next").setAttribute("aria-disabled", String(al.p >= al.max));
 }
@@ -4261,6 +4329,67 @@ async function alStart(st) {
   alLater(() => { alTurn(1); alIdle(); }, reduceMotion ? 60 : al.first ? 1100 : 450, run);
 }
 function alStop() { al.run++; alClear(); }
+const dayInput = Object.assign(document.createElement("input"), { type: "file", accept: "image/*", hidden: true });
+document.body.appendChild(dayInput);
+function dayMine() { return BDAY.findIndex(b => b.mine); }
+function syncDayButtons() {
+  const vis = alVisibleAt(al.p), slot = vis.some(x => x.kind === "slot"), mine = dayMine();
+  const onMine = mine >= 0 && vis.some(x => x.kind === "photo" && x.i === mine);
+  const show = DAY_OK && (slot || onMine), box = $("#al-mine"), changed = box.hidden === show;
+  box.hidden = !show;
+  $("#btn-day-add").hidden = !slot;
+  $("#btn-day-send").hidden = !onMine || !navigator.share;
+  $("#btn-day-change").hidden = !onMine;
+  document.body.classList.toggle("al-day", show);
+  if (!show) $("#al-day-msg").textContent = "";
+  if (changed && matchMedia("(max-height: 520px)").matches) requestAnimationFrame(() => alLayout(false));   // the short layout has no spare row for them
+}
+function dayMsg(t) { const m = $("#al-day-msg"); m.textContent = t; clearTimeout(dayMsg.t); dayMsg.t = setTimeout(() => { m.textContent = ""; }, 6000); }
+function pickDayPhoto() { if (!DAY_OK) return; primeAudio(); al.touched = true; clearInterval(al.idleT); dayInput.value = ""; dayInput.click(); }
+// a phone photo is big: draw it smaller (the browser turns it the right way up) so it fits in the phone's storage
+function shrinkPhoto(im, max, q) {
+  const k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+  const c = document.createElement("canvas");
+  c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", q);
+}
+dayInput.addEventListener("change", async () => {
+  const f = dayInput.files && dayInput.files[0];
+  if (!f) return;
+  dayMsg("Putting it in…");
+  const url = URL.createObjectURL(f), im = await loadImg(url);
+  URL.revokeObjectURL(url);
+  if (!im) { dayMsg("That photo wouldn't open. Try another one?"); return; }
+  let data = null, kept = false;
+  for (const [max, q] of [[1600, .84], [1200, .8], [900, .74]]) {
+    try { data = shrinkPhoto(im, max, q); } catch (e) { data = null; break; }
+    if (CARD_FRESH) break;
+    try { localStorage.setItem(DAY_KEY, data); kept = true; break; } catch (e) {}
+  }
+  if (!data) { dayMsg("That photo wouldn't open. Try another one?"); return; }
+  let i = dayMine();
+  if (i >= 0) BDAY[i].photo = data; else { BDAY.push(dayEntry(data)); i = BDAY.length - 1; }
+  al.ars[i] = im.naturalWidth / im.naturalHeight || .75;
+  alBuild(al.mode || "single"); al.p = alFind(i); alApply(true);   // same layout as before, just with the photo in
+  sfx("click"); if (!reduceMotion) burst();
+  dayMsg(kept ? "Number " + ageNow() + " is in." : CARD_FRESH ? "It's in, just for this visit (preview)." : "It's in, but this phone wouldn't keep it. Send it to " + M.from + " so it isn't lost.");
+});
+setBtn($("#btn-day-send"), "letter", "Send it to " + M.from);
+$("#btn-day-add").addEventListener("click", pickDayPhoto);
+$("#btn-day-change").addEventListener("click", pickDayPhoto);
+$("#btn-day-send").addEventListener("click", () => {
+  const i = dayMine(); if (i < 0) return;
+  let file = null;
+  try {
+    const b64 = BDAY[i].photo.split(",")[1], bin = atob(b64), u = new Uint8Array(bin.length);
+    for (let k = 0; k < bin.length; k++) u[k] = bin.charCodeAt(k);
+    file = new File([u], "number-" + ageNow() + ".jpg", { type: "image/jpeg" });
+  } catch (e) {}
+  const share = file && navigator.canShare && navigator.canShare({ files: [file] }) ? { files: [file], title: "Number " + ageNow() } : null;
+  if (!share) { dayMsg("Sending doesn't work here. Take it out and press and hold it to save it."); return; }
+  navigator.share(share).catch(e => { if (!e || e.name !== "AbortError") dayMsg("Sending didn't open. Take it out and press and hold it to save it."); });
+});
 function alPullOut(ph) {
   al.touched = true; clearInterval(al.idleT);
   const set = alPhotos().map(x => ({ src: x.src, cap: x.note || (x.age != null ? `${ordinal(x.age)} birthday` : ""), eyebrow: alAgeLine(x), el: $(`#al-book .al-photo[data-i="${x.i}"]`) }));
@@ -4282,6 +4411,7 @@ function alPullOut(ph) {
   book.addEventListener("pointercancel", () => { pid = null; });
   book.addEventListener("click", e => {
     if (swiped) { swiped = false; e.preventDefault(); return; }
+    if (e.target.closest(".al-add")) { e.preventDefault(); pickDayPhoto(); return; }
     const ph = e.target.closest(".al-photo");
     if (ph) { e.preventDefault(); alPullOut(ph); return; }
     // a tap on the paper turns the page that way
