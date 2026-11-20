@@ -1088,6 +1088,8 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((var(--sh) - 19.5rem 
 .cf::before{content:""; position:absolute; inset:2.8cqi; border:.22cqi solid rgba(185,138,58,.55); outline:.12cqi solid rgba(185,138,58,.3); outline-offset:-1.1cqi; pointer-events:none}
 .cf p{margin:0; line-height:1}
 .cf-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5cqi; width:100%}
+.cf{cursor:pointer}
+.cf-grid img{cursor:zoom-in}
 .cf-grid img, .cf-row img{display:block; width:100%; aspect-ratio:1; object-fit:cover; background:#e6dfd2; filter:saturate(.92) contrast(1.03) sepia(.06); box-shadow:0 0 0 .12cqi rgba(60,40,20,.08)}
 .cf-band{display:grid; place-content:center; justify-items:center; gap:2.4cqi; text-align:center; padding-bottom:5cqi}
 .cf-happy{font-family:var(--font-display); font-style:italic; font-weight:500; font-size:15cqi; letter-spacing:-.01em; white-space:nowrap}
@@ -1167,6 +1169,9 @@ body.has-mini .env-stage{width:min(100%, 40rem, 96vh, calc((var(--sh) - 19.5rem 
   .cover{left:0; width:100%; height:auto; aspect-ratio:1 / 1.32}
   .cl-phone{display:block; position:relative; aspect-ratio:1 / 1.32; margin:-2.2rem -2.5rem 1.8rem; overflow:hidden; border-radius:4px 4px 0 0}
   .book.open .cover{transform:rotateY(-100deg); opacity:0; transition:transform 1s var(--ease), opacity .35s .65s; pointer-events:none}
+  /* closed, the card is only as tall as its front: the letter waits underneath, out of sight */
+  .book:not(.open) .cover{transition:transform 1s var(--ease), opacity .3s}
+  .book:not(.open) .pg-right{aspect-ratio:1 / 1.32; min-height:0; overflow:hidden; visibility:hidden}
 }
 
 @media (min-width: 600px) and (max-aspect-ratio: 4/5){
@@ -1994,6 +1999,7 @@ body.touch .wm-key{height:2.9rem}
           <p class="al-count" id="lt-count" aria-live="polite"></p>
           <button class="btn btn-ghost icon-after" type="button" id="lt-next" data-icon="next">Turn the page</button>
         </div>
+        <button class="btn btn-ghost" type="button" id="btn-card-front" data-icon="back" hidden>See the front</button>
         <button class="btn btn-tag" type="button" id="btn-card-done" data-icon="tapes" data-cap="The rack" hidden>Back to your tapes</button>
       </div>
     </div>
@@ -2635,7 +2641,7 @@ function render(st) {
     // opened from the end of the tape, the card's button leads back there, not to the rack
     setBtn($("#btn-card-done"), cardFrom === "finale" ? "back" : "tapes", cardFrom === "finale" ? "Back" : "Back to your tapes", cardFrom === "finale" ? "End of tape" : "The rack");
     // from the end of the tape the card is already out of its envelope, open at the part she hasn't read
-    if (st.unfold) { markCardOpened(); showOpenCard(); $("#book").classList.add("open"); if (!unfoldLetter()) ltLayout(); }
+    if (st.unfold) { markCardOpened(); showOpenCard(); if (!unfoldLetter()) ltLayout(); }
   }
   if (v === "finale") syncEnding();
   if (v !== "bonus" && !voice.paused) voice.pause();
@@ -2714,7 +2720,7 @@ function cardFrontHTML(env) {
     const pick = [0, 2, 5, 6, 8].map(k => CARD_FRONT[k]).filter(Boolean);
     return `<div class="cf cf-env"><div class="cf-row">${pick.map(src => `<img src="${esc(src)}" alt="">`).join("")}</div>${band}</div>`;
   }
-  return `<div class="cf"><div class="cf-grid">${CARD_FRONT.slice(0, 9).map(src => `<img src="${esc(src)}" alt="">`).join("")}</div>${band}</div>`;
+  return `<div class="cf"><div class="cf-grid">${CARD_FRONT.slice(0, 9).map(src => `<img src="${esc(src)}" alt="" data-lb="${esc(src)}">`).join("")}</div>${band}</div>`;
 }
 function cardInsideHTML() {
   const strip = (list, side) => list.length ? `<div class="booth ${side}">${list.map(src => `<img src="${esc(src)}" alt="" data-lb="${esc(src)}">`).join("")}</div>` : "";
@@ -2730,6 +2736,8 @@ const LETTER_KEY = "megs-mixtape-letter-unfolded";
 let letterOpen = !LT_SPLIT;
 try { if (!CARD_FRESH && localStorage.getItem(LETTER_KEY) === "1") letterOpen = true; } catch (e) {}
 let cardBuilt = false;
+// the card: "envelope" still sealed · "cover" out of the envelope, showing its front · "open" being read
+let cardStage = "envelope";
 function renderLetter() {
   const paras = M.letter.slice(0, letterOpen ? M.letter.length : LT_SPLIT);
   const greet = paras.length && paras[0].length < 30 ? paras.shift() : null, off = greet ? 1 : 0;
@@ -2773,8 +2781,11 @@ $("#btn-end-card").addEventListener("click", () => go("card", letterOpen ? {} : 
 $(".env-to").textContent = FULL;
 $(".env-pocket").insertAdjacentHTML("beforeend", `<span class="stamp">${HARP}<span>ÉIRE</span></span><span class="postmark">ÉIRE<br>${esc(M.birthday.slice(8, 10))} XII ${esc(M.birthday.slice(2, 4))}</span>`);
 // any photo inside the card can be taken out and looked at properly
-$$("#card-inside, #letter").forEach(root => root.addEventListener("click", e => {
-  const img = e.target.closest("[data-lb]"); if (!img) return;
+$$("#card-front, #card-inside, #letter").forEach(root => root.addEventListener("click", e => {
+  const img = e.target.closest("[data-lb]");
+  // the front of the card: a photo comes out to look at, anywhere else opens the card
+  if (!img) { if (root.id === "card-front" && cardStage === "cover") openBook(); return; }
+  if (root.id === "card-front" && cardStage !== "cover") return;
   const all = [...root.querySelectorAll("[data-lb]")], set = all.map(el => ({ src: el.dataset.lb, cap: el.dataset.cap || "", el }));
   const k = all.indexOf(img);
   primeAudio(); sfx("click");
@@ -2801,14 +2812,14 @@ function ltShow(anim) {
   ltNav();
 }
 function ltNav() {
-  const show = !$("#book-wrap").hidden && ltPages > 1;
+  const show = !$("#book-wrap").hidden && cardStage === "open" && ltPages > 1;
   $("#lt-nav").hidden = !show;
   $("#lt-count").textContent = `Page ${ltPage + 1} of ${ltPages}`;
   $("#lt-prev").disabled = ltPage === 0;
   $("#lt-next").disabled = ltPage >= ltPages - 1;
 }
 function ltTurn(d) {
-  if (ltPages < 2 || $("#book-wrap").hidden || !ltBook()) return false;
+  if (ltPages < 2 || $("#book-wrap").hidden || cardStage !== "open" || !ltBook()) return false;
   const n = Math.max(0, Math.min(ltPages - 1, ltPage + d));
   if (n === ltPage) return false;
   const was = document.activeElement;
@@ -2848,23 +2859,49 @@ function setupCard() {
   if (!reduceMotion) $("#envelope").animate([{ transform: "translateY(26%) scale(.8) rotate(-6deg)", opacity: 0 }, { transform: "translateY(-3%) scale(1.03) rotate(1deg)", opacity: 1, offset: .7 }, { transform: "none", opacity: 1 }], { duration: 700, easing: "cubic-bezier(.3,1.1,.5,1)" });
   $("#book-wrap").hidden = true;
   $("#book").classList.remove("open");
+  cardStage = "envelope";
+  setBtn($("#btn-card"), "letter", "Open your card", "Break the seal");
   $("#btn-card").hidden = false;
   $("#btn-card-done").hidden = true;
+  $("#btn-card-front").hidden = true;
   ltPage = 0; ltPages = 1; ltNav();
 }
-function showOpenCard() {
+// out of the envelope: the front of the card, closed (open = straight to the inside)
+function showBook(open) {
   $("#env-stage").hidden = true;
   $("#book-wrap").hidden = false;
-  $("#btn-card").hidden = true;
-  $("#btn-card-done").hidden = false;
+  $("#book").classList.toggle("open", open);
+  cardStage = open ? "open" : "cover";
+  if (!open) setBtn($("#btn-card"), "letter", "Open the card", TOUCH ? "Tap a photo to take it out" : "Pick a photo to take it out");
+  $("#btn-card").hidden = open;
+  $("#btn-card-done").hidden = !open;
+  $("#btn-card-front").hidden = !open;
   ltLayout();
 }
+function showOpenCard() { showBook(true); }
+// she opens it herself, when she's had a look at the front
+function openBook() {
+  if (cardStage !== "cover") return;
+  primeAudio();
+  showBook(true);
+  if (reduceMotion) { $(ltPages > 1 ? "#lt-next" : "#btn-card-done").focus({ preventScroll: true }); return; }
+  sfx("click");
+  setTimeout(() => { if (cardStage !== "open") return; burst(); ltLayout(true); $(ltPages > 1 ? "#lt-next" : "#btn-card-done").focus({ preventScroll: true }); }, 1000);
+}
+// and can close it again to look at the front
+function closeBook() {
+  if (cardStage !== "open") return;
+  showBook(false);
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  $("#btn-card").focus({ preventScroll: true });
+}
+$("#btn-card-front").addEventListener("click", () => { sfx("click"); closeBook(); });
 function openCard() {
   if (cardOpening) return;
   cardOpening = true;
   markCardOpened();
   primeAudio();
-  if (reduceMotion) { showOpenCard(); $("#book").classList.add("open"); $(ltPages > 1 ? "#lt-next" : "#btn-card-done").focus(); return; }
+  if (reduceMotion) { showBook(false); $("#btn-card").focus(); return; }
   const f = { fill: "forwards" };
   sfx("click");
   $("#env-seal").animate([{ transform: "scale(1)" }, { transform: "scale(1.3)", offset: .3 }, { transform: "scale(0)", opacity: 0 }], Object.assign({ duration: 320 }, f));
@@ -2874,13 +2911,13 @@ function openCard() {
   setTimeout(() => sfx("rattle"), 820);
   $("#env-stage").animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(10%) scale(.96)" }], Object.assign({ duration: 380, delay: 1650, easing: "ease-in" }, f));
   setTimeout(() => {
-    showOpenCard();
+    if (currentView !== "card") return;
+    showBook(false);
     $("#book-wrap").animate([{ opacity: 0, transform: "translateY(-6%) scale(.9)" }, { opacity: 1, transform: "none" }], { duration: 480, easing: "cubic-bezier(.3,1.2,.5,1)" });
-    setTimeout(() => { $("#book").classList.add("open"); sfx("click"); }, 520);
-    setTimeout(() => { burst(); ltLayout(true); $(ltPages > 1 ? "#lt-next" : "#btn-card-done").focus({ preventScroll: true }); }, 1500);
+    $("#btn-card").focus({ preventScroll: true });
   }, 2050);
 }
-$("#btn-card").addEventListener("click", openCard);
+$("#btn-card").addEventListener("click", () => cardStage === "cover" ? openBook() : openCard());
 
 /* ---------- ambient animation behind each tape ---------- */
 function setFx(kind) {
